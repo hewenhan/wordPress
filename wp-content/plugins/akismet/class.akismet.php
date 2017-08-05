@@ -914,6 +914,7 @@ class Akismet {
 			return $approved;
 		}
 
+<<<<<<< HEAD
 		if ( 'trash' === $approved ) {
 			// If the last comment we checked has had its approval set to 'trash',
 			// then it failed the comment blacklist check. Let that blacklist override
@@ -923,6 +924,8 @@ class Akismet {
 			return $approved;
 		}
 
+=======
+>>>>>>> 9a550542bbe939191a6dd8a06e393fa7a8be91a4
 		// bump the counter here instead of when the filter is added to reduce the possibility of overcounting
 		if ( $incr = apply_filters('akismet_spam_count_incr', 1) )
 			update_option( 'akismet_spam_count', get_option('akismet_spam_count') + $incr );
@@ -1207,7 +1210,11 @@ p {
 	 * @param mixed $akismet_debug The data to log.
 	 */
 	public static function log( $akismet_debug ) {
+<<<<<<< HEAD
 		if ( apply_filters( 'akismet_debug_log', defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG && defined( 'AKISMET_DEBUG' ) && AKISMET_DEBUG ) ) {
+=======
+		if ( apply_filters( 'akismet_debug_log', defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) ) {
+>>>>>>> 9a550542bbe939191a6dd8a06e393fa7a8be91a4
 			error_log( print_r( compact( 'akismet_debug' ), true ) );
 		}
 	}
