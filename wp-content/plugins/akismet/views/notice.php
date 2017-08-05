@@ -46,13 +46,8 @@
 </div>
 <?php elseif ( $type == 'servers-be-down' ) :?>
 <div class="akismet-alert akismet-critical">
-<<<<<<< HEAD
-	<h3 class="akismet-key-status failed"><?php esc_html_e("Your site can&#8217;t connect to the Akismet servers.", 'akismet'); ?></h3>
-	<p class="akismet-description"><?php printf( __('Your firewall may be blocking Akismet from connecting to its API. Please contact your host and refer to <a href="%s" target="_blank">our guide about firewalls</a>.', 'akismet'), 'https://blog.akismet.com/akismet-hosting-faq/'); ?></p>
-=======
 	<h3 class="akismet-key-status failed"><?php esc_html_e("Akismet can&#8217;t connect to your site.", 'akismet'); ?></h3>
 	<p class="akismet-description"><?php printf( __('Your firewall may be blocking Akismet. Please contact your host and refer to <a href="%s" target="_blank">our guide about firewalls</a>.', 'akismet'), 'https://blog.akismet.com/akismet-hosting-faq/'); ?></p>
->>>>>>> 9a550542bbe939191a6dd8a06e393fa7a8be91a4
 </div>
 <?php elseif ( $type == 'active-dunning' ) :?>
 <div class="akismet-alert akismet-critical">
