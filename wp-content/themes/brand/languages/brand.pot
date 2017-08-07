@@ -1,0 +1,595 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2017-07-07 18:22+0200\n"
+"PO-Revision-Date: 2016-01-15 12:44+0100\n"
+"Last-Translator: \n"
+"Language-Team: Massimo Sanfelice <info@wp-brandtheme.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: 404.php:21
+msgid "It looks like nothing was found at this location. Maybe try a search?"
+msgstr ""
+
+#: archive.php:54 index.php:71 search.php:51
+msgid "previous"
+msgstr ""
+
+#: archive.php:54 index.php:71 search.php:51
+msgid "next"
+msgstr ""
+
+#: comments.php:32
+#, php-format
+msgctxt "comments title"
+msgid "%1$s Comment on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s Comments on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:41 comments.php:64
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:44 comments.php:67
+msgid "Older Comments"
+msgstr ""
+
+#: comments.php:45 comments.php:68
+msgid "Newer Comments"
+msgstr ""
+
+#: comments.php:81
+msgid "Comments are closed."
+msgstr ""
+
+#: functions.php:71
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:182 inc/customizer.php:422
+#: inc/metaboxes/brand-sidebar-metabox.php:35
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:192
+msgid "Footer Sidebar Column 1"
+msgstr ""
+
+#: functions.php:194
+msgid "Footer sidebar column 1"
+msgstr ""
+
+#: functions.php:202
+msgid "Footer Sidebar Column 2"
+msgstr ""
+
+#: functions.php:204
+msgid "Footer sidebar column 2"
+msgstr ""
+
+#: functions.php:212
+msgid "Footer Sidebar Column 3"
+msgstr ""
+
+#: functions.php:214
+msgid "Footer sidebar column 3"
+msgstr ""
+
+#: functions.php:222
+msgid "Footer Sidebar Column 4"
+msgstr ""
+
+#: functions.php:224
+msgid "Footer sidebar column 4"
+msgstr ""
+
+#: functions.php:350
+msgid "Select or Upload Image"
+msgstr ""
+
+#: functions.php:351
+msgid "Use this image"
+msgstr ""
+
+#: inc/advanced/typography.php:381
+msgid "Typography"
+msgstr ""
+
+#: inc/advanced/typography.php:389
+msgid "Body typography"
+msgstr ""
+
+#: inc/advanced/typography.php:412
+msgid "Body"
+msgstr ""
+
+#: inc/advanced/typography.php:434
+msgid "Font weight"
+msgstr ""
+
+#: inc/advanced/typography.php:458
+msgid "Text transform"
+msgstr ""
+
+#: inc/advanced/typography.php:481
+msgid "Font size"
+msgstr ""
+
+#: inc/advanced/typography.php:498 inc/customizer.php:582
+#: inc/customizer.php:670
+msgid "More Settings"
+msgstr ""
+
+#: inc/advanced/typography.php:502
+#, php-format
+msgid "Need more typography settings?<br /> %s."
+msgstr ""
+
+#: inc/advanced/typography.php:506 inc/customizer.php:590
+#: inc/customizer.php:678
+msgid "Take a look at our premium plugin"
+msgstr ""
+
+#: inc/controls.php:33
+msgid "Default fonts"
+msgstr ""
+
+#: inc/controls.php:52
+msgid "Google fonts"
+msgstr ""
+
+#: inc/controls.php:60
+msgid "Font family"
+msgstr ""
+
+#: inc/controls.php:346
+msgid "Add-on available"
+msgstr ""
+
+#: inc/customizer.php:64
+msgid "Get Brand Premium"
+msgstr ""
+
+#: inc/customizer.php:65
+msgid "Go Pro"
+msgstr ""
+
+#: inc/customizer.php:78
+msgid "Read the Documentation"
+msgstr ""
+
+#: inc/customizer.php:79
+msgid "Go"
+msgstr ""
+
+#: inc/customizer.php:100
+msgid "Display Site Title and Tagline "
+msgstr ""
+
+#: inc/customizer.php:114
+msgid "Logo"
+msgstr ""
+
+#: inc/customizer.php:129
+msgid "Mobile logo"
+msgstr ""
+
+#: inc/customizer.php:139
+msgid "Layout"
+msgstr ""
+
+#: inc/customizer.php:144 inc/customizer.php:619 inc/customizer.php:695
+msgid "General"
+msgstr ""
+
+#: inc/customizer.php:163
+msgid "Container width"
+msgstr ""
+
+#: inc/customizer.php:183 inc/metaboxes/brand-sidebar-metabox.php:68
+msgid "Show sidebar"
+msgstr ""
+
+#: inc/customizer.php:186
+msgid "No sidebar"
+msgstr ""
+
+#: inc/customizer.php:187
+msgid "Left sidebar"
+msgstr ""
+
+#: inc/customizer.php:188
+msgid "Right sidebar"
+msgstr ""
+
+#: inc/customizer.php:204
+msgid "Featured image position"
+msgstr ""
+
+#: inc/customizer.php:205
+msgid "Choose the position where featured image will be displayed in single post or page."
+msgstr ""
+
+#: inc/customizer.php:208
+msgid "Inside content"
+msgstr ""
+
+#: inc/customizer.php:209
+msgid "Before content"
+msgstr ""
+
+#: inc/customizer.php:210
+msgid "Inside header"
+msgstr ""
+
+#: inc/customizer.php:216
+msgid "Navigation"
+msgstr ""
+
+#: inc/customizer.php:233
+msgid "Navigation width"
+msgstr ""
+
+#: inc/customizer.php:252
+msgid "Navigation layout"
+msgstr ""
+
+#: inc/customizer.php:253
+msgid "Choose inline to show logo and navigation on the same line. Choose centered to center them."
+msgstr ""
+
+#: inc/customizer.php:272
+msgid "Use compact menu on desktop"
+msgstr ""
+
+#: inc/customizer.php:291
+msgid "Navigation orientation"
+msgstr ""
+
+#: inc/customizer.php:310
+msgid "Search icon"
+msgstr ""
+
+#: inc/customizer.php:320
+msgid "Header"
+msgstr ""
+
+#: inc/customizer.php:337
+msgid "Header width"
+msgstr ""
+
+#: inc/customizer.php:356
+msgid "Header alignment"
+msgstr ""
+
+#: inc/customizer.php:367
+msgid "Page Title"
+msgstr ""
+
+#: inc/customizer.php:384
+msgid "Alignment"
+msgstr ""
+
+#: inc/customizer.php:395
+msgid "Content"
+msgstr ""
+
+#: inc/customizer.php:412
+msgid "Content width"
+msgstr ""
+
+#: inc/customizer.php:430 inc/customizer.php:467
+msgid "Footer widgets"
+msgstr ""
+
+#: inc/customizer.php:447
+msgid "Footer widgets width"
+msgstr ""
+
+#: inc/customizer.php:480
+msgid "Footer"
+msgstr ""
+
+#: inc/customizer.php:497
+msgid "Footer width"
+msgstr ""
+
+#: inc/customizer.php:512
+msgid "Colors"
+msgstr ""
+
+#: inc/customizer.php:517
+msgid "Base colors"
+msgstr ""
+
+#: inc/customizer.php:532 inc/customizer.php:928
+msgid "Text color"
+msgstr ""
+
+#: inc/customizer.php:539
+msgid "Link color"
+msgstr ""
+
+#: inc/customizer.php:546
+msgid "Link color on hover"
+msgstr ""
+
+#: inc/customizer.php:586
+#, php-format
+msgid "Need more color settings?<br /> %s."
+msgstr ""
+
+#: inc/customizer.php:607
+msgid "Backgrounds"
+msgstr ""
+
+#: inc/customizer.php:614
+msgid "Blog"
+msgstr ""
+
+#: inc/customizer.php:636
+msgid "Show excerpt"
+msgstr ""
+
+#: inc/customizer.php:656
+msgid "Excerpt length"
+msgstr ""
+
+#: inc/customizer.php:657
+msgid "words number"
+msgstr ""
+
+#: inc/customizer.php:674
+#, php-format
+msgid "Need more blog settings?<br /> %s."
+msgstr ""
+
+#: inc/customizer.php:691
+msgid "Header Area"
+msgstr ""
+
+#: inc/customizer.php:712
+msgid "Header type on front page"
+msgstr ""
+
+#: inc/customizer.php:713
+msgid "Set a header type for the header shows on front page. Then set the slider in the Slider panel and the background image or the video in the Header Media section."
+msgstr ""
+
+#: inc/customizer.php:716 inc/customizer.php:782
+msgid "Slider"
+msgstr ""
+
+#: inc/customizer.php:717
+msgid "Static image or video"
+msgstr ""
+
+#: inc/customizer.php:718 inc/customizer.php:738
+msgid "No header"
+msgstr ""
+
+#: inc/customizer.php:733
+msgid "Header type"
+msgstr ""
+
+#: inc/customizer.php:734
+msgid "Set a header type for the header shows on all pages execpt the front page, pages and posts. Then set the background image in the Header Media section. You can hide the header on single posts and pages using the hide elements metabox in the screen editor."
+msgstr ""
+
+#: inc/customizer.php:737
+msgid "Static image"
+msgstr ""
+
+#: inc/customizer.php:753
+msgid "Header height on front page"
+msgstr ""
+
+#: inc/customizer.php:754
+#, php-format
+msgid "Choose a height for the header shows on front page. You can use pixels or vh (1vh= 1% of the window height) units. If you use auto the header height will be determined by its content."
+msgstr ""
+
+#: inc/customizer.php:769
+msgid "Header height on other pages"
+msgstr ""
+
+#: inc/customizer.php:770
+msgid "Choose a height for the header shows on all the pages except the front page."
+msgstr ""
+
+#: inc/customizer.php:791
+msgid "Slide "
+msgstr ""
+
+#: inc/customizer.php:807
+msgid "Background image"
+msgstr ""
+
+#: inc/customizer.php:824
+msgid "Slide title"
+msgstr ""
+
+#: inc/customizer.php:839
+msgid "Slide subtitle"
+msgstr ""
+
+#: inc/customizer.php:854
+msgid "Button"
+msgstr ""
+
+#: inc/customizer.php:855
+msgid "Button text"
+msgstr ""
+
+#: inc/customizer.php:870
+msgid "Button url"
+msgstr ""
+
+#: inc/metaboxes/brand-hide-elements-metabox.php:35
+msgid "Hide elements"
+msgstr ""
+
+#: inc/metaboxes/brand-hide-elements-metabox.php:83
+msgid "Hide navigation"
+msgstr ""
+
+#: inc/metaboxes/brand-hide-elements-metabox.php:89
+msgid "Hide header"
+msgstr ""
+
+#: inc/metaboxes/brand-hide-elements-metabox.php:95
+msgid "Hide headline"
+msgstr ""
+
+#: inc/metaboxes/brand-hide-elements-metabox.php:101
+msgid "Hide footer"
+msgstr ""
+
+#: inc/metaboxes/brand-sidebar-metabox.php:72
+msgid "Use global settings"
+msgstr ""
+
+#: inc/metaboxes/brand-sidebar-metabox.php:73
+msgid "No"
+msgstr ""
+
+#: inc/metaboxes/brand-sidebar-metabox.php:74
+msgid "Left"
+msgstr ""
+
+#: inc/metaboxes/brand-sidebar-metabox.php:75
+msgid "Right"
+msgstr ""
+
+#: inc/options/brand-options.php:21
+msgid "Start build your site with Brand theme using the Customizer."
+msgstr ""
+
+#: inc/options/brand-options.php:30
+msgid "We offer free, full support for Brand Theme. We will answer you as soon as possible."
+msgstr ""
+
+#: inc/options/brand-options.php:38
+msgid "Get news and updates about your theme."
+msgstr ""
+
+#: inc/template-tags.php:31
+#, php-format
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr ""
+
+#: inc/template-tags.php:37
+#, php-format
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#: inc/template-tags.php:101 inc/template-tags.php:107
+msgid ", "
+msgstr ""
+
+#: inc/template-tags.php:115
+msgid "Leave a comment"
+msgstr ""
+
+#: inc/template-tags.php:115
+msgid "1 Comment"
+msgstr ""
+
+#: inc/template-tags.php:115
+msgid "% Comments"
+msgstr ""
+
+#: inc/template-tags.php:122 template-parts/content-page.php:33
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: inc/template-tags.php:189
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: inc/template-tags.php:249 inc/template-tags.php:278
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: inc/template-tags.php:357
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: inc/template-tags.php:365
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: inc/updater/theme-updater-admin.php:99
+msgid "Error"
+msgstr ""
+
+#: inc/updater/theme-updater.php:27
+msgid "Updating this theme? 'Cancel' to stop, 'OK' to update."
+msgstr ""
+
+#: inc/updater/theme-updater.php:28
+#, php-format
+msgid "<strong>%1$s %2$s</strong> is available. <a href=\"%3$s\" class=\"thickbox\" title=\"%4s\">Check out what's new</a> or <a href=\"%5$s\"%6$s>update now</a>."
+msgstr ""
+
+#: searchform.php:10 searchform.php:11
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: searchform.php:11
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
+#: template-parts/content-archive.php:42 template-parts/content-archive.php:48
+#: template-parts/content-image-full-width-video.php:47
+#: template-parts/content-image-full-width.php:31
+#: template-parts/content-image-full-width.php:37
+#: template-parts/content-video.php:47 template-parts/content.php:37
+#: template-parts/content.php:43
+#, php-format
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: template-parts/content-archive.php:54
+#: template-parts/content-image-full-width-video.php:52
+#: template-parts/content-image-full-width.php:43
+#: template-parts/content-page.php:22 template-parts/content-single.php:24
+#: template-parts/content-video.php:52 template-parts/content.php:49
+msgid "Pages:"
+msgstr ""
+
+#: template-parts/content-none.php:15
+msgid "Nothing Found"
+msgstr ""
+
+#: template-parts/content-none.php:20
+#, php-format
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: template-parts/content-none.php:24
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:30
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
