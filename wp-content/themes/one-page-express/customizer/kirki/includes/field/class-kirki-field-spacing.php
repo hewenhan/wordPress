@@ -68,8 +68,9 @@ if ( ! class_exists( 'Kirki_Field_Spacing' ) ) {
 		 * @access protected
 		 */
 		protected function set_js_vars() {
-			$this->js_vars   = array();
-			$this->transport = 'refresh';
+			parent::set_js_vars();
+			// $this->js_vars   = array();
+			// $this->transport = 'refresh';
 		}
 
 		/**

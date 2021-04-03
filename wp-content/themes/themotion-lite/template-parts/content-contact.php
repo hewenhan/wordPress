@@ -9,16 +9,26 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php  ! empty( $post->post_content ) ? post_class( 'contact-content-not-empty' ) : post_class(); ?>>
+<article id="post-<?php the_ID(); ?>"
+	<?php
+	if ( ! empty( $post->post_content ) ) {
+		post_class( 'contact-content-not-empty' );
+	} else {
+		post_class();
+	}
+	?>
+	>
 	<div class="entry-content">
 		<?php
 
 		the_content();
 
-		wp_link_pages( array(
-			'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'themotion-lite' ),
-			'after'  => '</div>',
-		) );
+		wp_link_pages(
+			array(
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'themotion-lite' ),
+				'after'  => '</div>',
+			)
+		);
 		?>
 	</div><!-- .entry-content -->
 

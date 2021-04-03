@@ -29,4 +29,15 @@
 
     CP_Customizer.hooks.addAction('shortcode_edit_one_page_express_contact_form', CP_Customizer.editEscapedShortcodeAtts);
 
+        jQuery(document).on("ready", function() {
+            if (top.ope_discount) {
+                var link = jQuery('.ope-pro-header a');
+                link.attr("href", top.ope_discount.buylink);
+                link.html(top.ope_discount.msg);
+                link.css("background-color", "red");
+            }       
+        })
+        
+    
+
 })(window, CP_Customizer, jQuery);

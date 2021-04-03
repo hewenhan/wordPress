@@ -1,5 +1,74 @@
 == Changelog ==
 
+= 1.9 =
+
+* Release Date: March 19, 2018
+
+* Added autoplay option for the slider.
+* Added lazy loading option for the slider.
+* Added transition delay option for the slider.
+* Added transition speed option for the slider.
+* Updated Swiper to version 4.1.6.
+
+= 1.8.9 =
+
+* Release Date: February 26, 2018
+
+* Added filter to change the number of columns of related products in Woocommerce.
+* Update selector to avoid that Woocommerce styles overwrite products columns width.
+* Updated Woocommerce templates.
+* Added Freemius integration.
+* Added styles to contact, account and pricing page in admin area.
+* Added a dismissible admin notice to ask for a review.
+* Changed style and url to some sections in the Customizer.
+
+= 1.8.8 =
+
+* Release Date: November 14, 2017
+
+* Added new styles to Flickr widget and gallery shortcode.
+* Added form for subscription on Brand theme settings page.
+* Added TGMPA for recommended plugins.
+* Changed the function to check if the header should be displayed on single posts.
+* Changed brand_no_header function.
+
+= 1.8.7 =
+
+* Release Date: October 19, 2017
+
+* Added mobile widget area.
+* Added styles to mobile widget area and gallery.
+* Minor style changes.
+
+= 1.8.6 =
+
+* Release Date: August 23, 2017
+
+* Added sidebar metabox to product and download post types.
+* Added hide elements metabox to download post type.
+* Added function to save logos url inside the new control on theme update.
+
+= 1.8.5 =
+
+* Release Date: August 16, 2017
+
+* Deleted different text domain.
+* Added a css rule to show inline menu on the right.
+
+= 1.8.4 =
+
+* Release Date: August 11, 2017
+
+* Added unique option to make site boxed or full width.
+* Placed site info element inside footer element.
+* Added calculation to set numbered pagination font size.
+* Added option to hide footer widgets on single posts and pages.
+* Added slider support for full width page template.
+* Fixed a bug that not applies max-width property to multiline items in a flex container on Safari 10 and below.
+* Added sticky menu option.
+* Added option to make navigation and footer content full width.
+* Added brand_footer_text filter to change footer content.
+
 = 1.8.3 =
 
 * Release Date: July 7, 2017
@@ -7,7 +76,7 @@
 * Added js to close slide menu when an anchor link is clicked.
 * Added new option to show featured image as header background on single post and page.
 * Removed show featured image in index and show featured image on single post or page settings, so we can add more post and page templates in next updates.
-* Added margin bottom to footer widgets when there is more than one widget in a column. 
+* Added margin bottom to footer widgets when there is more than one widget in a column.
 
 = 1.8.2 =
 

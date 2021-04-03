@@ -141,7 +141,7 @@
                 mediaType: mediaType,
                 mediaData: mediaData,
                 type: "image",
-                value: $el.attr('src')
+                value: $el[0].currentSrc || $el.attr('src')
             }];
 
             if ($el.parent().is('a')) {
@@ -160,6 +160,10 @@
             switch (type) {
                 case 'image':
                     $el.attr("src", value);
+                    $el.removeAttr('srcset');
+                    $el.removeAttr('src-orig');
+                    $el.removeAttr('width');
+                    $el.removeAttr('height'); 
                     break;
                 case 'link':
                     $el.parent().attr('href', value.link);
@@ -306,6 +310,4 @@
 
 
     });
-
-
 })();

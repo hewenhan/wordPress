@@ -87,9 +87,9 @@ class Themotion_General_Repeater extends WP_Customize_Control {
 	 */
 	public function enqueue() {
 
-		wp_enqueue_style( 'themotion-repeater-admin-stylesheet', get_template_directory_uri() . '/inc/customizer-repeater/css/admin-style.css','1.0.0' );
+		wp_enqueue_style( 'themotion-repeater-admin-stylesheet', get_template_directory_uri() . '/inc/customizer-repeater/css/admin-style.css', array(), THEMOTION_VERSION );
 
-		wp_enqueue_script( 'themotion_customizer-repeater-script', get_template_directory_uri() . '/inc/customizer-repeater/js/customizer_repeater.js', array( 'jquery', 'jquery-ui-draggable' ), '1.0.0', true );
+		wp_enqueue_script( 'themotion_customizer-repeater-script', get_template_directory_uri() . '/inc/customizer-repeater/js/customizer_repeater.js', array( 'jquery', 'jquery-ui-draggable' ), THEMOTION_VERSION, true );
 
 	}
 
@@ -116,25 +116,29 @@ class Themotion_General_Repeater extends WP_Customize_Control {
 			<?php
 			if ( ( count( $json ) == 1 && '' === $json[0] ) || empty( $json ) ) {
 				if ( ! empty( $this_default ) ) {
-					$this->iterate_array( $this_default ); ?>
+					$this->iterate_array( $this_default );
+					?>
 					<input type="hidden"
-						   id="customizer-repeater-<?php echo esc_attr( $this->id ); ?>-colector" <?php esc_attr( $this->link() ); ?>
-						   class="customizer-repeater-colector"
-						   value="<?php echo esc_attr( json_encode( $this_default ) ); ?>"/>
+						id="customizer-repeater-<?php echo esc_attr( $this->id ); ?>-colector" <?php esc_attr( $this->link() ); ?>
+						class="customizer-repeater-colector"
+						value="<?php echo esc_attr( json_encode( $this_default ) ); ?>"/>
 					<?php
 				} else {
-					$this->iterate_array(); ?>
+					$this->iterate_array();
+					?>
 					<input type="hidden"
-						   id="customizer-repeater-<?php echo esc_attr( $this->id ); ?>-colector" <?php esc_attr( $this->link() ); ?>
-						   class="customizer-repeater-colector"/>
+						id="customizer-repeater-<?php echo esc_attr( $this->id ); ?>-colector" <?php esc_attr( $this->link() ); ?>
+						class="customizer-repeater-colector"/>
 					<?php
 				}
 			} else {
-				$this->iterate_array( $json ); ?>
+				$this->iterate_array( $json );
+				?>
 				<input type="hidden" id="customizer-repeater-<?php echo esc_attr( $this->id ); ?>-colector" <?php esc_attr( $this->link() ); ?>
-					   class="customizer-repeater-colector" value="<?php echo esc_attr( $this->value() ); ?>"/>
+					class="customizer-repeater-colector" value="<?php echo esc_attr( $this->value() ); ?>"/>
 				<?php
-			} ?>
+			}
+			?>
 		</div>
 		<button type="button" class="button add_field customizer-repeater-new-field">
 			<?php echo esc_html( $this->add_field_label ); ?>
@@ -151,10 +155,11 @@ class Themotion_General_Repeater extends WP_Customize_Control {
 		/*Counter that helps checking if the box is first and should have the delete button disabled*/
 		$it = 0;
 		if ( ! empty( $array ) ) {
-			foreach ( $array as $icon ) { ?>
+			foreach ( $array as $icon ) {
+				?>
 				<div class="customizer-repeater-general-control-repeater-container customizer-repeater-draggable">
 					<div class="customizer-repeater-customize-control-title">
-						<?php echo esc_html( $this->boxtitle ) ?>
+						<?php echo esc_html( $this->boxtitle ); ?>
 					</div>
 					<div class="customizer-repeater-box-content-hidden">
 						<?php
@@ -168,24 +173,35 @@ class Themotion_General_Repeater extends WP_Customize_Control {
 							$link = $icon->link;
 						}
 						if ( $this->customizer_repeater_text_control == true ) {
-							$this->input_control(array(
-								'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Text','themotion-lite' ), $this->id, 'customizer_repeater_text_control' ),
-								'class' => 'customizer-repeater-text-control',
-								'type'  => apply_filters( 'themotion_repeater_input_types_filter', 'textarea', $this->id, 'customizer_repeater_text_control' ),
-							), $text);
+							$this->input_control(
+								array(
+									'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Text', 'themotion-lite' ), $this->id, 'customizer_repeater_text_control' ),
+									'class' => 'customizer-repeater-text-control',
+									'type'  => apply_filters( 'themotion_repeater_input_types_filter', 'textarea', $this->id, 'customizer_repeater_text_control' ),
+								),
+								$text
+							);
 						}
 						if ( $this->customizer_repeater_link_control ) {
-							$this->input_control(array(
-								'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Link','themotion-lite' ), $this->id, 'customizer_repeater_link_control' ),
-								'class' => 'customizer-repeater-link-control',
-								'sanitize_callback' => 'esc_url_raw',
-								'type'  => apply_filters( 'themotion_repeater_input_types_filter', '', $this->id, 'customizer_repeater_link_control' ),
-							), $link);
-						} ?>
+							$this->input_control(
+								array(
+									'label'             => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Link', 'themotion-lite' ), $this->id, 'customizer_repeater_link_control' ),
+									'class'             => 'customizer-repeater-link-control',
+									'sanitize_callback' => 'esc_url_raw',
+									'type'              => apply_filters( 'themotion_repeater_input_types_filter', '', $this->id, 'customizer_repeater_link_control' ),
+								),
+								$link
+							);
+						}
+						?>
 
-						<button type="button" class="social-repeater-general-control-remove-field" <?php if ( $it == 0 ) {
+						<button type="button" class="social-repeater-general-control-remove-field" 
+						<?php
+						if ( $it == 0 ) {
 							echo 'style="display:none;"';
-} ?>>
+						}
+						?>
+>
 							<?php esc_html_e( 'Delete field', 'themotion-lite' ); ?>
 						</button>
 
@@ -195,27 +211,33 @@ class Themotion_General_Repeater extends WP_Customize_Control {
 				<?php
 				$it++;
 			}// End foreach().
-		} else { ?>
+		} else {
+			?>
 			<div class="customizer-repeater-general-control-repeater-container">
 				<div class="customizer-repeater-customize-control-title">
-					<?php echo esc_html( $this->boxtitle ) ?>
+					<?php echo esc_html( $this->boxtitle ); ?>
 				</div>
 				<div class="customizer-repeater-box-content-hidden">
 					<?php
 					if ( $this->customizer_repeater_text_control == true ) {
-						$this->input_control( array(
-							'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Text','themotion-lite' ), $this->id, 'customizer_repeater_text_control' ),
-							'class' => 'customizer-repeater-text-control',
-							'type'  => apply_filters( 'themotion_repeater_input_types_filter', 'textarea', $this->id, 'customizer_repeater_text_control' ),
-						) );
+						$this->input_control(
+							array(
+								'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Text', 'themotion-lite' ), $this->id, 'customizer_repeater_text_control' ),
+								'class' => 'customizer-repeater-text-control',
+								'type'  => apply_filters( 'themotion_repeater_input_types_filter', 'textarea', $this->id, 'customizer_repeater_text_control' ),
+							)
+						);
 					}
 					if ( $this->customizer_repeater_link_control == true ) {
-						$this->input_control( array(
-							'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Link','themotion-lite' ), $this->id, 'customizer_repeater_link_control' ),
-							'class' => 'customizer-repeater-link-control',
-							'type'  => apply_filters( 'themotion_repeater_input_types_filter', '', $this->id, 'customizer_repeater_link_control' ),
-						) );
-					} ?>
+						$this->input_control(
+							array(
+								'label' => apply_filters( 'repeater_input_labels_filter', esc_html__( 'Link', 'themotion-lite' ), $this->id, 'customizer_repeater_link_control' ),
+								'class' => 'customizer-repeater-link-control',
+								'type'  => apply_filters( 'themotion_repeater_input_types_filter', '', $this->id, 'customizer_repeater_link_control' ),
+							)
+						);
+					}
+					?>
 
 					<button type="button" class="social-repeater-general-control-remove-field button" style="display:none;">
 						<?php esc_html_e( 'Delete field', 'themotion-lite' ); ?>
@@ -239,15 +261,16 @@ class Themotion_General_Repeater extends WP_Customize_Control {
 		if ( ! empty( $options['type'] ) ) {
 			switch ( $options['type'] ) {
 				case 'textarea':
-					$value = ! empty( $options['sanitize_callback'] ) ?  call_user_func_array( $options['sanitize_callback'], array( $value ) ) : $value;
+					$value = ! empty( $options['sanitize_callback'] ) ? call_user_func_array( $options['sanitize_callback'], array( $value ) ) : $value;
 					?>
 					<textarea class="<?php echo esc_attr( $options['class'] ); ?>" placeholder="<?php echo esc_attr( $options['label'] ); ?>"><?php echo esc_textarea( $value ); ?></textarea>
 					<?php
 					break;
 			}
 		} else {
-			$value = ! empty( $options['sanitize_callback'] ) ?  call_user_func_array( $options['sanitize_callback'], array( $value ) ) : $value; ?>
-			<input type="text" value="<?php echo esc_attr( $value ) ?>" class="<?php echo esc_attr( $options['class'] ); ?>" placeholder="<?php echo esc_attr( $options['label'] ); ?>"/>
+			$value = ! empty( $options['sanitize_callback'] ) ? call_user_func_array( $options['sanitize_callback'], array( $value ) ) : $value;
+			?>
+			<input type="text" value="<?php echo esc_attr( $value ); ?>" class="<?php echo esc_attr( $options['class'] ); ?>" placeholder="<?php echo esc_attr( $options['label'] ); ?>"/>
 			<?php
 		}
 	}

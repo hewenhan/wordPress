@@ -25,15 +25,18 @@
 <div id="top-searchform">  <a href="#" id="close-search"> </a> <?php get_search_form(); ?> </div>
 <div id="mobile-menu-wrapper">
 	<a id="mobile-menu-close-button" href="#"></a>
+	<div class="mobile-menu-inner">
     <?php
 		wp_nav_menu( array(
 			'theme_location'   => 'primary',
 			'container'        => 'nav',
 			'container_class' => '',
-			//'depth'           => 2
 			)
 		);
+
+		get_sidebar( 'mobile' );
 	?>
+	</div> <!-- .mobile-menu-inner -->
 </div> <!-- #mobile-menu-wrapper -->
 
 <?php do_action('brand_before_wrapper'); ?>
@@ -52,7 +55,12 @@ if( ! brand_no_header() ) { ?>
 			for( $i = 1; $i <= $slides_number; $i++ ) {
 				if( ! empty( $brand_settings['brand_slide_image' . $i] ) ) { ?>
 					<div class="swiper-slide">
-						<div id="<?php echo 'brand-slide-' . $i ?>" class="inner-slide" data-text-color="<?php echo esc_attr( $brand_settings['brand_slide_text_color' . $i] ); ?>" style="">
+						<?php if( false !== $brand_settings['lazy_loading_slider'] )  {?>
+						<div id="<?php echo 'brand-slide-' . $i ?>" data-background="<?php echo esc_url( $brand_settings['brand_slide_image' . $i] ); ?>" class="inner-slide swiper-lazy" data-text-color="<?php echo esc_attr( $brand_settings['brand_slide_text_color' . $i] ); ?>" style="">
+							<div class="swiper-lazy-preloader"></div>
+						<?php } else { ?>
+							<div id="<?php echo 'brand-slide-' . $i ?>" class="inner-slide" data-text-color="<?php echo esc_attr( $brand_settings['brand_slide_text_color' . $i] ); ?>" style="">
+						<?php } ?>
 							<div class="slide-content container">
 								<h1> <?php echo esc_html( $brand_settings['brand_slide_title' . $i] ) ?> </h1>
 								<h2> <?php echo esc_html( $brand_settings['brand_slide_subtitle' . $i] ) ?> </h2> <?php

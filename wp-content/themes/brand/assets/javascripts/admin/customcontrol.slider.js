@@ -20,10 +20,12 @@ jQuery(window).load(function(){
 	}
 
 	brand_range_slider( 'brand_settings[navigation_bg_opacity]', 0, 1, 0.1 );
+	brand_range_slider( 'brand_settings[footer_bg_opacity]', 0, 1, 0.1 );
 	brand_range_slider( 'brand_settings[header_image_opacity]', 0, 1, 0.1 );
 	brand_range_slider( 'brand_settings[content_image_opacity]', 0, 1, 0.1 );
 	brand_range_slider( 'brand_settings[sidebar_image_opacity]', 0, 1, 0.1 );
 	brand_range_slider( 'brand_settings[footer_image_opacity]', 0, 1, 0.1 );
+	brand_range_slider( 'brand_settings[portfolio_img_bg_opacity]', 0, 1, 0.1 );
 	brand_range_slider( 'brand_settings[container_width]', 700, 2000, 5 );
 	brand_range_slider( 'brand_settings[body_font_size]', 6, 25, 1 );
 	brand_range_slider( 'brand_settings[site_title_font_size]', 10, 200, 1 );

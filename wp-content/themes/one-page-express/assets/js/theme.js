@@ -29,7 +29,11 @@ jQuery(document).ready(function ($) {
             percentPosition: true,
         });
 
-
+        masonry.find('img').each(function () {
+            setTimeout(function () {
+                masonry.data().masonry.layout();
+            }, 500);
+        });
     }
 
     $('.header-homepage-arrow-c').click(function () {

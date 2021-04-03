@@ -16,6 +16,7 @@ class ContentSectionsListControl extends RowsListControl
     {
         $categorized = array();
 
+
         foreach ($data as $id => $item) {
             if ( ! isset($item['category'])) {
                 $item['category'] = 'general';
@@ -54,8 +55,7 @@ class ContentSectionsListControl extends RowsListControl
                     <?php $proOnly = isset($item['pro-only']) ? "pro-only" : ""; ?>
 
                     <li class="item available-item <?php echo $used; ?> <?php echo $proOnly; ?>" data-id="<?php echo $item['id']; ?>">
-                        <div class="image-holder"
-                             style="background-position:center center;">
+                        <div class="image-holder" style="background-position:center center;">
                             <img src="<?php echo $item['thumb']; ?>?cloudpress-companion?v=1"/>
                         </div>
 

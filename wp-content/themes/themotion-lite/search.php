@@ -17,7 +17,9 @@ get_header(); ?>
 			<h1 class="entry-title page-title">
 				<?php
 				/* translators: Search query */
-				printf( esc_html__( 'Search Results for: %s', 'themotion-lite' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+				printf( esc_html__( 'Search Results for: %s', 'themotion-lite' ), '<span>' . get_search_query() . '</span>' );
+				?>
+				</h1>
 		</div>
 	</header><!-- .page-header -->
 
@@ -29,11 +31,13 @@ get_header(); ?>
 				<main id="main" class="site-main">
 
 				<?php
-				if ( have_posts() ) : ?>
+				if ( have_posts() ) :
+					?>
 
 					<?php
 					/* Start the Loop */
-					while ( have_posts() ) : the_post();
+					while ( have_posts() ) :
+						the_post();
 
 						/**
 						 * Run the loop for the search to output the results.
@@ -44,7 +48,8 @@ get_header(); ?>
 
 					endwhile;
 
-					the_posts_navigation( array(
+					the_posts_navigation(
+						array(
 							'prev_text' => sprintf( '&#8592; %s', __( 'Older Posts', 'themotion-lite' ) ),
 							'next_text' => sprintf( '%s &#8594;', __( 'Newer Posts', 'themotion-lite' ) ),
 						)
@@ -54,7 +59,8 @@ get_header(); ?>
 
 					get_template_part( 'template-parts/content', 'none' );
 
-				endif; ?>
+				endif;
+				?>
 
 				</main><!-- #main -->
 			</section><!-- #primary -->

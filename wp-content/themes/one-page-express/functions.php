@@ -5,7 +5,9 @@
  *
  */
 
-define('OPE_THEME_REQUIRED_PHP_VERSION','5.3.0');
+if(!defined('OPE_THEME_REQUIRED_PHP_VERSION')){
+    define('OPE_THEME_REQUIRED_PHP_VERSION','5.3.0');
+}
 
 add_action( 'after_switch_theme', 'one_page_express_check_php_version' );
 

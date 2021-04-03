@@ -1,6 +1,6 @@
-<?php get_header(); ?>
+<?php one_page_express_get_header();?>
 
-<div class="content">
+<div id="page-content" class="content">
   <div class="gridContainer">
     <div class="row">
       <div class="post-item <?php if (!is_active_sidebar('sidebar-1')) echo 'post-item-large'; ?>">

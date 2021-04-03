@@ -10,19 +10,26 @@ class Customizer
     private $globalScriptsPrinted = false;
     private $autoSetting = false;
 
-    private $registeredTypes = array(
-        'panels'   => array(
-            "OnePageExpress\\Customizer\\BasePanel" => true,
-        ),
-        'sections' => array(),
-        'controls' => array(
-            "OnePageExpress\\Customizer\\BaseControl" => true,
-        ),
-    );
+    private $registeredTypes
+        = array(
+            'panels'   => array(
+                "OnePageExpress\\Customizer\\BasePanel" => true,
+            ),
+            'sections' => array(),
+            'controls' => array(
+                "OnePageExpress\\Customizer\\BaseControl" => true,
+            ),
+        );
 
     public function __construct($companion)
     {
         $this->_companion = $companion;
+
+
+        if ( ! $this->customizerSupportsViewedTheme()) {
+            return;
+        }
+
         do_action('cloudpress\customizer\loaded');
 
         $this->register(array($this, '__registerComponents'));
@@ -37,6 +44,28 @@ class Customizer
         add_filter('customize_dynamic_setting_class', array($this, '__autoSettingsClass'), 10, 3);
 
         require_once($this->_companion->assetsRootPath() . "/ajax_req/index.php");
+    }
+
+
+    public function customizerSupportsViewedTheme()
+    {
+
+        $supportedThemes = (array)$this->_companion->getCustomizerData('themes', false);
+        $currentTheme    = $this->_companion->getThemeSlug();
+
+        if (isset($_REQUEST['theme'])) {
+            $currentTheme = $_REQUEST['theme'];
+        }
+
+        if (isset($_REQUEST['customize_theme'])) {
+            $currentTheme = $_REQUEST['customize_theme'];
+        }
+
+        $supported = (in_array($currentTheme, $supportedThemes) || in_array('*', $supportedThemes));
+        $supported = apply_filters('cloudpress\customizer\supports', $supported, $currentTheme);
+
+        return $supported;
+
     }
 
     public function companion()
@@ -133,6 +162,7 @@ class Customizer
                 "includesURL"          => includes_url(),
                 "themeURL"             => get_template_directory_uri(),
                 "isMultipage"          => $self->companion()->isMultipage(),
+                "restURL"              => get_rest_url(),
             ));
             ?>
             <!-- CloudPress Companion Global Data START -->
@@ -304,7 +334,7 @@ class Customizer
                 (function () {
                     window.cpCustomizerPreview = <?php echo json_encode($previewData); ?>;
                     wp.customize.bind('preview-ready', function () {
-                        jQuery(window).load(function () {
+                        jQuery(function () {
 
                             setTimeout(function () {
                                 parent.postMessage('cloudpress_update_customizer', "*");

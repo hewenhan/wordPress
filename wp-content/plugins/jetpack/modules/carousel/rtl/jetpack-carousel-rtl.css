@@ -1,5 +1,9 @@
 /* This file was automatically generated on Jul 30 2015 22:37:09 */
 
+[data-carousel-extra] {
+	cursor: pointer; /* adds a cursor when the carousel takes effect */
+}
+
 .jp-carousel-wrap * {
 	line-height:inherit; /* prevent declarations of line-height in the universal selector */
 }
@@ -240,7 +244,7 @@ div.jp-carousel-buttons a:hover {
 	padding:0.35em 0 0;
 	position: absolute;
 	text-align: right;
-	width: 90%;
+	width: calc( 100vw - 25px );
 }
 
 .jp-carousel-transitions .jp-carousel-close-hint {
@@ -1090,7 +1094,7 @@ textarea#jp-carousel-comment-form-comment-field:focus::-webkit-input-placeholder
 	 	font-weight: 800 !important;
 		font-size: 26px !important;
 		position: fixed !important;
-		top: -10px;
+		top: 0;
 	}
 
 	.jp-carousel-slide img {

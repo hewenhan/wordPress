@@ -1,8 +1,8 @@
 === Brand ===
 Author: Massimo Sanfelice
-Requires at least: WordPress 4.5
-Tested up to: WordPress 4.8
-Version: 1.8.3
+Requires at least: WordPress 4.6
+Tested up to: WordPress 4.9.4
+Version: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: right-sidebar, left-sidebar, footer-widgets, blog, e-commerce, photography, custom-header, custom-background, custom-menu, custom-colors, sticky-post, threaded-comments, translation-ready, featured-images
@@ -33,9 +33,12 @@ Navigate to Appearance > Customize in your admin panel.
 	Choose a text and an url for the slide button.
 
 	== Layout ==
-	Set the width of your site, fullwidth or boxed layout for main elements.
+	Set the width of your site, fullwidth or boxed layout.
+	Show featured image inside header, before content or inside content.
 	Show left sidebar, right sidebar or no sidebar.
-	Set navigation width, position alignment and orientation.
+	Set navigation orientation.
+	Set compact menu or full menu.
+	Set sticky menu.
 	Enable or disable search icon.
 	Show up to four widgets areas in the footer.
 
@@ -49,7 +52,7 @@ Navigate to Appearance > Customize in your admin panel.
 	Show excerpt or full post, set the excerpt length.
 
 	== Full Width Template Page ==
-	In Page > Edit screen select Full Width from the Template dropdown list on the right hand side under Page Attributes. This template is useful if you use a Page Builder like Elementor, Beaver Builder, etc.
+	In Page > Edit screen select Full Width from the Template dropdown list on the right hand side, under Page Attributes. This template is useful if you use a Page Builder like Elementor, Beaver Builder, etc.
 
 If you need more customization take a look at our add-ons at https://www.wp-brandtheme.com/add-ons
 
@@ -86,6 +89,14 @@ License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
 Swiper 3.4.2  (http://www.idangero.us/ )
 Copyright 2017, Vladimir Kharlampidi The iDangero.us
 Licensed under MIT
+
+TGM-Plugin-Activation 2.6.1 ( http://tgmpluginactivation.com/ )
+Copyright 2011, Thomas Griffin
+Licensed under GPL-2.0+
+
+Freemius WordPress SDK ( https://github.com/Freemius/wordpress-sdk )
+Copyright (c) 2015, Freemius, Inc.
+Licensed under GPL-3.0
 
 Screenshot image, Copyright Luis Llerena
 License: CC0 1.0 Universal (CC0 1.0)

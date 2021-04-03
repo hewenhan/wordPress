@@ -327,7 +327,7 @@
                     }
                 }
 
-                initial.load(function() {
+                initial.on('load', function() {
                     var imageDims = getDimms($(this));
 
                     self.css({

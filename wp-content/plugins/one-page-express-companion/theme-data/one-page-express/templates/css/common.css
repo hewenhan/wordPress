@@ -1,6 +1,10 @@
+.page-content [data-id]:not([data-overlap]) {
+        overflow:hidden;
+        max-width: 100%;
+}
 .page-content [data-id] > div:not(.gridContainer) > div {
-    margin-left: auto!important;
-    margin-right: auto!important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .white-text p,
@@ -12,6 +16,7 @@
 .white-text h6 {
     color: #ffffff;
 }
+
 .white-text-section .dynamic-color p,
 .white-text-section .dynamic-color h1,
 .white-text-section .dynamic-color h2,
@@ -404,35 +409,35 @@ div#fancybox-overlay {
         width: 16.66666% !important;
         max-width: 16.66666% !important;
         flex-basis: 16.66666% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp3cols-mobile {
         width: 25% !important;
         max-width: 25% !important;
         flex-basis: 25% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp4cols-mobile {
         width: 33.33333% !important;
         max-width: 33.33333% !important;
         flex-basis: 33.33333% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp6cols-mobile {
         width: 50% !important;
         max-width: 50% !important;
         flex-basis: 50% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp12cols-mobile {
         width: 100% !important;
         max-width: 100% !important;
         flex-basis: 100% !important;
-        float: none!important;
+        float: none !important;
     }
 
     div .cp1cols-mobile:nth-of-type(12n+1) {
@@ -468,28 +473,28 @@ div#fancybox-overlay {
         width: 16.66666% !important;
         max-width: 16.66666% !important;
         flex-basis: 16.66666% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp3cols-tablet {
         width: 25% !important;
         max-width: 25% !important;
         flex-basis: 25% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp4cols-tablet {
         width: 33.33333% !important;
         max-width: 33.33333% !important;
         flex-basis: 33.33333% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp6cols-tablet {
         width: 50% !important;
         max-width: 50% !important;
         flex-basis: 50% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp12cols-tablet {
@@ -499,22 +504,27 @@ div#fancybox-overlay {
         float: none;
     }
 
+    ul .cp1cols-tablet:nth-of-type(12n+1),
     div .cp1cols-tablet:nth-of-type(12n+1) {
         clear: left;
     }
 
+    ul .cp2cols-tablet:nth-of-type(6n+1),
     div .cp2cols-tablet:nth-of-type(6n+1) {
         clear: left;
     }
 
+    ul .cp3cols-tablet:nth-of-type(4n+1),
     div .cp3cols-tablet:nth-of-type(4n+1) {
         clear: left;
     }
 
+    ul .cp4cols-tablet:nth-of-type(3n+1),
     div .cp4cols-tablet:nth-of-type(3n+1) {
         clear: left;
     }
 
+    ul .cp6cols-tablet:nth-of-type(2n+1),
     div .cp6cols-tablet:nth-of-type(2n+1) {
         clear: left;
     }
@@ -539,35 +549,35 @@ div#fancybox-overlay {
         max-width: 8.33333% !important;
         width: 8.33333% !important;
         flex-basis: 8.33333% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp2cols {
         max-width: 16.66666% !important;
         width: 16.66666% !important;
         flex-basis: 16.66666% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp3cols {
         max-width: 25% !important;
         width: 25% !important;
         flex-basis: 25% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp4cols {
         width: 33.33333% !important;
         max-width: 33.33333% !important;
         flex-basis: 33.33333% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp6cols {
         width: 50% !important;
         max-width: 50% !important;
         flex-basis: 50% !important;
-        float: left!important;
+        float: left !important;
     }
 
     .cp12cols {
@@ -577,27 +587,30 @@ div#fancybox-overlay {
         float: none !important;
     }
 
+    ul .cp1cols:nth-of-type(12n+1) ,
     div .cp1cols:nth-of-type(12n+1) {
         clear: left;
     }
 
+    ul .cp2cols:nth-of-type(6n+1) ,
     div .cp2cols:nth-of-type(6n+1) {
         clear: left;
     }
 
+    ul .cp3cols:nth-of-type(4n+1) ,
     div .cp3cols:nth-of-type(4n+1) {
         clear: left;
     }
 
+    ul .cp4cols:nth-of-type(3n+1) ,
     div .cp4cols:nth-of-type(3n+1) {
         clear: left;
     }
 
+    ul .cp6cols:nth-of-type(2n+1) ,
     div .cp6cols:nth-of-type(2n+1) {
         clear: left;
     }
-
-
 
     .spacer span:before {
         content: "--------------";

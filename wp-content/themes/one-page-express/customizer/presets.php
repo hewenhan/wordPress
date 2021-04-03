@@ -5,8 +5,8 @@ return array (
   array (
     'index' => 0,
     'id' => 'header_preset_0',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/preset-1.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/preset-1.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/preset-1.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/preset-1.png',
     'description' => 'full height image with color overlay',
     'settings' => 
     array (
@@ -64,7 +64,7 @@ return array (
       'one_page_express_inner_header_overlay_header' => '',
       'one_page_express_inner_header_show_overlay' => '1',
       'one_page_express_inner_header_overlay_color' => '#000',
-      'one_page_express_inner_header_overlay_opacity' => 0.40000000000000002,
+      'one_page_express_inner_header_overlay_opacity' => 0.4,
       'one_page_express_inner_header_separator_header' => '',
       'one_page_express_inner_header_show_separator' => '1',
       'one_page_express_inner_header_separator' => 'triangle-asymmetrical-negative',
@@ -263,8 +263,8 @@ return array (
   array (
     'index' => 1,
     'id' => 'header_preset_1',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/preset-2.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/preset-2.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/preset-2.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/preset-2.png',
     'description' => 'video background with bottom separator',
     'settings' => 
     array (
@@ -293,7 +293,7 @@ return array (
       'one_page_express_header_overlay_header' => '',
       'one_page_express_header_show_overlay' => '1',
       'one_page_express_header_overlay_color' => '#000',
-      'one_page_express_header_overlay_opacity' => 0.40000000000000002,
+      'one_page_express_header_overlay_opacity' => 0.4,
       'one_page_express_header_separator_header' => '',
       'one_page_express_header_show_separator' => '1',
       'one_page_express_header_separator' => 'triangle-asymmetrical-negative',
@@ -322,7 +322,7 @@ return array (
       'one_page_express_inner_header_overlay_header' => '',
       'one_page_express_inner_header_show_overlay' => '1',
       'one_page_express_inner_header_overlay_color' => '#000',
-      'one_page_express_inner_header_overlay_opacity' => 0.40000000000000002,
+      'one_page_express_inner_header_overlay_opacity' => 0.4,
       'one_page_express_inner_header_separator_header' => '',
       'one_page_express_inner_header_show_separator' => '1',
       'one_page_express_inner_header_separator' => 'triangle-asymmetrical-negative',
@@ -521,8 +521,8 @@ return array (
   array (
     'index' => 2,
     'id' => 'header_preset_2',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/preset-3.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/preset-3.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/preset-3.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/preset-3.png',
     'description' => 'gradient background with image and text',
     'settings' => 
     array (
@@ -580,7 +580,7 @@ return array (
       'one_page_express_inner_header_overlay_header' => '',
       'one_page_express_inner_header_show_overlay' => '1',
       'one_page_express_inner_header_overlay_color' => '#000',
-      'one_page_express_inner_header_overlay_opacity' => 0.40000000000000002,
+      'one_page_express_inner_header_overlay_opacity' => 0.4,
       'one_page_express_inner_header_separator_header' => '',
       'one_page_express_inner_header_show_separator' => '1',
       'one_page_express_inner_header_separator' => 'triangle-asymmetrical-negative',
@@ -779,8 +779,8 @@ return array (
   array (
     'index' => 3,
     'id' => 'header_preset_3',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/preset-4.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/preset-4.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/preset-4.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/preset-4.png',
     'description' => 'image background with text content (default)',
     'settings' => 
     array (
@@ -809,7 +809,7 @@ return array (
       'one_page_express_header_overlay_header' => '',
       'one_page_express_header_show_overlay' => '1',
       'one_page_express_header_overlay_color' => '#000',
-      'one_page_express_header_overlay_opacity' => 0.40000000000000002,
+      'one_page_express_header_overlay_opacity' => 0.4,
       'one_page_express_header_separator_header' => '',
       'one_page_express_header_show_separator' => '1',
       'one_page_express_header_separator' => 'triangle-asymmetrical-negative',
@@ -838,7 +838,7 @@ return array (
       'one_page_express_inner_header_overlay_header' => '',
       'one_page_express_inner_header_show_overlay' => '1',
       'one_page_express_inner_header_overlay_color' => '#000',
-      'one_page_express_inner_header_overlay_opacity' => 0.40000000000000002,
+      'one_page_express_inner_header_overlay_opacity' => 0.4,
       'one_page_express_inner_header_separator_header' => '',
       'one_page_express_inner_header_show_separator' => '1',
       'one_page_express_inner_header_separator' => 'triangle-asymmetrical-negative',

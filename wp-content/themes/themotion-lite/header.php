@@ -29,7 +29,6 @@
 		<div class="container container-header">
 			<div class="header-inner">
 				<div class="header-inner-site-branding">
-					
 					<div class="site-branding-wrap">
 						<div class="site-branding">
 							<?php themotion_brand(); ?>
@@ -42,10 +41,14 @@
 				<div class="main-navigation-wrap">
 					<div class="main-navigation-wrap-inner">
 						<nav id="site-navigation" class="main-navigation">
-							<?php wp_nav_menu( array(
-								'theme_location' => 'primary',
-								'menu_id' => 'primary-menu',
-							) ); ?>
+							<?php
+							wp_nav_menu(
+								array(
+									'theme_location' => 'primary',
+									'menu_id'        => 'primary-menu',
+								)
+							);
+							?>
 						</nav><!-- #site-navigation -->
 
 
@@ -53,7 +56,6 @@
 							<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><i class="fa fa-bars"></i></button>
 						</div>
 
-						
 						<div class="header-social-icons">
 							<ul class="social-media-icons">
 								<?php

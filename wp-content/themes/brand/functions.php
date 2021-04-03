@@ -8,7 +8,7 @@
  */
 
  // Brand version
- define( 'BRAND_VER','1.8.3' );
+ define( 'BRAND_VER','1.9' );
 
  // Bootstrap version
  define( 'BOOTSTRAP_VER','3.3.6' );
@@ -17,7 +17,7 @@
  define( 'FONTAWESOME_VER','4.7.0' );
 
  // Swiper version
- define( 'SWIPER_VER','3.4.2' );
+ define( 'SWIPER_VER','4.1.6' );
 
 if ( ! function_exists( 'brand_setup' ) ) :
 /**
@@ -112,24 +112,28 @@ function brand_get_defaults()
 {
 	$brand_defaults = array(
 		'container_width'                  => '1180',
-		'nav_width'                        => 'fullwidth',
+		'container_type'                   => 'fullwidth',
+		'footer_nav_fullwidth'             => false,
 		'sticky_menu'                      => 'no',
+		'mobile_menu_style'                => 'slide',
     'show_site_title'                  => '1',
-		'logo'                             => 0,
-    'logo_mobile'                      => 0,
+		'logo_url'                         => '',
+    'logo_mobile_url'                  => '',
 		'nav_layout'                       => 'inline',
 		'nav_search'                       => 'enabled',
     'nav_orientation'                  => 'horizontal',
 		'logo_alignment'                   => 'left',
-		'header_width'                     => 'fullwidth',
 		'header_front_page_height'         => '100vh',
 		'header_height'                    => '50vh',
 		'header_type_front'                => 'slider',
 		'header_type'                      => 'image',
 		'slides_number'                    => intval( apply_filters( 'brand_slides_number', 3 ) ),
+		'autoplay_slider'                  => true,
+		'lazy_loading_slider'              => true,
+		'delay_slider'                     => 10000,
+		'speed_slider'                     => 1000,
     'header_alignment'                 => 'center',
     'page_title_alignment'             => 'left',
-		'content_width'                    => 'fullwidth',
 		'body_bg_color'                    => '#eeeeee',
 		'body_text_color'                  => '#777777',
 		'link_color'                       => '#222222',
@@ -137,8 +141,6 @@ function brand_get_defaults()
 		'sidebar_layout'                   => 'no',
     'featured_position'                => 'inside',
     'footer_widgets'                   => '0',
-    'footer_widgets_width'             => 'fullwidth',
-    'footer_width'                     => 'fullwidth',
     'show_excerpt'                     => 'yes',
     'excerpt_length'                   => '20',
     'woocommerce_products_cols'        => 3,
@@ -222,6 +224,16 @@ function brand_widgets_init() {
 		'name'          => esc_html__( 'Footer Sidebar Column 4', 'brand' ),
 		'id'            => 'sidebar-footer-4',
 		'description'   => esc_html__( 'Footer sidebar column 4', 'brand' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
+	) );
+
+	register_sidebar( array(
+		'name'          => esc_html__( 'Mobile Sidebar', 'brand' ),
+		'id'            => 'sidebar-mobile',
+		'description'   => esc_html__( 'Mobile Sidebar', 'brand' ),
 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</section>',
 		'before_title'  => '<h4 class="widget-title">',
@@ -329,9 +341,15 @@ function brand_scripts() {
 		brand_get_defaults()
 	);
 	if( ( is_front_page() && $brand_settings['header_type_front'] === 'slider' ) || ( ! is_front_page() && $brand_settings['header_type'] === 'slider' ) ) {
-		wp_enqueue_script( 'swiper-script', get_template_directory_uri() . '/assets/javascripts/swiper.jquery.min.js', array( 'jquery' ), SWIPER_VER, true );
+		wp_enqueue_script( 'swiper-script', get_template_directory_uri() . '/assets/javascripts/swiper.min.js', array( 'jquery' ), SWIPER_VER, true );
 		wp_enqueue_script( 'brand-swiper-script', get_template_directory_uri() . '/assets/javascripts/brand-swiper.js', array( 'swiper-script' ), BRAND_VER, true );
 		wp_enqueue_style('brand-swiper-style', get_template_directory_uri() . '/assets/css/swiper.min.css', array(), SWIPER_VER );
+		wp_localize_script( 'brand-swiper-script', 'swiper_settings', array(
+				'lazy_loading' => $brand_settings['lazy_loading_slider'],
+				'autoplay'     => $brand_settings['autoplay_slider'],
+				'delay'        => $brand_settings['delay_slider'],
+				'speed'        => $brand_settings['speed_slider'],
+		));
 	}
 }
 add_action( 'wp_enqueue_scripts', 'brand_scripts' );
@@ -360,10 +378,27 @@ function brand_admin_scripts($hook) {
 		wp_enqueue_style('maxsdesign-metaboxes-style', get_template_directory_uri() . '/assets/css/admin/maxsdesign-metaboxes.css', array(), BRAND_VER);
 	}
 
-  // Enqueue options page styles
+  // Enqueue options page styles and scripts
   if( 'appearance_page_brand_setting_page' == $hook || 'toplevel_page_brand_setting_page' == $hook ) {
     wp_enqueue_style('brand-options-styles', get_template_directory_uri() . '/assets/css/admin/brand-option-admin.css', array(), BRAND_VER);
+		wp_enqueue_script( 'brand-subscribe', get_template_directory_uri() . '/assets/javascripts/admin/brand-subscribe.js', array('jquery'), BRAND_VER, true );
+		$brand_subscribe_nonce = wp_create_nonce( 'brand_subscribe_nonce' );
+		wp_localize_script( 'brand-subscribe', 'brand_subscribe', array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'nonce'    => $brand_subscribe_nonce,
+		));
   }
+	// Enqueue style for all admin areas
+	wp_enqueue_style('brand-admin', get_template_directory_uri() . '/assets/css/admin/brand-admin.css', array(), BRAND_VER);
+
+	// Enqueue script to manage reminder
+	wp_enqueue_script( 'brand-rate-reminder', get_template_directory_uri() . '/assets/javascripts/admin/brand-rate-reminder.js' , array(), BRAND_VER );
+	$brand_rate_reminder_nonce = wp_create_nonce( 'brand_rate_reminder_nonce' );
+	wp_localize_script( 'brand-rate-reminder', 'brand_rate_reminder', array(
+			'ajaxurl'   => admin_url( 'admin-ajax.php' ),
+			'nonce'     => $brand_rate_reminder_nonce,
+			'notice'    => 'brand-reminder',
+	));
 
 }
 add_action('admin_enqueue_scripts', 'brand_admin_scripts');
@@ -527,25 +562,9 @@ function brand_nav_orientation_class( $classes='' ) {
  */
 add_filter( 'body_class', 'brand_has_custom_header_img_class');
 function brand_has_custom_header_img_class( $classes='' ) {
-	if( brand_no_header() ) {
-		return $classes;
+	if( ! brand_no_header() ) {
+		$classes[] = 'brand-has-header-image';
 	}
-  if( is_singular() ) {
-		if ( brand_is_hidden( 'header' ) ) {
-			return $classes;
-		}
-    global $post;
-    $brand_backgrounds_meta = get_post_meta( $post->ID, '_brand_backgrounds_meta', true );
-    $bg_header_use_general = isset( $brand_backgrounds_meta['bg_header_use_general'] ) ? $brand_backgrounds_meta['bg_header_use_general'] : 'yes';
-    $header_image_id = isset( $brand_backgrounds_meta['custom_header_image_id'] ) ? $brand_backgrounds_meta['custom_header_image_id'] : 0;
-    if( $bg_header_use_general === 'yes' && has_header_image() ) {
-      $classes[] = 'brand-has-header-image';
-    } else if( $bg_header_use_general === 'no' && $header_image_id !== 0 ) {
-      $classes[] = 'brand-has-header-image';
-    }
-  } else if( get_header_image() !== '' && get_header_image() !== false) {
-    $classes[] = 'brand-has-header-image';
-  }
   return $classes;
 }
 
@@ -554,10 +573,11 @@ function brand_has_custom_header_img_class( $classes='' ) {
  * @since 1.6
  */
  if ( ! brand_addons_installed() ) {
-  function brand_print_site_info() { ?>
-    <a href="https://wordpress.org/" class="customize-unpreviewable">Proudly powered by WordPress</a>
-    <span class="sep"> | </span>
-		Theme: brand by <a href="https://www.wp-brandtheme.com" rel="designer" class="customize-unpreviewable">Massimo Sanfelice - Maxsdesign</a> <?php
+  function brand_print_site_info() {
+    $output = '<a href="https://wordpress.org/" class="customize-unpreviewable">Proudly powered by WordPress</a>';
+    $output .= '<span class="sep"> | </span>';
+		$output .= 'Theme: brand by <a href="https://www.wp-brandtheme.com" rel="designer" class="customize-unpreviewable">Massimo Sanfelice - Maxsdesign</a>';
+		echo apply_filters( 'brand_footer_text', $output );
   }
   add_action( 'brand_site_info', 'brand_print_site_info' );
 }
@@ -622,3 +642,209 @@ function brand_post_listing_stile_class( $classes='' ) {
   }
   return $classes;
 }
+
+/**
+ * Adds .fs-menu class to the body according to
+ * brand settings.
+ *
+ * @since 1.8.4
+ */
+add_filter( 'body_class', 'add_full_nav_class');
+function add_full_nav_class( $classes='') {
+	// Get brand options.
+	$brand_settings = wp_parse_args(
+		get_option( 'brand_settings', array() ),
+		brand_get_defaults()
+	);
+
+	if( 'fullscreen' === $brand_settings['mobile_menu_style'] ) {
+		$classes[] = 'fs-menu';
+	}
+	return $classes;
+}
+
+
+/**
+ * Saves logo urls in the new options if old options is set.
+ *
+ * @since 1.8.6
+ */
+function brand_set_logos_url( $upgrader_object, $options ) {
+	if ($options['action'] == 'update' && $options['type'] == 'theme' ) {
+
+		// Get brand background options.
+		$brand_settings = wp_parse_args(
+			get_option( 'brand_settings', array() ),
+			brand_get_defaults()
+		);
+
+		if( isset( $brand_settings['logo'] ) && intval( $brand_settings['logo'] ) !== 0 ) {
+			$brand_settings['logo_url'] = wp_get_attachment_url( $brand_settings['logo'] );
+			unset( $brand_settings['logo'] );
+		}
+
+		if( isset( $brand_settings['logo_mobile'] ) && intval( $brand_settings['logo_mobile'] ) !== 0 ) {
+			$brand_settings['logo_mobile_url'] = wp_get_attachment_url( $brand_settings['logo_mobile'] );
+			unset( $brand_settings['logo_mobile'] );
+		}
+
+		update_option( 'brand_settings', $brand_settings );
+	}
+}
+add_action( 'upgrader_process_complete', 'brand_set_logos_url', 10, 2 );
+
+/**
+ * Include the TGM_Plugin_Activation class.
+ */
+require_once get_template_directory() . '/inc/TGMPA/class-tgm-plugin-activation.php';
+
+add_action( 'tgmpa_register', 'brand_register_required_plugins' );
+
+/**
+ * Register the required plugins for this theme.
+ *
+ * @since 1.8.8
+ */
+function brand_register_required_plugins() {
+	/*
+	 * Array of plugin arrays. Required keys are name and slug.
+	 * If the source is NOT from the .org repo, then source is also required.
+	 */
+	$plugins = array(
+		array(
+			'name'      => 'Brand Extra',
+			'slug'      => 'brand-extra',
+			'required'  => false,
+		),
+
+	);
+
+	$config = array(
+		'is_automatic' => true,
+	);
+
+
+	tgmpa( $plugins, $config );
+}
+
+/**
+ * Freemius integration.
+ *
+ * @since 1.8.9
+ */
+ // Create a helper function for easy SDK access.
+ function bra_fs() {
+     global $bra_fs;
+
+     if ( ! isset( $bra_fs ) ) {
+         // Include Freemius SDK.
+         require_once dirname(__FILE__) . '/freemius/start.php';
+
+         $bra_fs = fs_dynamic_init( array(
+             'id'                  => '1761',
+             'slug'                => 'brand',
+             'type'                => 'theme',
+             'public_key'          => 'pk_fdebe910721cd73f229f14cf52928',
+             'is_premium'          => false,
+             'has_addons'          => false,
+             'has_paid_plans'      => false,
+         ) );
+     }
+
+     return $bra_fs;
+ }
+
+ // Init Freemius.
+ bra_fs();
+ // Signal that SDK was initiated.
+ do_action( 'bra_fs_loaded' );
+
+ /**
+  * Set transients on theme activation.
+  *
+  * @since 1.8.9
+  */
+	function brand_set_rate_reminder() {
+		if( ! get_transient( 'brand_rate_reminder_deleted' ) && ! get_transient( 'brand_rate_reminder' ) ) {
+			$date = new DateTime();
+			set_transient( 'brand_rate_reminder', $date->format( 'Y-m-d' ) );
+		}
+	}
+	add_action( 'after_switch_theme', 'brand_set_rate_reminder' );
+
+	/**
+   * Set reminder transients on theme update.
+   *
+   * @since 1.9
+   */
+ 	function brand_set_update_rate_reminder( $upgrader_object, $options ) {
+		if ( $options['action'] == 'update' && $options['type'] == 'theme' ) {
+			if( ! get_transient( 'brand_rate_reminder_deleted' ) ) {
+	 			$date = new DateTime('2018-03-10');
+	 			set_transient( 'brand_rate_reminder', $date->format( 'Y-m-d' ) );
+	 		}
+		}
+ 	}
+	add_action( 'upgrader_process_complete', 'brand_set_update_rate_reminder', 10, 2 );
+
+	/**
+   * Show reminders.
+   *
+   * @since 1.8.9
+   */
+ 	function brand_show_rate_reminder() {
+ 		if( get_transient( 'brand_rate_reminder' ) ) {
+			$start_date = new DateTime( get_transient( 'brand_rate_reminder' ) );
+			$start_date->add( new DateInterval( 'P7D' ) );
+			$actual_date = new DateTime();
+			if( $actual_date >= $start_date ) {
+				$img_msg = sprintf( esc_html( '%1$s' ), '<img src="https://secure.gravatar.com/avatar/2467ad9a4cd4baeb814aed1fe1e9c235?s=150&d=retro&r=g" alt="Brand Theme Author" />' );
+				$message = sprintf( esc_html__( '%1$s Hey, I noticed you are using our theme %2$s that%3$ss awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation. %4$s - %5$ sMassimo Sanfelice %6$s %7$s', 'brand' ), '<b>', '&ndash;', '&apos;', '</br>', '<em>', '</em>', '</b>' );
+				$message .= sprintf( esc_html__( '%1$s %2$s YES, YOU DESERVE IT %3$s %4$s REMIND ME LATER %3$s %5$s I ALREADY DID  %3$s %6$s', 'brand'  ), '<span>', '<a class="button button-primary clear-rate-reminder" href="https://wordpress.org/support/theme/brand/reviews/?filter=5" target="_blank">', '</a>', '<a class="button ask-later" href="#">', '<a class="button delete-rate-reminder" href="#">', '</span>' );
+				printf( '<div class="notice brand-reminder"><div class="brand-author-avatar">%1$s</div><div class="brand-message">%2$s</div></div>', wp_kses_post( $img_msg ), wp_kses_post( $message ) );
+			}
+		}
+ 	}
+ 	add_action( 'admin_notices', 'brand_show_rate_reminder' );
+
+	/**
+	 * Delete an admin notice.
+	 */
+	function brand_update_rate_reminder() {
+		check_ajax_referer( 'brand_rate_reminder_nonce' );
+		if( isset( $_POST['notice'] ) && isset( $_POST['update'] ) ) {
+			$notice = sanitize_text_field( $_POST['notice'] );
+			if( $_POST['update'] === 'brand_delete_rate_reminder' ) {
+				delete_transient( 'brand_rate_reminder' );
+				if( ! get_transient( 'brand_rate_reminder' ) && set_transient( 'brand_rate_reminder_deleted', 'No reminder to show' ) ) {
+					$response = array(
+						'error' => false,
+					);
+				} else {
+					$response = array(
+						'error' => true,
+					);
+				}
+			}
+			if( $_POST['update'] === 'brand_ask_later' ) {
+				$date = new DateTime();
+				$date->add( new DateInterval( 'P7D' ) );
+				$date_format = $date->format( 'Y-m-d' );
+				delete_transient( 'brand_rate_reminder' );
+				if( set_transient( 'brand_rate_reminder', $date_format ) ) {
+					$response = array(
+						'error' => false,
+					);
+				} else {
+					$response = array(
+						'error' => true,
+						'error_type' => set_transient( 'brand_rate_reminder', $date_format ),
+					);
+				}
+			}
+
+			wp_send_json( $response );
+		}
+
+	}
+	add_action( 'wp_ajax_brand_update_rate_reminder', 'brand_update_rate_reminder' );

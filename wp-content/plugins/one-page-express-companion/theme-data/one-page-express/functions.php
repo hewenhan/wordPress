@@ -62,7 +62,6 @@ function one_page_express_latest_news()
                     <a class="button blue small" href="<?php echo get_permalink(); ?>">
                         <span data-theme="one_page_express_latest_news_read_more"><?php \OnePageExpress\Companion::echoMod('one_page_express_latest_news_read_more', 'Read more'); ?></span>
                     </a>
-                    <hr class="blog-separator">
                     <?php get_template_part('template-parts/content-post-footer'); ?>
                 </div>
             </div>
@@ -118,7 +117,7 @@ function one_page_express_contact_form($attrs = array())
     if ($contact_shortcode !== "") {
         echo do_shortcode($contact_shortcode);
     } else {
-        echo '<p style="text-align:center;color:#ababab">' . __('Contact form will be displayed here. To activate it you have to set the "contact form shortcode" parameter in Customizer.',
+        echo '<p style="text-align:center;color:#ababab">' . __('Contact form will be displayed here. To activate it you have to click this area and set the shortcode parameter in Customizer.',
                 'one_page_express-companion') . '</p>';
     }
 
@@ -172,7 +171,7 @@ add_action('cloudpress\template\load_assets',
         wp_enqueue_script('companion-lib-modernizr', $companion->themeDataURL('/templates/js/libs/modernizr.js'), array(), $ver);
         wp_register_script('companion-' . $companion->getThemeSlug(), null, array('jquery', 'companion-lib-hammer', 'companion-lib-modernizr'), $ver);
 
-        if (!is_customize_preview()) {
+        if ( ! is_customize_preview()) {
             wp_enqueue_script('companion-cotent-swap', $companion->themeDataURL('/templates/js/HoverFX.js'), array('companion-' . $companion->getThemeSlug()), $ver);
         }
         wp_enqueue_script('companion-scripts', $companion->themeDataURL('/sections/scripts.js'), array('companion-' . $companion->getThemeSlug()), $ver);
@@ -186,6 +185,7 @@ add_action('cloudpress\customizer\preview_scripts',
         );
     });
 
+
 add_action('cloudpress\customizer\global_scripts',
     function ($customizer) {
         $ver = $customizer->companion()->version;
@@ -197,6 +197,7 @@ add_action('cloudpress\customizer\global_scripts',
             true
         );
     });
+
 function one_page_header_css()
 {
     $headerContentCSS = \OnePageExpress\Companion::getThemeMod(
@@ -243,7 +244,7 @@ function one_page_header_css()
             $contentEL = "subtitle";
         }
 
-        if (!isset($mappedSettings[$contentEL])) {
+        if ( ! isset($mappedSettings[$contentEL])) {
             $mappedSettings[$contentEL] = array();
         }
 
@@ -277,7 +278,7 @@ function one_page_header_css()
 function one_page_builder_get_css_value($value, $unit = false)
 {
     $noUnitValues = array('inherit', 'auto', 'initial');
-    if (!in_array($value, $noUnitValues)) {
+    if ( ! in_array($value, $noUnitValues)) {
         return $value . $unit;
     }
 
@@ -343,7 +344,7 @@ function one_page_inner_header_css()
             $contentEL = "subtitle";
         }
 
-        if (!isset($mappedSettings[$contentEL])) {
+        if ( ! isset($mappedSettings[$contentEL])) {
             $mappedSettings[$contentEL] = array();
         }
 
@@ -398,7 +399,7 @@ function one_page_express_get_front_page_content($companion)
             if ($as['id'] == $ds) {
                 $_content = $as['content'];
 
-                if (strpos($_content, 'data-bg="transparent"') === false && !in_array($ds, $alreadyColoredSections)) {
+                if (strpos($_content, 'data-bg="transparent"') === false && ! in_array($ds, $alreadyColoredSections)) {
                     $_content   = preg_replace('/\<div/', '<div style="background-color:' . $colors[$colorIndex] . '" ', $_content, 1);
                     $colorIndex = $colorIndex ? 0 : 1;
                 } else {
@@ -426,7 +427,7 @@ add_filter('cloudpress\companion\front_page_content',
 add_filter('cloudpress\companion\template',
     function ($template, $companion, $post) {
 
-        if (!$post) {
+        if ( ! $post) {
             return $template;
         }
 
@@ -533,9 +534,10 @@ add_action('wp_head', function () {
     if (1 == intval($overlap_mod)): ?>
         <style data-name="overlap">
             @media only screen and (min-width: 768px) {
-                .header-homepage{
+                .header-homepage {
                     padding-bottom: <?php echo  $margin; ?>;
                 }
+
                 .homepage-template .content {
                     position: relative;
                     z-index: 10;
@@ -629,3 +631,73 @@ function one_page_express_header_presets_pro_info($presets)
 
     return $presets;
 }
+
+
+
+// discount notice
+
+function one_page_express_discount_end_date() {
+    return "2017-12-02";
+}
+
+function one_page_express_discount_link(){
+    return esc_url("https://extendthemes.com/go/one-page-express-upgrade");
+}
+
+function one_page_express_discount_notice_script()
+{
+    ?>
+    <script type="text/javascript" >
+        (function ($) {
+            jQuery(document).on( 'click', '.ope-discount-notice .notice-dismiss', function() {
+                jQuery.ajax({
+                    url: ajaxurl,
+                    data: {
+                        action: 'one_page_express_discount_notice_dismiss'
+                    }
+                });
+            })
+        })(jQuery);
+    </script>
+    <?php
+}
+
+add_action("wp_ajax_one_page_express_discount_notice_dismiss", function() {
+    update_option( 'one-page-express-'.one_page_express_discount_end_date().'-notice-dismissed', 1);
+});
+
+function one_page_express_discount_notice() {
+    if (get_option( 'one-page-express-'.one_page_express_discount_end_date().'-notice-dismissed', 0)) {
+        return;
+    }
+    ?>
+    <div class="ope-discount-notice notice notice-info is-dismissible" style="background-color: #fdffb3">
+        <p style="font-size: 20px;">
+            Black Friday Special Offer - <span style="color:red">40% discount</span> for One Page Express PRO
+           
+            <a class="button button-primary" style="margin-left:10px;float: right;" target="_blank" href="https://extendthemes.com/go/one-page-express-upgrade/#features-6">See PRO Features</a>
+            <a class="button" style="background-color: red;border-color: #d65600;color: #ffffff;float: right;" target="_blank" href="<?php echo one_page_express_discount_link(); ?>">Get the offer</a> 
+        </p>
+    </div>
+    <?php
+}
+
+    
+    
+add_action("admin_init", function() {
+    $show = apply_filters('ope_show_info_pro_messages', true);
+    if ($show && new DateTime() < new DateTime(one_page_express_discount_end_date())) {
+        add_action( 'admin_notices', 'one_page_express_discount_notice' );
+        add_action( 'admin_footer', 'one_page_express_discount_notice_script' );
+
+
+        add_action('cloudpress\customizer\global_scripts',
+        function ($customizer) {
+            $ver = $customizer->companion()->version;
+            wp_localize_script($customizer->companion()->getThemeSlug() . "_companion_theme_customizer", "ope_discount", array(
+                "buylink" => one_page_express_discount_link(),
+                "msg" => "Get PRO - 40% Black Friday Discount"
+            ));
+        });
+    }
+});

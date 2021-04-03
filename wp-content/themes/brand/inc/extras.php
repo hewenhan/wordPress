@@ -48,7 +48,7 @@ function brand_nav_wrapper_classes( $classes='' )
 		get_option( 'brand_settings', array() ),
 		brand_get_defaults()
 	);
-	$nav_width = $brand_settings['nav_width'];
+	$nav_width = $brand_settings['container_type'];
 
 	if ( $nav_width === 'boxed' ) :
 		$classes[] = 'container';
@@ -71,7 +71,7 @@ function brand_header_wrapper_classes( $classes='' )
 		brand_get_defaults()
 	);
 
-	$header_width = $brand_settings['header_width'];
+	$header_width = $brand_settings['container_type'];
 
 	if ( $header_width === 'boxed' ) :
 		$classes[] = 'container';
@@ -94,7 +94,7 @@ function brand_content_classes( $classes='' )
 		brand_get_defaults()
 	);
 
-	$content_width = $brand_settings['content_width'];
+	$content_width = $brand_settings['container_type'];
 
 	if ( $content_width === 'boxed' ) :
 		$classes[] = 'container';
@@ -104,7 +104,7 @@ function brand_content_classes( $classes='' )
 }
 
 /**
- * Adds custom classes to the footer widgets container.
+ * Adds custom classes to the footer container.
  * @since 1.0
  */
 add_filter( 'brand_footer_class', 'brand_footer_classes');
@@ -117,30 +117,7 @@ function brand_footer_classes( $classes='' )
 		brand_get_defaults()
 	);
 
-	$footer_widgets_width = $brand_settings['footer_widgets_width'];
-
-	if ( $footer_widgets_width === 'boxed' ) :
-		$classes[] = 'container';
-	endif;
-
-	return $classes;
-}
-
-/**
- * Adds custom classes to the site info.
- * @since 1.2.1
- */
-add_filter( 'brand_site_info_class', 'brand_site_info_classes');
-function brand_site_info_classes( $classes='' )
-{
-
-	// Get theme options
-	$brand_settings = wp_parse_args(
-		get_option( 'brand_settings', array() ),
-		brand_get_defaults()
-	);
-
-	$footer_width = $brand_settings['footer_width'];
+	$footer_width = $brand_settings['container_type'];
 
 	if ( $footer_width === 'boxed' ) :
 		$classes[] = 'container';

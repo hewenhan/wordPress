@@ -25,15 +25,18 @@
 <div id="top-searchform">  <a href="#" id="close-search"> </a> <?php get_search_form(); ?> </div>
 <div id="mobile-menu-wrapper">
 	<a id="mobile-menu-close-button" href="#"></a>
+	<div class="mobile-menu-inner">
     <?php
 		wp_nav_menu( array(
 			'theme_location'   => 'primary',
 			'container'        => 'nav',
 			'container_class' => '',
-			//'depth'           => 2
 			)
 		);
+
+		get_sidebar( 'mobile' );
 	?>
+	</div> <!-- .mobile-menu-inner -->
 </div> <!-- #mobile-menu-wrapper -->
 
 <?php do_action('brand_before_wrapper'); ?>

@@ -5,8 +5,8 @@ return array (
   array (
     'index' => 4,
     'id' => 'header_preset_4',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-1.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-1.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-1.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-1.png',
     'description' => 'Video in lightbox',
     'settings' => 
     array (
@@ -17,8 +17,8 @@ return array (
   array (
     'index' => 5,
     'id' => 'header_preset_5',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-10.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-10.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-10.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-10.png',
     'description' => 'Video and text header',
     'settings' => 
     array (
@@ -29,8 +29,8 @@ return array (
   array (
     'index' => 6,
     'id' => 'header_preset_6',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-11.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-11.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-11.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-11.png',
     'description' => 'PR consulting',
     'settings' => 
     array (
@@ -41,8 +41,8 @@ return array (
   array (
     'index' => 7,
     'id' => 'header_preset_7',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-12.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-12.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-12.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-12.png',
     'description' => 'Thai massage',
     'settings' => 
     array (
@@ -53,8 +53,8 @@ return array (
   array (
     'index' => 8,
     'id' => 'header_preset_8',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-2.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-2.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-2.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-2.png',
     'description' => 'Creative agency',
     'settings' => 
     array (
@@ -65,8 +65,8 @@ return array (
   array (
     'index' => 9,
     'id' => 'header_preset_9',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-4.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-4.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-4.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-4.png',
     'description' => 'Interior design',
     'settings' => 
     array (
@@ -77,8 +77,8 @@ return array (
   array (
     'index' => 10,
     'id' => 'header_preset_10',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-5.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-5.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-5.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-5.png',
     'description' => 'Personal portfolio',
     'settings' => 
     array (
@@ -89,8 +89,8 @@ return array (
   array (
     'index' => 11,
     'id' => 'header_preset_11',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-7.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-7.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-7.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-7.png',
     'description' => 'Mobile app',
     'settings' => 
     array (
@@ -101,8 +101,8 @@ return array (
   array (
     'index' => 12,
     'id' => 'header_preset_12',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-8.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-8.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-8.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-8.png',
     'description' => 'Web app',
     'settings' => 
     array (
@@ -113,8 +113,8 @@ return array (
   array (
     'index' => 13,
     'id' => 'header_preset_13',
-    'thumb' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-9.png',
-    'preview' => 'http://cloudpress.co/one-page-xpress/headers/pro-header-9.png',
+    'thumb' => '//onepageexpress.com/default-assets/previews/headers/pro-header-9.png',
+    'preview' => '//onepageexpress.com/default-assets/previews/headers/pro-header-9.png',
     'description' => 'Multiple images',
     'settings' => 
     array (

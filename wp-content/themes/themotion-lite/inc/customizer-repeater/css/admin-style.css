@@ -76,7 +76,6 @@
     width: 100%;
     float: left;
     background: #fff;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
 }
 
@@ -129,7 +128,6 @@ button.customizer-repeater-new-field:before {
     top: -1px;
     font: 400 20px/1 dashicons;
     vertical-align: middle;
-    -webkit-transition: all .2s;
     transition: all .2s;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -197,7 +195,6 @@ button.customizer-repeater-new-field:before {
     top: -1px;
     font: 400 20px/1 dashicons;
     vertical-align: middle;
-    -webkit-transition: all .2s;
     transition: all .2s;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

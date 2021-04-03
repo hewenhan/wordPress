@@ -11,17 +11,19 @@
 
 ?>
 
-    </div> <!-- #content -->
-    <?php brand_get_footer_sidebars();
-if( ! brand_is_hidden( 'footer' ) ) { ?>
-    <div <?php brand_site_info_class('site-info') ?>>
-      <div class="container">
-		    <div class="row">
-          <?php do_action( 'brand_site_info' ); ?>
-		    </div>
-      </div>
-    </div> <!-- .site-info --> <?php
-}
+    </div> <!-- #content --> <?php
+		if( ! brand_is_hidden( 'footer' ) || ! brand_is_hidden( 'footer_widgets' ) ) { ?>
+			<footer id="footer" <?php brand_footer_class() ?>>
+    	<?php brand_get_footer_sidebars();
+			if( ! brand_is_hidden( 'footer' ) ) { ?>
+    		<div class="site-info">
+      		<div class="container">
+          	<?php do_action( 'brand_site_info' ); ?>
+      		</div>
+    		</div> <!-- .site-info -->
+			</footer> <!-- #footer --> <?php
+			}
+		}
   wp_footer(); ?>
 
   </div> <!-- #wrapper -->

@@ -239,7 +239,10 @@ function doPreviewDecoration(root, $) {
 
 
 jQuery(document).ready(function ($) {
-    wp.customize.mutationObserver.disconnect();
+
+    if (wp.customize && wp.customize.mutationObserver) {
+        wp.customize.mutationObserver.disconnect();
+    }
     // if page is not maintainable with companion do not decorate
     if (!parent.CP_Customizer.preview.data().maintainable) {
         return;

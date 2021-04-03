@@ -272,7 +272,7 @@ function brand_sanitize_posts_listing_styles($data) {
 }
 
 function brand_sanitize_col_numb( $data ) {
-	if( $data >= 1 && $data <= 4 ) {
+	if( $data >= 1 && $data <= 6 ) {
 		return $data;
 	} else{
 		return 1;

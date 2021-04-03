@@ -27,7 +27,7 @@
             var stickData = {
                 center: true,
                 responsiveWidth: true,
-                zIndex: (20 + index),
+                zIndex: (10000 + index),
                 topSpacing: distance,
                 stickyOnMobile: stickyOnMobile,
                 stickyOnTablet: stickyOnTablet,
@@ -40,8 +40,9 @@
                 return;
             }
 
-            if (distance === 0 && jQuery('#wpadminbar').length && jQuery('#wpadminbar').css('position') === "fixed") {
-                // distance = jQuery('body').offset().top;
+
+            if (distance === 0 && jQuery('#wpadminbar').length && jQuery('#wpadminbar').css('position') === "absolute") {
+                distance = 0;
             }
 
             stickData['topSpacing'] = distance;

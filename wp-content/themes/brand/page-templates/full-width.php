@@ -11,7 +11,16 @@
  * @since 1.7.0
  */
 
-get_header('page');
+ $brand_settings = wp_parse_args(
+	 get_option( 'brand_settings', array() ),
+	 brand_get_defaults()
+ );
+
+if( is_front_page() && 'slider' === $brand_settings['header_type_front'] ) {
+	get_header( 'slider' );
+} else {
+	get_header( 'page' );
+}
 
 do_action( 'brand_before_singular_content' ); ?>
 

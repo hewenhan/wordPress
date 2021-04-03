@@ -124,7 +124,7 @@
                         '<h3>This item is available only in the PRO version</h3>' +
                         '<p>Please upgrade to the PRO version to use this item and many others.</p>' +
                         '<br/>' +
-                        '<a href="http://onepageexpress.com" class="button button-orange" target="_blank">Upgrade to PRO</a> '
+                        '<a href="https://extendthemes.com/go/one-page-express-upgrade" class="button button-orange" target="_blank">Upgrade to PRO</a> '
                     );
 
                     return;

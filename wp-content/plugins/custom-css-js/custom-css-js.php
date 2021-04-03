@@ -1,382 +1,298 @@
 <?php
 /**
- * Plugin Name: Simple Custom CSS and JS 
+ * Plugin Name: Simple Custom CSS and JS
  * Plugin URI: https://wordpress.org/plugins/custom-css-js/
  * Description: Easily add Custom CSS or JS to your website with an awesome editor.
- * Version: 3.4 
- * Author: Diana Burduja
- * Author URI: https://www.silkypress.com/
+ * Version: 3.36
+ * Author: SilkyPress.com
+ * Author URI: https://www.silkypress.com
  * License: GPL2
  *
- * Text Domain: custom-css-js 
+ * Text Domain: custom-css-js
  * Domain Path: /languages/
  *
+ * WC requires at least: 3.0.0
+ * WC tested up to: 5.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 if ( ! class_exists( 'CustomCSSandJS' ) ) :
-    define( 'CCJ_VERSION', '3.4' );
-/**
- * Main CustomCSSandJS Class
- *
- * @class CustomCSSandJS 
- */
-final class CustomCSSandJS {
-    public $plugins_url = '';
-    public $plugin_dir_path = '';
-    public $plugin_file = __FILE__;
-    public $search_tree = false;
-    public $upload_dir = '';
-    public $upload_url = '';
-    protected static $_instance = null; 
+	/**
+	 * Main CustomCSSandJS Class
+	 *
+	 * @class CustomCSSandJS
+	 */
+	final class CustomCSSandJS {
+
+		public $search_tree         = false;
+		protected static $_instance = null;
+		private $settings           = array();
 
 
-    /**
-     * Main CustomCSSandJS Instance
-     *
-     * Ensures only one instance of CustomCSSandJS is loaded or can be loaded
-     *
-     * @static
-     * @return CustomCSSandJS - Main instance
-     */
-    public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    }
+		/**
+		 * Main CustomCSSandJS Instance
+		 *
+		 * Ensures only one instance of CustomCSSandJS is loaded or can be loaded
+		 *
+		 * @static
+		 * @return CustomCSSandJS - Main instance
+		 */
+		public static function instance() {
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+			}
+			return self::$_instance;
+		}
 
-    /**
-      * Cloning is forbidden.
-      */
-    public function __clone() {
-         _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'custom-css-js' ), '1.0' );
-    }
+		/**
+		 * Cloning is forbidden.
+		 */
+		public function __clone() {
+			_doing_it_wrong( __FUNCTION__, __( 'An error has occurred. Please reload the page and try again.' ), '1.0' );
+		}
 
-    /**
-     * Unserializing instances of this class is forbidden.
-     */
-    public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'custom-css-js' ), '1.0' );
-    }
+		/**
+		 * Unserializing instances of this class is forbidden.
+		 */
+		public function __wakeup() {
+			_doing_it_wrong( __FUNCTION__, __( 'An error has occurred. Please reload the page and try again.' ), '1.0' );
+		}
 
-    /**
-     * CustomCSSandJS Constructor
-     * @access public
-     */
-    public function __construct() {
-        add_action( 'init', array( $this, 'register_post_type' ) );
-        $this->plugins_url = plugins_url( '/', __FILE__ );
-        $this->plugin_dir_path = plugin_dir_path( __FILE__ );
-        $wp_upload_dir = wp_upload_dir();
-        $this->upload_dir = $wp_upload_dir['basedir'] . '/custom-css-js';
-        $this->upload_url = $wp_upload_dir['baseurl'] . '/custom-css-js';
-         if ( is_admin() ) {
-            $this->load_plugin_textdomain();
-            add_action('admin_init', array($this, 'create_roles'));
-            include_once( 'includes/admin-screens.php' );
-            include_once( 'includes/admin-addons.php' );
-            include_once( 'includes/admin-warnings.php' );
-            include_once( 'includes/admin-notices.php' );
-         }
+		/**
+		 * CustomCSSandJS Constructor
+		 *
+		 * @access public
+		 */
+		public function __construct() {
 
-        $this->search_tree = get_option( 'custom-css-js-tree' );
+			include_once 'includes/admin-install.php';
+			register_activation_hook( __FILE__, array( 'CustomCSSandJS_Install', 'install' ) );
+			add_action( 'init', array( 'CustomCSSandJS_Install', 'register_post_type' ) );
 
-        if ( ! $this->search_tree || count( $this->search_tree ) == 0 ) {
-            return false;
-        }
+			$this->set_constants();
 
-        if ( is_null( self::$_instance ) ) {
-            $this->print_code_actions();
-        } 
-    }
+			if ( is_admin() ) {
+				add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+				include_once 'includes/admin-screens.php';
+				include_once 'includes/admin-config.php';
+				include_once 'includes/admin-addons.php';
+				include_once 'includes/admin-warnings.php';
+				include_once 'includes/admin-notices.php';
+			}
 
-    /**
-     * Add the appropriate wp actions
-     */
-    function print_code_actions() {
-        foreach( $this->search_tree as $_key => $_value ) {
-            $action = 'wp_';
-            if ( strpos( $_key, 'admin' ) !== false ) {
-                $action = 'admin_';
-            }
-            if ( strpos( $_key, 'login' ) !== false ) {
-                $action = 'login_';
-            }
-            if ( strpos( $_key, 'header' ) !== false ) {
-                $action .= 'head';
-            } else {
-                $action .= 'footer';
-            }
-            add_action( $action, array( $this, 'print_' . $_key ) );
-        }
-    }
+			$this->search_tree = get_option( 'custom-css-js-tree' );
+			$this->settings    = get_option( 'ccj_settings' );
+			if ( ! isset( $this->settings['remove_comments'] ) ) {
+				$this->settings['remove_comments'] = false;
+			}
 
-    /**
-     * Print the custom code.
-     */
-    public function __call( $function, $args ) {
+			if ( ! $this->search_tree || count( $this->search_tree ) == 0 ) {
+				return false;
+			}
 
-        if ( strpos( $function, 'print_' ) === false ) {
-            return false;
-        }
+			if ( is_null( self::$_instance ) ) {
+				$this->print_code_actions();
+				if ( isset ( $this->search_tree['jquery'] ) && $this->search_tree['jquery'] === true ) {
+					add_action( 'wp_enqueue_scripts', 'CustomCSSandJS::wp_enqueue_scripts' );
+				}
+			}
+		}
 
-        $function = str_replace( 'print_', '', $function );
+		/**
+		 * Add the appropriate wp actions
+		 */
+		function print_code_actions() {
+			foreach ( $this->search_tree as $_key => $_value ) {
+				$action = 'wp_';
+				if ( strpos( $_key, 'admin' ) !== false ) {
+					$action = 'admin_';
+				}
+				if ( strpos( $_key, 'login' ) !== false ) {
+					$action = 'login_';
+				}
+				if ( strpos( $_key, 'header' ) !== false ) {
+					$action .= 'head';
+				} elseif ( strpos( $_key, 'body_open' ) !== false ) {
+					$action .= 'body_open';
+				} else {
+					$action .= 'footer';
+				}
 
-        if ( ! isset( $this->search_tree[ $function ] ) ) {
-            return false;
-        } 
+				$priority = ( $action == 'wp_footer' ) ? 40 : 10;
 
-        $args = $this->search_tree[ $function ];
+				add_action( $action, array( $this, 'print_' . $_key ), $priority );
+			}
+		}
 
-        if ( ! is_array( $args ) || count( $args ) == 0 ) {
-            return false;
-        }
+		/**
+		 * Print the custom code.
+		 */
+		public function __call( $function, $args ) {
 
-        // print the `internal` code
-        if ( strpos( $function, 'internal' ) !== false ) {
+			if ( strpos( $function, 'print_' ) === false ) {
+				return false;
+			}
 
-            $before = '<!-- start Simple Custom CSS and JS -->' . PHP_EOL; 
-            $after = '<!-- end Simple Custom CSS and JS -->' . PHP_EOL;
-            if ( strpos( $function, 'css' ) !== false ) {
-                $before .= '<style type="text/css">' . PHP_EOL;
-                $after = '</style>' . PHP_EOL . $after;
-            }
-            if ( strpos( $function, 'js' ) !== false ) {
-                $before .= '<script type="text/javascript">' . PHP_EOL;
-                $after = '</script>' . PHP_EOL . $after;
-            }
+			$function = str_replace( 'print_', '', $function );
 
+			if ( ! isset( $this->search_tree[ $function ] ) ) {
+				return false;
+			}
 
-            foreach( $args as $_post_id ) {
-                if ( strstr( $_post_id, 'css' ) || strstr( $_post_id, 'js' ) ) {
-                    @include_once( $this->upload_dir . '/' . $_post_id );
-                } else {
-                    $post = get_post( $_post_id );
-                    echo $before . $post->post_content . $after;
-                }
-            }            
-        }
+			$args = $this->search_tree[ $function ];
 
-        // link the `external` code
-        if ( strpos( $function, 'external' ) !== false) {
-            $in_footer = false;
-            if ( strpos( $function, 'footer' ) !== false ) {
-                $in_footer = true;
-            }
-            
-            if ( strpos( $function, 'js' ) !== false ) {
-                foreach( $args as $_filename ) {
-                    echo PHP_EOL . "<script type='text/javascript' src='".$this->upload_url . '/' . $_filename."'></script>" . PHP_EOL;
-                }
-            }
+			if ( ! is_array( $args ) || count( $args ) == 0 ) {
+				return false;
+			}
 
-            if ( strpos( $function, 'css' ) !== false ) {
-                foreach( $args as $_filename ) {
-                    $shortfilename = preg_replace( '@\.css\?v=.*$@', '', $_filename );
-                    echo PHP_EOL . "<link rel='stylesheet' id='".$shortfilename ."-css'  href='".$this->upload_url . '/' . $_filename ."' type='text/css' media='all' />" . PHP_EOL;
-                }
-            }
-        }
+			$where = strpos( $function, 'external' ) !== false ? 'external' : 'internal';
+			$type  = strpos( $function, 'css' ) !== false ? 'css' : '';
+			$type  = strpos( $function, 'js' ) !== false ? 'js' : $type;
+			$type  = strpos( $function, 'html' ) !== false ? 'html' : $type;
+			$tag   = array( 'css' => 'style', 'js' => 'script' );
 
-        // link the HTML code
-        if ( strpos( $function, 'html' ) !== false ) {
-            foreach( $args as $_post_id ) {
-                $_post_id = str_replace('.html', '', $_post_id);
-                $post = get_post( $_post_id );
-                echo $post->post_content . PHP_EOL;
-            }            
+			$type_attr = ( $type === 'js' && ! current_theme_supports( 'html5', 'script' ) ) ? ' type="text/javascript"' : '';
+			$type_attr = ( $type === 'css' && ! current_theme_supports( 'html5', 'style' ) ) ? ' type="text/css"' : $type_attr;
 
-        }
-    }
+			$upload_url = str_replace( array( 'https://', 'http://' ), '//', CCJ_UPLOAD_URL ) . '/';
 
-    /**
-     * Create the custom-css-js post type
-     */
-    public function register_post_type() {
-        $labels = array(
-            'name'                   => _x( 'Custom Code', 'post type general name', 'custom-css-js'),
-            'singular_name'          => _x( 'Custom Code', 'post type singular name', 'custom-css-js'),
-            'menu_name'              => _x( 'Custom CSS & JS', 'admin menu', 'custom-css-js'),
-            'name_admin_bar'         => _x( 'Custom Code', 'add new on admin bar', 'custom-css-js'),
-            'add_new'                => _x( 'Add Custom Code', 'add new', 'custom-css-js'),
-            'add_new_item'           => __( 'Add Custom Code', 'custom-css-js'),
-            'new_item'               => __( 'New Custom Code', 'custom-css-js'),
-            'edit_item'              => __( 'Edit Custom Code', 'custom-css-js'),
-            'view_item'              => __( 'View Custom Code', 'custom-css-js'),
-            'all_items'              => __( 'All Custom Code', 'custom-css-js'),
-            'search_items'           => __( 'Search Custom Code', 'custom-css-js'),
-            'parent_item_colon'      => __( 'Parent Custom Code:', 'custom-css-js'),
-            'not_found'              => __( 'No Custom Code found.', 'custom-css-js'),
-            'not_found_in_trash'     => __( 'No Custom Code found in Trash.', 'custom-css-js')
-        );
+			if ( $where === 'internal' ) {
 
-        $capability_type = 'custom_css';
-        $capabilities = array(
-            'edit_post'              => "edit_{$capability_type}",
-            'read_post'              => "read_{$capability_type}",
-            'delete_post'            => "delete_{$capability_type}",
-            'edit_posts'             => "edit_{$capability_type}s",
-            'edit_others_posts'      => "edit_others_{$capability_type}s",
-            'publish_posts'          => "publish_{$capability_type}s",
-            'read'                   => "read",
-            'delete_posts'           => "delete_{$capability_type}s",
-            'delete_published_posts' => "delete_published_{$capability_type}s",
-            'delete_others_posts'    => "delete_others_{$capability_type}s",
-            'edit_published_posts'   => "edit_published_{$capability_type}s",
-            'create_posts'           => "edit_{$capability_type}s",
-        );
+				$before = $this->settings['remove_comments'] ? '' : '<!-- start Simple Custom CSS and JS -->' . PHP_EOL;
+				$after  = $this->settings['remove_comments'] ? '' : '<!-- end Simple Custom CSS and JS -->' . PHP_EOL;
 
-        $args = array(
-            'labels'                 => $labels,
-            'description'            => __( 'Custom CSS and JS code', 'custom-css-js' ),
-            'public'                 => false,
-            'publicly_queryable'     => false,
-            'show_ui'                => true,
-            'show_in_menu'           => true,
-            'menu_position'          => 100,
-            'menu_icon'              => 'dashicons-plus-alt',
-            'query_var'              => false,
-            'rewrite'                => array( 'slug' => 'custom-css-js' ),
-            'capability_type'        => $capability_type,
-            'capabilities'           => $capabilities, 
-            'has_archive'            => true,
-            'hierarchical'           => false,
-            'exclude_from_search'    => true,
-            'menu_position'          => null,
-            'can_export'             => false,
-            'supports'               => array( 'title' )
-        );
+				if ( $type === 'css' || $type === 'js' ) {
+					$before .= '<' . $tag[ $type ] . ' ' . $type_attr . '>' . PHP_EOL;
+					$after   = '</' . $tag[ $type ] . '>' . PHP_EOL . $after;
+				}
 
-        register_post_type( 'custom-css-js', $args );
-    }
+			}
 
-        
-    /**
-     * Create roles and capabilities.
-     */
-    function create_roles() {
-        global $wp_roles;
+			foreach ( $args as $_filename ) {
+
+				if ( $where === 'internal' && ( strstr( $_filename, 'css' ) || strstr( $_filename, 'js' ) ) ) {
+					if ( $this->settings['remove_comments'] || empty( $type_attr ) ) {
+						$custom_code = @file_get_contents( CCJ_UPLOAD_DIR . '/' . $_filename );
+						if ( $this->settings['remove_comments'] ) {
+								$custom_code = str_replace( array( 
+										'<!-- start Simple Custom CSS and JS -->' . PHP_EOL, 
+										'<!-- end Simple Custom CSS and JS -->' . PHP_EOL 
+								), '', $custom_code );
+						}
+						if ( empty( $type_attr ) ) {
+							$custom_code = str_replace( array( ' type="text/javascript"', ' type="text/css"' ), '', $custom_code );
+						}
+						echo $custom_code;
+					} else {
+						echo @file_get_contents( CCJ_UPLOAD_DIR . '/' . $_filename );
+					}
+				}
+
+				if ( $where === 'internal' && ! strstr( $_filename, 'css' ) && ! strstr( $_filename, 'js' ) ) {
+					$post = get_post( $_filename );
+					echo $before . $post->post_content . $after;
+				}
+
+				if ( $where === 'external' && $type === 'js' ) {
+					echo PHP_EOL . "<script{$type_attr} src='{$upload_url}{$_filename}'></script>" . PHP_EOL;
+				}
+
+				if ( $where === 'external' && $type === 'css' ) {
+					$shortfilename = preg_replace( '@\.css\?v=.*$@', '', $_filename );
+					echo PHP_EOL . "<link rel='stylesheet' id='{$shortfilename}-css' href='{$upload_url}{$_filename}'{$type_attr} media='all' />" . PHP_EOL;
+				}
+
+				if ( $where === 'external' && $type === 'html' ) {
+					$_filename = str_replace( '.html', '', $_filename );
+					$post      = get_post( $_filename );
+					echo $post->post_content . PHP_EOL;
+				}
+			}
+		}
 
 
-        if ( !current_user_can('update_plugins') )
-            return;
-
-        if ( ! class_exists( 'WP_Roles' ) ) {
-            return;
-        }
-
-        if ( ! isset( $wp_roles ) ) {
-            $wp_roles = new WP_Roles();
-        }
-
-        if ( isset($wp_roles->roles['css_js_designer'])) 
-            return;
-
-        // Add Web Designer role
-        add_role( 'css_js_designer', __( 'Web Designer', 'custom-css-js'), array(
-            'level_9'                => true,
-            'level_8'                => true,
-            'level_7'                => true,
-            'level_6'                => true,
-            'level_5'                => true,
-            'level_4'                => true,
-            'level_3'                => true,
-            'level_2'                => true,
-            'level_1'                => true,
-            'level_0'                => true,
-            'read'                   => true,
-            'read_private_pages'     => true,
-            'read_private_posts'     => true,
-            'edit_users'             => true,
-            'edit_posts'             => true,
-            'edit_pages'             => true,
-            'edit_published_posts'   => true,
-            'edit_published_pages'   => true,
-            'edit_private_pages'     => true,
-            'edit_private_posts'     => true,
-            'edit_others_posts'      => true,
-            'edit_others_pages'      => true,
-            'publish_posts'          => true,
-            'publish_pages'          => true,
-            'delete_posts'           => true,
-            'delete_pages'           => true,
-            'delete_private_pages'   => true,
-            'delete_private_posts'   => true,
-            'delete_published_pages' => true,
-            'delete_published_posts' => true,
-            'delete_others_posts'    => true,
-            'delete_others_pages'    => true,
-            'manage_categories'      => true,
-            'moderate_comments'      => true,
-            'unfiltered_html'        => true,
-            'upload_files'           => true,
-        ) );
-
-        $capabilities = array();
-
-        $capability_types = array( 'custom_css' );
-
-        foreach ( $capability_types as $capability_type ) {
-
-            $capabilities[ $capability_type ] = array(
-                // Post type
-                "edit_{$capability_type}",
-                "read_{$capability_type}",
-                "delete_{$capability_type}",
-                "edit_{$capability_type}s",
-                "edit_others_{$capability_type}s",
-                "publish_{$capability_type}s",
-                "delete_{$capability_type}s",
-                "delete_published_{$capability_type}s",
-                "delete_others_{$capability_type}s",
-                "edit_published_{$capability_type}s",
-            );
-        }
-
-        foreach ( $capabilities as $cap_group ) {
-            foreach ( $cap_group as $cap ) {
-                $wp_roles->add_cap( 'css_js_designer', $cap );
-                $wp_roles->add_cap( 'administrator', $cap );
-            }
-        }
-    }
+		/**
+		 * Enqueue the jQuery library, if necessary
+		 */
+		public static function wp_enqueue_scripts() {
+			wp_enqueue_script( 'jquery' );
+		}
 
 
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'custom-css-js', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+		/**
+		 * Set constants for later use
+		 */
+		function set_constants() {
+			$dir       = wp_upload_dir();
+			$constants = array(
+				'CCJ_VERSION'     => '3.36',
+				'CCJ_UPLOAD_DIR'  => $dir['basedir'] . '/custom-css-js',
+				'CCJ_UPLOAD_URL'  => $dir['baseurl'] . '/custom-css-js',
+				'CCJ_PLUGIN_FILE' => __FILE__,
+			);
+			foreach ( $constants as $_key => $_value ) {
+				if ( ! defined( $_key ) ) {
+					define( $_key, $_value );
+				}
+			}
+		}
+
+
+		public function load_plugin_textdomain() {
+			load_plugin_textdomain( 'custom-css-js', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+		}
+
 	}
 
-}
-
-endif; 
+endif;
 
 /**
- * Returns the main instance of CustomCSSandJS 
+ * Returns the main instance of CustomCSSandJS
  *
- * @return CustomCSSandJS 
+ * @return CustomCSSandJS
  */
-function CustomCSSandJS() {
-    return CustomCSSandJS::instance();
-}
+if ( ! function_exists( 'CustomCSSandJS' ) ) {
+	function CustomCSSandJS() {
+		return CustomCSSandJS::instance();
+	}
 
-CustomCSSandJS();
+	CustomCSSandJS();
+}
 
 
 /**
  * Plugin action link to Settings page
 */
-function custom_css_js_plugin_action_links( $links ) {
+if ( ! function_exists( 'custom_css_js_plugin_action_links' ) ) {
+	function custom_css_js_plugin_action_links( $links ) {
 
-    $settings_link = '<a href="edit.php?post_type=custom-css-js">' .
-        esc_html( __('Settings', 'custom-css-js' ) ) . '</a>';
+		$settings_link = '<a href="edit.php?post_type=custom-css-js">' .
+		esc_html( __( 'Settings', 'custom-css-js' ) ) . '</a>';
 
-    return array_merge( array( $settings_link), $links );
-    
+		return array_merge( array( $settings_link ), $links );
+
+	}
+	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'custom_css_js_plugin_action_links' );
 }
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'custom_css_js_plugin_action_links' );
 
+
+
+/**
+ * Compatibility with the WP Quads Pro plugin,
+ * otherwise on a Custom Code save there is a
+ * "The link you followed has expired." page shown.
+ */
+if ( ! function_exists( 'custom_css_js_quads_pro_compat' ) ) {
+	function custom_css_js_quads_pro_compat( $post_types ) {
+		$match = array_search( 'custom-css-js', $post_types );
+		if ( $match ) {
+			unset( $post_types[ $match ] );
+		}
+		return $post_types;
+	}
+	add_filter( 'quads_meta_box_post_types', 'custom_css_js_quads_pro_compat', 20 );
+}
 

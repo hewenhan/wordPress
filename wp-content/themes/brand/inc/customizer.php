@@ -61,10 +61,11 @@ function brand_customize_register( $wp_customize ) {
 				$wp_customize,
 				'go-pro',
 					array(
-						'title'    => esc_html__( 'Get Brand Premium', 'brand' ),
-						'pro_text' => esc_html__( 'Go Pro',         'brand' ),
-						'pro_url'  => 'https://www.wp-brandtheme.com/add-ons',
-						'priority' => 210,
+						'title'    => esc_html__( 'Ready for more?', 'brand' ),
+						'pro_text' => esc_html__( 'Get Brand Bundle', 'brand' ),
+						'pro_url'  => 'https://www.wp-brandtheme.com/downloads/brand-bundle/',
+						'pro_classes'  => 'pro-features',
+						'priority' => 240,
 					)
 			)
 		);
@@ -102,30 +103,30 @@ function brand_customize_register( $wp_customize ) {
 	) );
 
 	// Add logo settings and control to site identity section
-	$wp_customize->add_setting( 'brand_settings[logo]', array(
+	$wp_customize->add_setting( 'brand_settings[logo_url]', array(
   		'type' => 'option',
   		'capability' => 'edit_theme_options',
-  		'default' => $defaults['logo'],
+  		'default' => $defaults['logo_url'],
   		'transport' => 'refresh',
-  		'sanitize_callback' => 'absint',
+  		'sanitize_callback' => 'esc_url_raw',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'brand_settings[logo]', array(
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'brand_settings[logo_url]', array(
   		'label' => __( 'Logo', 'brand' ),
   		'section' => 'title_tagline',
   		'mime_type' => 'image',
 		'priority'  => '100'
 	) ) );
 
-	$wp_customize->add_setting( 'brand_settings[logo_mobile]', array(
+	$wp_customize->add_setting( 'brand_settings[logo_mobile_url]', array(
   		'type' => 'option',
   		'capability' => 'edit_theme_options',
-  		'default' => $defaults['logo_mobile'],
+  		'default' => $defaults['logo_mobile_url'],
   		'transport' => 'refresh',
-  		'sanitize_callback' => 'absint',
+  		'sanitize_callback' => 'esc_url_raw',
 	) );
 
-	$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'brand_settings[logo_mobile]', array(
+	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'brand_settings[logo_mobile_url]', array(
   		'label' => __( 'Mobile logo', 'brand' ),
   		'section' => 'title_tagline',
   		'mime_type' => 'image',
@@ -151,7 +152,7 @@ function brand_customize_register( $wp_customize ) {
   		'type' => 'option',
   		'capability' => 'edit_theme_options',
   		'default' => $defaults['container_width'],
-  		'transport' => 'postMessage',
+  		'transport' => 'refresh',
   		'sanitize_callback' => 'absint',
 	) );
 
@@ -167,6 +168,40 @@ function brand_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	$wp_customize->add_setting( 'brand_settings[container_type]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['container_type'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'brand_sanitize_width'
+	) );
+
+	$wp_customize->add_control( 'brand_settings[container_type]', array(
+  		'type' => 'select',
+  		'section' => 'brand_general',
+  		'label' => __( 'Container type', 'brand' ),
+		'priority' => 5,
+  		'choices' => array(
+			'fullwidth' => 'Full width',
+    		'boxed'     => 'Boxed'
+  		),
+	) );
+
+	$wp_customize->add_setting( 'brand_settings[footer_nav_fullwidth]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['footer_nav_fullwidth'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'brand_sanitize_checkbox',
+	) );
+
+	$wp_customize->add_control( 'brand_settings[footer_nav_fullwidth]', array(
+  		'type' => 'checkbox',
+  		'section' => 'brand_general',
+  		'description' => __( 'Let navigation and footer content take the entire container width. ', 'brand' ),
+			'priority' => 10,
+	) );
 
 	$wp_customize->add_setting( 'brand_settings[sidebar_layout]', array(
   		'type' => 'option',
@@ -219,25 +254,6 @@ function brand_customize_register( $wp_customize ) {
 			'panel' => 'brand_layout',
 	) );
 
-	$wp_customize->add_setting( 'brand_settings[nav_width]', array(
-  		'type' => 'option',
-  		'capability' => 'edit_theme_options',
-  		'default' => $defaults['nav_width'],
-  		'transport' => 'postMessage',
-  		'sanitize_callback' => 'brand_sanitize_width'
-	) );
-
-	$wp_customize->add_control( 'brand_settings[nav_width]', array(
-  		'type' => 'select',
-  		'section' => 'brand_navigation_layout',
-  		'label' => __( 'Navigation width', 'brand' ),
-		'priority' => 10,
-  		'choices' => array(
-			'fullwidth' => 'Full width',
-    		'boxed'     => 'Boxed'
-  		),
-	) );
-
 	$wp_customize->add_setting( 'brand_settings[nav_layout]', array(
   		'type' => 'option',
   		'capability' => 'edit_theme_options',
@@ -251,7 +267,7 @@ function brand_customize_register( $wp_customize ) {
   		'section' => 'brand_navigation_layout',
   		'label' => __( 'Navigation layout', 'brand' ),
 			'description' => __( 'Choose inline to show logo and navigation on the same line. Choose centered to center them.', 'brand' ),
-			'priority' => 15,
+			'priority' => 20,
   		'choices' => array(
 				'inline'   => 'Inline',
 				'centered' => 'Centered',
@@ -270,11 +286,30 @@ function brand_customize_register( $wp_customize ) {
   		'type' => 'select',
   		'section' => 'brand_navigation_layout',
   		'label' => __( 'Use compact menu on desktop', 'brand' ),
-		'priority' => 20,
+		'priority' => 30,
   		'choices' => array(
 			'yes'   => 'Yes',
 			'no' => 'No',
   		)
+	) );
+
+	$wp_customize->add_setting( 'brand_settings[sticky_menu]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['sticky_menu'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'brand_sanitize_sticky_menu'
+	) );
+
+	$wp_customize->add_control( 'brand_settings[sticky_menu]', array(
+  		'type' => 'select',
+  		'section' => 'brand_navigation_layout',
+  		'label' => __( 'Sticky menu', 'brand' ),
+		'priority' => 35,
+  		'choices' => array(
+			'yes'    => 'Yes',
+    	'no' => 'No',
+  		),
 	) );
 
 	$wp_customize->add_setting( 'brand_settings[nav_orientation]', array(
@@ -289,7 +324,7 @@ function brand_customize_register( $wp_customize ) {
   		'type' => 'select',
   		'section' => 'brand_navigation_layout',
   		'label' => __( 'Navigation orientation', 'brand' ),
-		'priority' => 25,
+		'priority' => 40,
   		'choices' => array(
 			'horizontal'   => 'Horizontal',
 			'vertical' => 'Vertical',
@@ -308,7 +343,7 @@ function brand_customize_register( $wp_customize ) {
   		'type' => 'select',
   		'section' => 'brand_navigation_layout',
   		'label' => __( 'Search icon', 'brand' ),
-			'priority' => 30,
+			'priority' => 50,
   		'choices' => array(
 			'enabled'  => 'Enabled',
     		'disabled' => 'Disabled',
@@ -321,25 +356,6 @@ function brand_customize_register( $wp_customize ) {
   		'priority' => 30,
   		'capability' => 'edit_theme_options',
 			'panel' => 'brand_layout',
-	) );
-
-	$wp_customize->add_setting( 'brand_settings[header_width]', array(
-  		'type' => 'option',
-  		'capability' => 'edit_theme_options',
-  		'default' => $defaults['header_width'],
-  		'transport' => 'postMessage',
-  		'sanitize_callback' => 'brand_sanitize_width'
-	) );
-
-	$wp_customize->add_control( 'brand_settings[header_width]', array(
-  		'type' => 'select',
-  		'section' => 'brand_header_layout',
-  		'label' => __( 'Header width', 'brand' ),
-			'priority' => 10,
-  		'choices' => array(
-			'fullwidth' => 'Full width',
-    		'boxed'     => 'Boxed'
-  		),
 	) );
 
 	$wp_customize->add_setting( 'brand_settings[header_alignment]', array(
@@ -390,33 +406,6 @@ function brand_customize_register( $wp_customize ) {
   		),
 	) );
 
-	// Add Content section in the Layout panel
-	$wp_customize->add_section( 'brand_content_layout', array(
-  		'title' => __( 'Content', 'brand' ),
-  		'priority' => 50,
-  		'capability' => 'edit_theme_options',
-		  'panel' => 'brand_layout',
-	) );
-
-	$wp_customize->add_setting( 'brand_settings[content_width]', array(
-  		'type' => 'option',
-  		'capability' => 'edit_theme_options',
-  		'default' => $defaults['content_width'],
-  		'transport' => 'postMessage',
-  		'sanitize_callback' => 'brand_sanitize_width'
-	) );
-
-	$wp_customize->add_control( 'brand_settings[content_width]', array(
-  		'type' => 'select',
-  		'section' => 'brand_content_layout',
-  		'label' => __( 'Content width', 'brand' ),
-		  'priority' => 10,
-  		'choices' => array(
-				'fullwidth' => 'Full width',
-    		'boxed'     => 'Boxed'
-  		),
-	) );
-
 	// Add Sidebar section in the Layout panel
 	$wp_customize->add_section( 'brand_sidebar_layout', array(
   		'title' => __( 'Sidebar', 'brand' ),
@@ -425,31 +414,12 @@ function brand_customize_register( $wp_customize ) {
 		  'panel' => 'brand_layout',
 	) );
 
-	// Add Footer widgets section in the Layout panel
-	$wp_customize->add_section( 'brand_footer_widgets_layout', array(
-  		'title' => __( 'Footer widgets', 'brand' ),
-  		'priority' => 70,
+	// Add Footer section in the Layout panel
+	$wp_customize->add_section( 'brand_footer_layout', array(
+  		'title' => __( 'Footer', 'brand' ),
+  		'priority' => 80,
   		'capability' => 'edit_theme_options',
 		  'panel' => 'brand_layout',
-	) );
-
-	$wp_customize->add_setting( 'brand_settings[footer_widgets_width]', array(
-  		'type' => 'option',
-  		'capability' => 'edit_theme_options',
-  		'default' => $defaults['footer_widgets_width'],
-  		'transport' => 'postMessage',
-  		'sanitize_callback' => 'brand_sanitize_width'
-	) );
-
-	$wp_customize->add_control( 'brand_settings[footer_widgets_width]', array(
-  		'type' => 'select',
-  		'section' => 'brand_footer_widgets_layout',
-  		'label' => __( 'Footer widgets width', 'brand' ),
-		  'priority' => 10,
-  		'choices' => array(
-				'fullwidth' => 'Full width',
-    		'boxed'     => 'Boxed'
-  		),
 	) );
 
 	$wp_customize->add_setting( 'brand_settings[footer_widgets]', array(
@@ -463,7 +433,7 @@ function brand_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control( 'brand_settings[footer_widgets]', array(
   		'type' => 'select',
-  		'section' => 'brand_footer_widgets_layout',
+  		'section' => 'brand_footer_layout',
   		'label' => __( 'Footer widgets', 'brand' ),
 		  'priority' => 15,
   		'choices' => array(
@@ -475,32 +445,6 @@ function brand_customize_register( $wp_customize ) {
   		),
 	) );
 
-	// Add Footer section in the Layout panel
-	$wp_customize->add_section( 'brand_footer_layout', array(
-  		'title' => __( 'Footer', 'brand' ),
-  		'priority' => 80,
-  		'capability' => 'edit_theme_options',
-		  'panel' => 'brand_layout',
-	) );
-
-	$wp_customize->add_setting( 'brand_settings[footer_width]', array(
-  		'type' => 'option',
-  		'capability' => 'edit_theme_options',
-  		'default' => $defaults['footer_width'],
-  		'transport' => 'postMessage',
-  		'sanitize_callback' => 'brand_sanitize_width'
-	) );
-
-	$wp_customize->add_control( 'brand_settings[footer_width]', array(
-  		'type' => 'select',
-  		'section' => 'brand_footer_layout',
-  		'label' => __( 'Footer width', 'brand' ),
-		  'priority' => 10,
-  		'choices' => array(
-				'fullwidth' => 'Full width',
-    		'boxed'     => 'Boxed'
-  		),
-	) );
 
 	// Remove default color section
 	$wp_customize->remove_section( 'colors' );
@@ -580,13 +524,13 @@ function brand_customize_register( $wp_customize ) {
 					'section'     => 'brand_base_colors',
 					'type'        => 'addon',
 					'label'			  => __( 'More Settings','brand' ),
-					'url'         => 'https://www.wp-brandtheme.com/add-ons/',
+					'url'         => 'https://www.wp-brandtheme.com/downloads/brand-premium/',
 					'description' => sprintf(
 						/* translators: link to premium add-ons */
 						__( 'Need more color settings?<br /> %s.', 'brand' ),
 						sprintf(
 							'<a href="%1$s" target="_blank">%2$s</a>',
-							esc_url( 'https://www.wp-brandtheme.com/add-ons/' ),
+							esc_url( 'https://www.wp-brandtheme.com/downloads/brand-premium/' ),
 							__( 'Take a look at our premium plugin', 'brand' )
 						)
 					),
@@ -668,13 +612,13 @@ function brand_customize_register( $wp_customize ) {
 					'section'     => 'brand_blog_general',
 					'type'        => 'addon',
 					'label'			=> __( 'More Settings','brand' ),
-					'url' => 'https://www.wp-brandtheme.com/add-ons/',
+					'url' => 'https://www.wp-brandtheme.com/downloads/brand-premium/',
 					'description' => sprintf(
 						/* translators: link to premium add-ons */
 						__( 'Need more blog settings?<br /> %s.', 'brand' ),
 						sprintf(
 							'<a href="%1$s" target="_blank">%2$s</a>',
-							esc_url( 'https://www.wp-brandtheme.com/add-ons/' ),
+							esc_url( 'https://www.wp-brandtheme.com/downloads/brand-premium/' ),
 							__( 'Take a look at our premium plugin', 'brand' )
 						)
 					),
@@ -780,6 +724,76 @@ function brand_customize_register( $wp_customize ) {
     	'priority'       => 25,
     	'capability'     => 'edit_theme_options',
     	'title'          => __( 'Slider', 'brand' ),
+	) );
+
+	// Adds slider settings section
+	$wp_customize->add_section( 'brand_slider_settings', array(
+			'title' => __( 'Settings', 'brand' ),
+			'priority' => 10,
+			'capability' => 'edit_theme_options',
+			'panel' => 'brand_slider',
+	) );
+
+	$wp_customize->add_setting( 'brand_settings[autoplay_slider]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['autoplay_slider'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'brand_sanitize_checkbox',
+	) );
+
+	$wp_customize->add_control( 'brand_settings[autoplay_slider]', array(
+  		'type' => 'checkbox',
+  		'section' => 'brand_slider_settings',
+  		'description' => __( 'Enable autoplay', 'brand' ),
+			'priority' => 10,
+	) );
+
+	$wp_customize->add_setting( 'brand_settings[lazy_loading_slider]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['lazy_loading_slider'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'brand_sanitize_checkbox',
+	) );
+
+	$wp_customize->add_control( 'brand_settings[lazy_loading_slider]', array(
+  		'type' => 'checkbox',
+  		'section' => 'brand_slider_settings',
+  		'description' => __( 'Enable lazy loading (it loads only the current, previous and next slide images to speed up page loading.)', 'brand' ),
+			'priority' => 20,
+	) );
+
+	$wp_customize->add_setting( 'brand_settings[delay_slider]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['delay_slider'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'absint',
+	) );
+
+	$wp_customize->add_control( 'brand_settings[delay_slider]', array(
+  		'type' => 'text',
+  		'section' => 'brand_slider_settings',
+			'label' => __( 'Delay', 'brand' ),
+  		'description' => __( 'Delay between slides transitions (in milliseconds).', 'brand' ),
+			'priority' => 30,
+	) );
+
+	$wp_customize->add_setting( 'brand_settings[speed_slider]', array(
+  		'type' => 'option',
+  		'capability' => 'edit_theme_options',
+  		'default' => $defaults['speed_slider'],
+  		'transport' => 'refresh',
+  		'sanitize_callback' => 'absint',
+	) );
+
+	$wp_customize->add_control( 'brand_settings[speed_slider]', array(
+  		'type' => 'text',
+  		'section' => 'brand_slider_settings',
+			'label' => __( 'Speed', 'brand' ),
+  		'description' => __( 'Duration of transition between slides (in milliseconds).', 'brand' ),
+			'priority' => 40,
 	) );
 
 	$slides_number = $brand_settings['slides_number'];
@@ -956,15 +970,15 @@ add_action('customize_controls_print_styles', 'brand_customize_preview_css');
 function brand_customize_preview_css() {
 	?>
 	<style>
-		.customize-control-line {
-			display: none !important;
-		}
 		#accordion-section-secondary_bg_images_section li.customize-section-description-container {
 			float: none;
 			width: 100%;
 		}
 
-		#customize-control-brand_settings-show_site_title .description {
+		#customize-control-brand_settings-show_site_title .description,
+		#customize-control-brand_settings-footer_nav_fullwidth .description,
+		#customize-control-brand_settings-autoplay_slider .description,
+		#customize-control-brand_settings-lazy_loading_slider .description {
 			display: inline;
 		}
 
@@ -1036,6 +1050,8 @@ function brand_customize_preview_css() {
 		brand_get_defaults()
 	);
 
+	$footer_nav_width = false !== $brand_settings['footer_nav_fullwidth'] ? '100%' : intval( $brand_settings['container_width'] ) . 'px';
+
 	if( is_singular() ) {
 		global $post;
 		if( has_post_thumbnail( $post->ID ) && 'inside_header' === $brand_settings['featured_position'] ) {
@@ -1087,13 +1103,21 @@ function brand_customize_preview_css() {
 		max-width: <?php echo intval($brand_settings['container_width']); ?>px;
 	}
 
+	#main-nav-wrapper .container,
+	#footer .container,
+	.site-info .container {
+		max-width: <?php echo $footer_nav_width; // WPCS: XSS ok. ?>;
+	}
+
 	<?php
 	// Slider
 	for( $i = 1; $i <= $brand_settings['slides_number']; $i++ ) {
-		if( 0 !== $brand_settings['brand_slide_image' . $i] ) { ?>
-			<?php echo '#brand-slide-' . $i . ':before' ?> {
-				background-image: url( <?php echo esc_url( $brand_settings['brand_slide_image' . $i] ); ?> );
-			}  <?php
+		if( 0 !== $brand_settings['brand_slide_image' . $i] ) {
+			if( false === $brand_settings['lazy_loading_slider'] ) {
+				echo '#brand-slide-' . $i . ':before' ?> {
+					background-image: url( <?php echo esc_url( $brand_settings['brand_slide_image' . $i] ); ?> );
+				}  <?php
+			}
 			echo '#brand-slide-' . $i . ' h1, #brand-slide-' . $i . ' h2';  ?> {
 				color: <?php echo esc_attr( $brand_settings['brand_slide_text_color' . $i] ); ?>;
 			} <?php
@@ -1109,7 +1133,7 @@ function brand_customize_preview_css() {
 		border-color: <?php echo esc_attr($brand_settings['link_hover_color']); ?>;
 	} */
 
-	#header-wrapper {
+	#header-wrapper, #header-portfolio-wrapper {
 		text-align: <?php echo esc_attr($brand_settings['header_alignment']); ?>;
 	}
 
@@ -1127,7 +1151,7 @@ function brand_customize_preview_css() {
 	$breakpoint_unit = str_replace( $tablet_breakpoint, '', $tablet );
 	$desktop_breakpoint = $tablet_breakpoint + 1 . $breakpoint_unit; ?>
 
-	.woocommerce-page ul.products > li.product {
+	.woocommerce-page ul.products.columns- <?php echo $product_cols // WPCS: XSS ok. ?> > li.product {
 		margin:0 1% 30px 0;
 		width: <?php echo $col_width; // WPCS: XSS ok. ?>%;
 	}

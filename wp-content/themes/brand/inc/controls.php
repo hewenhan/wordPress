@@ -259,6 +259,7 @@ if ( !class_exists('Brand_Customize_Generic_Slider_Control') ) :
         </p>
       </label>
 			<div class="slider"></div>
+			<p class="description customize-control-description"> <?php echo esc_html( $this->description ); ?> </p>
 		<?php
 		}
 

@@ -3,6 +3,35 @@
     CP_Customizer.addModule(function (CP_Customizer) {
         _.extend(CP_Customizer, {
             menu: {
+
+                getGlobalOption: function(name, defaultValue){
+                    if (cpCustomizerGlobal && cpCustomizerGlobal.pluginOptions && cpCustomizerGlobal.pluginOptions.hasOwnProperty(name)) {
+                        return cpCustomizerGlobal.pluginOptions[name];
+                    }
+
+                    return defaultValue;
+                },
+
+                getPrimaryLocationModName: function() {
+                    var primaryLocation = this.getGlobalOption("primaryMenuLocation", "primary");
+                    return 'nav_menu_locations[' + primaryLocation + ']';
+                },
+
+                getHomeUrl: function() {
+                    var primaryMenuHomeUrl = this.getGlobalOption("homeUrl", CP_Customizer.preview.data().siteURL);
+                    return primaryMenuHomeUrl;
+                },
+
+                canSetPrimaryLocation: function() {
+                    var canSetPrimaryLocation = this.getGlobalOption("canSetPrimaryLocation", true);
+                    return canSetPrimaryLocation;
+                },
+
+                getPrimaryLocationDefaultLanguageMenu: function() {
+                    var primaryLocationDefaultLanguageMenu = this.getGlobalOption("primaryLocationDefaultLanguageMenu", -1);
+                    return primaryLocationDefaultLanguageMenu;
+                },
+
                 createPrimaryMenu: function () {
                     var api = root.wp.customize;
                     var customizeId,
@@ -37,9 +66,19 @@
                     });
                     api.section.add(customizeId, menuSection);
 
+                    if (this.canSetPrimaryLocation()) {
+                        // set location
+                        api(this.getPrimaryLocationModName()).set(placeholderId);
+                    }
 
-                    // set location
-                    api('nav_menu_locations[primary]').set(placeholderId);
+                    var defaultMenu = this.getPrimaryLocationDefaultLanguageMenu();
+
+                    if (defaultMenu !== -1) {
+                        wp.customize.bind("save-request-params", function (query) {
+                            query.icl_translation_of = defaultMenu;
+                            return query;
+                        });
+                    }
 
 
                     // create home page menu item;
@@ -49,7 +88,7 @@
 
 
                 getPrimaryMenuID: function () {
-                    var menuId = wp.customize('nav_menu_locations[primary]').get();
+                    var menuId = wp.customize(this.getPrimaryLocationModName()).get();
                     if (wp.customize('nav_menu[' + menuId + ']')) {
                         return menuId;
                     } else {
@@ -111,7 +150,7 @@
                     position += 1;
                     priority += 1;
 
-                    var url = CP_Customizer.preview.data().siteURL;
+                    var url = CP_Customizer.menu.getHomeUrl();
                     if (anchor.replace(/#/, '').length) {
                         url = CP_Customizer.preview.data().pageURL + "#" + anchor.replace(/#/, '');
                     }

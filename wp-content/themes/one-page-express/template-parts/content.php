@@ -20,7 +20,8 @@
         <?php 
           the_excerpt();
         ?>
-        <hr class="blog-separator">
+
+
          <?php  get_template_part('template-parts/content-post-footer'); ?>
     </div>
   </div>

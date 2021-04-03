@@ -25,6 +25,7 @@
 <?php if( ! brand_is_hidden( 'navigation' ) ) { ?>
 	<div id="mobile-menu-wrapper">
 		<a id="mobile-menu-close-button" href="#"></a>
+		<div class="mobile-menu-inner">
     	<?php
 			wp_nav_menu( array(
 				'theme_location'   => 'primary',
@@ -33,7 +34,10 @@
 				//'depth'           => 2
 				)
 		)	;
+
+		get_sidebar( 'mobile' );
 		?>
+	</div> <!-- .mobile-menu-inner -->
 	</div> <!-- #mobile-menu-wrapper --> <?php
 }
 

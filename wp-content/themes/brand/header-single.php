@@ -26,6 +26,7 @@
 <?php if( ! brand_is_hidden( 'navigation' ) ) { ?>
 <div id="mobile-menu-wrapper">
 	<a id="mobile-menu-close-button" href="#"></a>
+	<div class="mobile-menu-inner">
     <?php
 		wp_nav_menu( array(
 			'theme_location'   => 'primary',
@@ -34,7 +35,10 @@
 			//'depth'           => 2
 			)
 		);
+
+		get_sidebar( 'mobile' );
 	?>
+	</div> <!-- .mobile-menu-inner -->
 </div> <!-- #mobile-menu-wrapper --> <?php
 }
 
@@ -42,7 +46,7 @@ do_action('brand_before_wrapper'); ?>
 <div id="wrapper"> <?php
   do_action('brand_before_header');
 
-if( ! brand_is_hidden( 'header' ) ) { ?>
+if( ! brand_no_header() ) { ?>
 	<div id="header-wrapper" <?php brand_header_wrapper_class() ?>>
     <?php do_action('brand_before_inside_header');
     do_action('brand_after_inside_header'); ?>

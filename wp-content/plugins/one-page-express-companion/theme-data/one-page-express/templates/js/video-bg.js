@@ -26,6 +26,7 @@
         $videoElement.css({
             width: videoWidth,
             height: videoHeight,
+            "max-width": Math.round(size.width),
             "opacity": 1,
             "left": marginLeft
         });

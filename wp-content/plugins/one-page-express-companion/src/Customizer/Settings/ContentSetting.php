@@ -9,6 +9,7 @@ class ContentSetting extends \OnePageExpress\Customizer\BaseSetting
 
     public function update($value)
     {
+        $value = urldecode($value);
         // clean
         $matches = array();
         preg_match($this->pageIDRegex, $value, $matches);
@@ -37,6 +38,7 @@ class ContentSetting extends \OnePageExpress\Customizer\BaseSetting
         }
 
         if (is_string($value)) {
+            $value = urldecode($value);
             $value = preg_replace($this->pageIDRegex, "", $value);
         }
 

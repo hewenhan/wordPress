@@ -1,65 +1,75 @@
 wp.customize.controlConstructor['kirki-spacing'] = wp.customize.Control.extend({
 
-	ready: function() {
+    ready: function () {
 
-		'use strict';
+        'use strict';
 
-		var control     = this,
-		    subControls = control.params.choices.controls,
-		    value       = {},
-		    subsArray   = [],
-		    i;
+        var control = this,
+            subControls = control.params.choices.controls,
+            value = {},
+            subsArray = [],
+            i;
 
-		_.each( subControls, function( v, i ) {
-			if ( true === v ) {
-				subsArray.push( i );
-			}
-		} );
+        _.each(subControls, function (v, i) {
+            if (true === v) {
+                subsArray.push(i);
+            }
+        });
 
-		for ( i = 0; i < subsArray.length; i++ ) {
+        for (i = 0; i < subsArray.length; i++) {
 
-			value[ subsArray[ i ] ] = control.setting._value[ subsArray[ i ] ];
+            value[subsArray[i]] = control.setting._value[subsArray[i]];
 
-			control.updateSpacingValue( subsArray[ i ], value );
+            control.updateSpacingValue(subsArray[i], value);
 
-		}
+        }
 
-	},
+    },
 
-	/**
-	 * Updates the value.
-	 */
-	updateSpacingValue: function( context, value ) {
+    /**
+     * Updates the value.
+     */
+    updateSpacingValue: function (context, value) {
 
-		var control = this;
+        var control = this;
+        
 
-		control.container.on( 'change keyup paste', '.' + context + ' input', function() {
-			value[ context ] = jQuery( this ).val();
+        var onChange = _.debounce(function(input){
 
-			// Notifications.
-			kirkiNotifications( control.id, 'kirki-spacing', control.params.kirkiConfig );
+            if (control.setting && control.setting.get()) {
+                value = _.clone(control.setting.get());
+            }
+            value[context] =input.val();
 
-			// Save the value
-			control.saveValue( value );
-		});
+            // Notifications.
+            kirkiNotifications(control.id, 'kirki-spacing', control.params.kirkiConfig);
 
-	},
+            // Save the value
+            control.saveValue(value);
 
-	/**
-	 * Saves the value.
-	 */
-	saveValue: function( value ) {
+        },500);
 
-		'use strict';
+        control.container.on('change keyup paste', '.' + context + ' input', function () {
+                onChange(jQuery(this));
+        });
 
-		var control  = this,
-		    newValue = {};
+    },
 
-		_.each( value, function( newSubValue, i ) {
-			newValue[ i ] = newSubValue;
-		});
+    /**
+     * Saves the value.
+     */
+    saveValue: function (value) {
 
-		control.setting.set( newValue );
-	}
+        'use strict';
+
+        var control = this,
+            newValue = {};
+
+        _.each(value, function (newSubValue, i) {
+            newValue[i] = newSubValue;
+        });
+
+        control.setting.set(newValue);
+    }
 
 });

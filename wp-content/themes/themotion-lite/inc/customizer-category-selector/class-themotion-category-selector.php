@@ -26,11 +26,12 @@ class Themotion_Category_Selector extends WP_Customize_Control {
 
 		<span class="customize-control-title">
 			<?php
-			echo esc_html( $this->label ); ?>
+			echo esc_html( $this->label );
+			?>
 		</span>
 
 		<select <?php $this->link(); ?>>
-			<option value="all"><?php esc_html_e( 'All', 'themotion-lite' );?></option>
+			<option value="all"><?php esc_html_e( 'All', 'themotion-lite' ); ?></option>
 			<?php
 			foreach ( $categories as $cat ) {
 				if ( $cat->count > 0 ) {

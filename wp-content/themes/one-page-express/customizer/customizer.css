@@ -66,7 +66,7 @@
     color: rgb(129, 129, 129);
     text-align: left;
     margin: 10px 0px;
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 #cp-items .image-controls span.customize-control-title {
@@ -77,7 +77,7 @@
 #cp-items input[type="text"], #cp-items select {
     background-color: rgb(255, 255, 255);
     width: 482px;
-    height: 47px;
+    height: 36px;
     border-color: rgb(221, 221, 221);
     border-width: 1px;
     -moz-border-radius: 1px;
@@ -1022,15 +1022,16 @@ div#TB_ajaxContent {
     margin-right: 0px;
 }
 
-.customize-control-ope-info-pro,
-.customize-control-ope-info {
-    padding: 0px 12px;
+.customize-control-ope-info-pro p,
+.customize-control-ope-info p {
+    padding: 6px 12px;
     background: hsla(60, 100%, 87%, 1);
     border: 1px solid #cecece;
     font-weight: normal;
     box-sizing: border-box;
     font-size: 0.9em;
     border-radius: 4px;
+    display:block;
 }
 
 .customize-control-ope-info-pro .upgrade-to-pro,
@@ -1039,7 +1040,7 @@ div#TB_ajaxContent {
     margin-left: 0px;
 }
 
-.customize-control-ope-info-pro {
+.customize-control-ope-info-pro p {
     border: 1px solid #c3c3c3;
     font-size: 1em;
     background-color: rgb(185, 219, 247);
@@ -1102,4 +1103,146 @@ li#accordion-section-one_page_express_header_layout h3:before {
     vertical-align: top;
     text-align: center;
     content: "\f100";
+}
+
+/*4.8 color picker style*/
+
+.wp-color-picker {
+    width: 80px
+}
+
+.wp-picker-container .hidden {
+    display: none
+}
+
+.wp-color-result {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 22px;
+    margin: 0 6px 6px 0;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    vertical-align: bottom;
+    display: inline-block;
+    padding-left: 30px;
+    -webkit-box-shadow: 0 1px 0 #ccc;
+    box-shadow: 0 1px 0 #ccc;
+    top: 0
+}
+
+.wp-color-result:after {
+    background: #f7f7f7;
+    -webkit-border-radius: 0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
+    border-left: 1px solid #ccc;
+    color: #555;
+    content: attr(title);
+    display: block;
+    font-size: 11px;
+    line-height: 22px;
+    padding: 0 6px;
+    position: relative;
+    right: 0;
+    text-align: center;
+    top: 0
+}
+
+.wp-color-result:focus, .wp-color-result:hover {
+    background: #fafafa;
+    border-color: #999;
+    color: #23282d
+}
+
+.wp-color-result:focus:after, .wp-color-result:hover:after {
+    color: #23282d;
+    border-color: #a0a5aa;
+    border-left: 1px solid #999
+}
+
+.wp-color-result.wp-picker-open:after {
+    content: attr(data-current)
+}
+
+.wp-picker-container, .wp-picker-container:active {
+    display: inline-block;
+    outline: 0
+}
+
+.wp-color-result:focus {
+    border-color: #5b9dd9;
+    -webkit-box-shadow: 0 0 3px rgba(0, 115, 170, .8);
+    box-shadow: 0 0 3px rgba(0, 115, 170, .8)
+}
+
+.wp-picker-open + .wp-picker-input-wrap {
+    display: inline-block;
+    vertical-align: top
+}
+
+.wp-picker-container .button {
+    margin-left: 6px
+}
+
+.wp-picker-container .iris-square-slider .ui-slider-handle:focus {
+    background-color: #555
+}
+
+.wp-picker-container .iris-picker {
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    border-color: #ddd;
+    margin-top: 6px
+}
+
+.wp-picker-container input[type=text].wp-color-picker {
+    width: 65px;
+    font-size: 12px;
+    font-family: monospace;
+    line-height: 16px;
+    margin: 0
+}
+
+.wp-color-picker::-webkit-input-placeholder {
+    color: #72777c
+}
+
+.wp-color-picker::-moz-placeholder {
+    color: #72777c;
+    opacity: 1
+}
+
+.wp-color-picker:-ms-input-placeholder {
+    color: #72777c
+}
+
+.wp-picker-container input[type=text].iris-error {
+    background-color: #ffebe8;
+    border-color: #c00;
+    color: #000
+}
+
+.wp-color-result.wp-picker-open:after {
+    content: attr(title);
+}
+
+.customize-control-kirki-checkbox input[type="checkbox"]:before,
+.customize-control-kirki-multicheck input[type="checkbox"]:before,
+.customize-control-repeater input[type="checkbox"]:before {
+    display: none;
+}
+
+.customize-control-kirki-checkbox input[type="checkbox"]:checked:before,
+.customize-control-kirki-multicheck input[type="checkbox"]:checked:before,
+.customize-control-repeater input[type="checkbox"]:checked:before {
+    display: block;
+}
+
+.customize-control.customize-control-kirki.customize-control-kirki-checkbox input {
+    line-height: 1;
 }

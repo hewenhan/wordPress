@@ -28,7 +28,7 @@
         }
 
 		public function add_meta_box( $post_type ) {
-        	$post_types = array( 'post', 'page' );
+        	$post_types = array( 'post', 'page', 'product', 'download' );
         	if ( in_array( $post_type, $post_types )) {
             	add_meta_box(
                 	'brand_sidebar_box',            // Unique ID

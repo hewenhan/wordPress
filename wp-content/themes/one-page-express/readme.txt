@@ -2,8 +2,8 @@
 
 Contributors: horearadu
 Tags:   one-column, right-sidebar, custom-header, custom-menu, custom-logo, full-width-template, theme-options, translation-ready, blog, featured-images, threaded-comments
-Requires at least:      3.3.0
-Tested up to:           4.8
+Requires at least:      5.3
+Tested up to:           5.6
 
 == Description ==
 
@@ -69,15 +69,15 @@ The exceptions to this license are as follows:
 * Google Fonts:
    Source Sans Pro (https://fonts.google.com/specimen/Source+Sans+Pro)
    Licensed under SIL Open Font License, 1.1 (http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web)
-   Copyright © Paul D. Hunt
+   Copyright Paul D. Hunt
 
    Lato (https://fonts.google.com/specimen/Lato)
    Licensed under SIL Open Font License, 1.1 (http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web)
-   Copyright © Lukasz Dziedzic
+   Copyright Lukasz Dziedzic
 
    Open Sans (https://fonts.google.com/specimen/Open+Sans)
    Licensed under Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
-   Copyright © Steve Matteson
+   Copyright Steve Matteson
    
 * Images
     The following SVG files used in the theme are distributed under the GPL v3 license (https://www.gnu.org/licenses/gpl-3.0.en.html)
@@ -121,16 +121,16 @@ The exceptions to this license are as follows:
     Source: http://www.uhdwallpapers.org/2016/11/natural-beauty-of-antelope-canyon-image-desktop-wallpaper.html
 
     * images/jeremy-bishop-14593.jpg
-    Source: https://unsplash.com/@tidesinourveins?photo=l61smgU3Y7w - Copyright (c) Jeremy Bishop
+    Source: https://www.pexels.com/photo/blue-foam-glassy-green-509857/ - Copyright (c) Jeremy Bishop
 
     * images/Mock-up.jpg - 
     Source: http://coverr.co/ ("Mock-up" coverr)
 
     * images/photo-1455894127589-22f75500213a.jpeg
-    Source: https://pixabay.com/en/laptop-desk-scene-computer-1246672/
+    Source: https://pxhere.com/en/photo/124100
 
     * images/project1.jpg
-    Source: https://unsplash.com/@firmbee?photo=jrh5lAq-mIs - Copyright (c) William Iven
+    Source: https://pxhere.com/en/photo/721868 - Copyright (c) William Iven
 
     The following images are the creation of Horea Radu and are distributed under the Creative Commons Zero License, http://creativecommons.org/publicdomain/zero/1.0/
 

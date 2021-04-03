@@ -44,7 +44,7 @@ if (!String.prototype.capitalize) {
             'begins-with'   : 'Starts with',
             'ends-by'       : 'Ends by',
             'all'           : 'All Website',
-            'first-page'    : 'First page'
+            'first-page'    : 'Homepage'
         };
 		
 		for (n in names) {
@@ -74,9 +74,18 @@ if (!String.prototype.capitalize) {
 		field = ('' === field)? [] : JSON.parse(field);
 		if (!(field instanceof Array) || field.length > 25)
 			return;
+
+        var max_index = 1;
+        $('.wplnst-elist-close-link').each(function() {
+            if ( $(this).data('index') > max_index ) {
+                max_index = $(this).data('index');
+            }
+        });
+	
 		
 		(name in elist_index)? elist_index[name]++ : elist_index[name] = 0;
-		value['index'] = elist_index[name] + 1;
+		// value['index'] = elist_index[name] + 1;
+        value['index'] = max_index + 1;
 		field.push(value);
 		
 		$('#wplnst-scan-' + name).val(JSON.stringify(field));

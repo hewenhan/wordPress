@@ -2,7 +2,7 @@
 Contributors: bigfa
 Tags: wordpress, 163,music ,网易云音乐, 虾米音乐
 Requires at least: 4.0
-Tested up to: 5.0
+Tested up to: 5.4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 原接口已失效，不再支持版权歌曲。
 
-演示地址:[https://jaguar.wpista.com/music](https://jaguar.wpista.com/music)
+演示地址:[http://coffin.wpista.com/music](http://coffin.wpista.com/music)
 
 插件使用帮助：[https://fatesinger.com/74369](https://fatesinger.com/74369)
 
@@ -30,6 +30,48 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 如更新后仍无法播放请在插件设置页面清除缓存。
 
 == Changelog ==
+= 3.2.1 =
+* 解决歌单获取失败的问题
+
+= 3.2.0 =
+* 解决可能无法获取个人歌单的问题
+
+= 3.1.3 =
+* 解决国外主机无法获取歌单的问题
+
+= 3.1.2 =
+* 细节改进
+
+= 3.1.0 =
+* 强制封面https
+
+= 3.0.13 =
+* 恢复网易音源
+
+= 3.0.12 =
+* 当获取网易音乐失败时使用qq音乐替代
+
+= 3.0.11 =
+* 增加一个cookie 设置选项来解决音乐获取失败的问题
+
+= 3.0.10 =
+* 错误修复
+
+= 3.0.9 =
+* 错误修复与样式改进
+
+= 3.0.8 =
+* 错误修复与样式改进
+
+= 3.0.7 =
+* 如果当前歌曲无法播放则自动切换下一曲
+
+= 3.0.6 =
+* 修复了只显示一首歌的bug
+
+= 3.0.5 =
+* 错误修复与样式改进
+
 = 3.0.4 =
 * 错误修复与样式改进
 

@@ -26,17 +26,19 @@ get_header(); ?>
 							global $post;
 							$post_title = get_the_title( $post->post_parent );
 
-							/* translators: 1: Date, 2: Category */
-							printf( esc_html__( 'Published on %1$s in %2$s', 'themotion-lite' ),
+							printf( /* translators: 1: Date, 2: Category */
+								esc_html__( 'Published on %1$s in %2$s', 'themotion-lite' ),
 								/* translators: 1: datetime attribute, 2: Publish date */
-								sprintf( '<time class="entry-date" datetime="%1$s">%2$s</time>',
+								sprintf(
+									'<time class="entry-date" datetime="%1$s">%2$s</time>',
 									esc_attr( get_the_date( 'c' ) ),
 									esc_html( get_the_date() )
 								),
 								/* translators: 1: Parent post link, 2: title attribute, 3: Post title */
-								sprintf( '<a href="%1$s" title="%2$s" rel="gallery">%3$s</a>',
+								sprintf(
+									'<a href="%1$s" title="%2$s" rel="gallery">%3$s</a>',
 									esc_url( get_permalink( $post->post_parent ) ),
-									esc_attr__( 'Return to ','themotion-lite' ) . esc_attr( $post_title ),
+									esc_attr__( 'Return to ', 'themotion-lite' ) . esc_attr( $post_title ),
 									esc_html( $post_title )
 								)
 							);
@@ -45,19 +47,32 @@ get_header(); ?>
 							<span class="attachment-meta full-size-link">
 								<?php
 								$attachement_url = wp_get_attachment_url();
-								$metadata = wp_get_attachment_metadata();
+								$metadata        = wp_get_attachment_metadata();
 
 								/* translators: 1: Attachement url, 2: Title attribute, 3: Resolution, 4: Width, 5: Height */
-								printf( '<a href="%1$s" title="%2$s">%3$s (%4$s &times; %5$s)</a>',
+								printf(
+									'<a href="%1$s" title="%2$s">%3$s (%4$s &times; %5$s)</a>',
 									esc_url( $attachement_url ),
-									esc_attr__( 'Link to full-size image', 'themotion-lite' ) ,
+									esc_attr__( 'Link to full-size image', 'themotion-lite' ),
 									esc_html__( 'Full resolution', 'themotion-lite' ),
 									esc_html( $metadata['width'] ),
 									esc_html( $metadata['height'] )
-								); ?>
+								);
+								?>
 							</span>
+							<div class="attachment-entry-meta">
+								<span class="vcard author"><strong class="fn"><?php the_author(); ?></strong></span>
+								<?php
+								printf( /* translators: date */
+									'<time class="date updated published" datetime="%2$s">%1$s</time>',
+									esc_html( get_the_time( get_option( 'date_format' ) ) ),
+									esc_html( get_the_date( DATE_W3C ) )
+								);
+								?>
+							</div>
 							<?php
-							edit_post_link( esc_html__( 'Edit', 'themotion-lite' ), '<span class="edit-link">', '</span>' ); ?>
+							edit_post_link( esc_html__( 'Edit', 'themotion-lite' ), '<span class="edit-link">', '</span>' );
+							?>
 						</div><!-- .entry-meta -->
 					</div>
 				</header><!-- .entry-header -->
@@ -84,10 +99,14 @@ get_header(); ?>
 						<?php if ( ! empty( $post->post_content ) ) : ?>
 							<div class="entry-description">
 								<?php the_content(); ?>
-								<?php wp_link_pages( array(
-									'before' => '<div class="page-links">' . __( 'Pages:', 'themotion-lite' ),
-									'after' => '</div>',
-								) ); ?>
+								<?php
+								wp_link_pages(
+									array(
+										'before' => '<div class="page-links">' . __( 'Pages:', 'themotion-lite' ),
+										'after'  => '</div>',
+									)
+								);
+								?>
 							</div><!-- .entry-description -->
 						<?php endif; ?>
 					</div>

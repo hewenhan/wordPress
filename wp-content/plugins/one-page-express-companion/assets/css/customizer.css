@@ -295,7 +295,7 @@ div#cp-full-screen-loader .wrapper p {
 #cp-items input[type="text"], #cp-items select {
     background-color: rgb(255, 255, 255);
     width: 482px;
-    height: 47px;
+    height: 36px;
     border-color: rgb(221, 221, 221);
     border-width: 1px;
     -moz-border-radius: 1px;
@@ -1572,4 +1572,29 @@ label.link-options-group .target-option {
     border-top: 1px solid #dddddd;
     padding: 10px 15px 0px 15px;
     margin: 10px -15px 0px -15px;
+}
+
+#cp-items .selectize-control input[type="text"],
+#cp-items .selectize-control select{
+    height:auto;
+}
+
+#cp-items .selectize-control > div{
+    -webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+    box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+}
+
+#customize-controls .customize-control-color .wp-picker-active input,
+#customize-controls .customize-control-kirki .wp-picker-active input{
+    display: inline-block !important;
+}
+
+.customize-control.customize-control-sidebar-button-group
+{
+    display:list-item !important;
+}
+
+.wp-core-ui .button.button-primary.addwebfont
+{
+    display:inline-block !important;
 }

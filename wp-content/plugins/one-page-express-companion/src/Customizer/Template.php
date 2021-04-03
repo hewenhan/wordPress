@@ -82,11 +82,21 @@ class Template
         return $content;
     }
 
+    public static function removeGutenberg()
+    {
+        $prioriries = apply_filters('cloudpress\companion\gutenberg_autop_filters', array(6, 8));
+        foreach ($prioriries as $priority) {
+            remove_filter('the_content', 'gutenberg_wpautop', $priority);
+        }
+        do_action('cloudpress\companion\remove_gutenberg');
+    }
+
     public static function filterContent($content)
     {
         $companion = \OnePageExpress\Companion::instance();
         if ($companion->isMaintainable()) {
             remove_filter('the_content', 'wpautop');
+            static::removeGutenberg();
 
             return Template::content($content, false);
         }
@@ -114,8 +124,9 @@ class Template
         $globalData['contentSections'] = array();
 
         foreach ($globalData['data']['sections'] as $section) {
-            $section['content'] = isset($section['content'])? $section['content'] : false;
-            $section['content']                            = apply_filters('cloudpress\template\page_content', $section['content']);
+            $section['content']                            = isset($section['content']) ? $section['content'] : false;
+            $section['content']                            = apply_filters('cloudpress\template\page_content',
+                $section['content']);
             $globalData['contentSections'][$section['id']] = $section;
         }
 
@@ -154,6 +165,7 @@ class Template
             // directly call for the page content
             ob_start();
             remove_filter('the_content', 'wpautop');
+            static::removeGutenberg();
             the_content();
             $content = ob_get_clean();
         } else {
@@ -162,7 +174,7 @@ class Template
             if (is_customize_preview()) {
                 $settingContent = get_theme_mod('page_content', false);
                 if ($settingContent && !empty($settingContent)) {
-                    $content = $settingContent;
+                    $content = urldecode($settingContent);
                 }
 
 
@@ -183,9 +195,9 @@ class Template
             }
 
             $content = apply_filters('cloudpress\template\page_content', $content);
-		    if (is_customize_preview()) {
-            $content = "<style id='cp_customizer_content_area_start'></style>" . $content;
-		    }
+            if (is_customize_preview()) {
+                $content = "<style id='cp_customizer_content_area_start'></style>" . $content;
+            }
         }
 
         if ($echo) {
@@ -256,12 +268,12 @@ class Template
     {
         add_action('widgets_init', function () use ($data) {
             register_sidebar(array(
-                'name'          => $data['name'],
-                'id'            => $data['id'],
+                'name' => $data['name'],
+                'id' => $data['id'],
                 'before_widget' => '<div id="%1$s" class="widget %2$s">',
-                'after_widget'  => '</div>',
-                'before_title'  => '<h4>',
-                'after_title'   => '</h4>',
+                'after_widget' => '</div>',
+                'before_title' => '<h4>',
+                'after_title' => '</h4>',
             ));
 
             $active_widgets = get_option('sidebars_widgets');
@@ -270,8 +282,8 @@ class Template
                 set_theme_mod('first_time_widget_' . $data['id'], false);
 
                 $widget_content = array(
-                    'title'  => __($data['title'], 'cloudpress-companion-companion'),
-                    'text'   => '<ul><li><a href="http://#">Documentation</a></li><li><a href="http://#">Forum</a></li><li><a href="http://#">FAQ</a></li><li><a href="http://#">Contact</a></li></ul>',
+                    'title' => __($data['title'], 'cloudpress-companion-companion'),
+                    'text' => '<ul><li><a href="http://#">Documentation</a></li><li><a href="http://#">Forum</a></li><li><a href="http://#">FAQ</a></li><li><a href="http://#">Contact</a></li></ul>',
                     'filter' => false,
                 );
 

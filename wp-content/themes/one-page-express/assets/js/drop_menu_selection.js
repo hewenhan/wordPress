@@ -125,6 +125,11 @@ Licensed under the terms of the GPL3 license.
                                 queue: false
                             }).css('display', 'none');
                         }
+
+                        if (effectOpts.direction === "left" && submenu.closest('[data-direction=right]').length) {
+                            effectOpts.direction = "right";
+                        }
+
                         submenu.show(effectObj.name, effectOpts, function () {
                             if (effectObj.name == "fold") {
                                 $(this).css({
@@ -271,7 +276,7 @@ Licensed under the terms of the GPL3 license.
                 clearTimeout(timeout);
                 timeout = window.setTimeout(function () {
                     hideMenu($(self), function () {
-                        $(self).find('li').andSelf().each(function () {
+                        $(self).find('li').addBack().each(function () {
                             $(this).removeClass('hover');
                             mouseLeft($(this).children('a'));
                         });
@@ -335,12 +340,12 @@ Licensed under the terms of the GPL3 license.
             var hash = window.location.hash;
             _hashItem = menu.find('a[href="' + hash + '"]');
             if (_hashItem.length > 0) {
-                _hashItem.eq(0).closest('li').andSelf().addClass('sel');
+                _hashItem.eq(0).closest('li').addBack().addClass('sel');
                 return;
             } else {
                 _fullHashItem = menu.find('a[href="' + location + '"]');
                 if (_fullHashItem.length > 0) {
-                    _fullHashItem.eq(0).closest('li').andSelf().addClass('sel');
+                    _fullHashItem.eq(0).closest('li').addBack().addClass('sel');
                     return;
                 }
             }
@@ -350,7 +355,7 @@ Licensed under the terms of the GPL3 license.
         _url = location.split("#")[0].replace(/\/$/, "")
         var item = menu.find('a[href="' + url + '"],a[href="' + url + '/"],a[href="' + _url + '"],a[href="' + _url + '/"]');
         if (item.length) {
-            item.eq(0).closest('li').andSelf().addClass('sel');
+            item.eq(0).closest('li').addBack().addClass('sel');
         }
     }
 
@@ -460,6 +465,15 @@ Licensed under the terms of the GPL3 license.
         var tabletCheck = CSSMenus.IsTablet(viewportWidth, options.mobileMaxWidth, options.tabletMaxWidth);
         var isTabletDevice = (options.enableTablet && tabletCheck) || (!options.enableMobile && mobileCheck);
         //alert('mobile device ' + isMobileDevice + " .. tablet device " + isTabletDevice);
+
+        $("#" + Name + "_container > ul").children('li').each(function () {
+            if (this.getBoundingClientRect().left + 400 > window.innerWidth) {
+                $(this).attr('data-direction','right');
+            } else {
+                $(this).removeAttr('data-direction');
+            }
+        });
+
         if (isMobileDevice || isTabletDevice) {
             try {
                 if (isTabletDevice) {
@@ -472,6 +486,12 @@ Licensed under the terms of the GPL3 license.
                     }, false);
 
                     flexiCssMenus.alignMenu(Name, options);
+
+                    CSSMenus.flexiCSSMenus_currentLevel = -1;
+                    CSSMenus.flexiCSSMenus_currentButton = null;
+                    $("#" + Name + "_container").find('li.hover').removeClass('hover');
+                    $("#" + Name + "_container").find('ul.sub-menu').hide();
+
                     return false;
                 } else {
                     var BtnParent = $("body");
@@ -526,9 +546,11 @@ Licensed under the terms of the GPL3 license.
                 } else {
                     closeLabel = "Close";
                 }
-                var liHtml = "<a href='#' target='_self'><font class='leaf'>" + closeLabel + "</font></a>";
+                var liHtml = "<a href='#' data-name='close-button' target='_self'><font class='leaf'>" + closeLabel + "</font></a>";
                 var closeLI = $("<li/>").addClass("FM_CLOSE").html(liHtml);
-                children.eq(i).append(closeLI);
+                if (children.eq(i).find('[data-name="close-button"]').length === 0) {
+                    children.eq(i).append(closeLI);
+                }
             }
             xtdSetTabletBehavior(children.get(i), options);
         }
@@ -556,39 +578,39 @@ Licensed under the terms of the GPL3 license.
      */
     function flexiCSSMenus_clickHandlerForTouchDevices(event) {
 
-        var submenu = $(this).find("ul:eq(0)");
+        var submenu = $(this).find('ul').eq(0);
+        var hasSubmenu = (submenu.length > 0);
+        var isCurrentButton = CSSMenus.flexiCSSMenus_currentButton && jQuery(CSSMenus.flexiCSSMenus_currentButton).is(this);
 
         event.stopPropagation();
-        event.preventDefault();
 
-        if (CSSMenus.flexiCSSMenus_currentButton && (CSSMenus.flexiCSSMenus_currentButton.get(0) == this) || !submenu.get(0)) {
-            var parentNode;
-            var level;
-            while (CSSMenus.flexiCSSMenus_currentButton) {
-                parentNode = CSSMenus.flexiCSSMenus_currentButton.parent().parent();
-                level = flexiCSSMenus_getButtonLevel(parentNode);
-                flexiCSSMenus_deselectButton(CSSMenus.flexiCSSMenus_currentButton);
-                if (level > 0) {
-                    CSSMenus.flexiCSSMenus_currentButton = parentNode.parent().parent();
-                } else {
-                    if (!parentNode) {
-                        flexiCSSMenus_deselectButton(parentNode);
-                    }
-                    CSSMenus.flexiCSSMenus_currentButton = undefined;
-                }
-                CSSMenus.flexiCSSMenus_currentLevel = level - 1;
-            }
+        // is double tapped or has no submenu
+        if (isCurrentButton || !hasSubmenu) {
+            console.log('I am here');
+            var buttons = $(this).parentsUntil('ul.fm2_drop_mainmenu').filter('li');
+
+            buttons.each(function () {
+                flexiCSSMenus_deselectButton($(this));
+            });
+
+            CSSMenus.flexiCSSMenus_currentButton = undefined;
+            CSSMenus.flexiCSSMenus_currentLevel = 0;
+
             return;
-        } else {
-            event.preventDefault();
+
         }
-        
+
+        // continue to submenus
+        event.preventDefault();
+        var node, level;
         try {
-            var node, level = flexiCSSMenus_getButtonLevel($(this));
+            level = flexiCSSMenus_getButtonLevel($(this));
+
         } catch (e) {
             alert('error 2');
         }
         if (level > CSSMenus.flexiCSSMenus_currentLevel) {
+
             CSSMenus.flexiCSSMenus_currentButton = $(this);
             if (level > 0) {
                 node = CSSMenus.flexiCSSMenus_currentButton.parent();
@@ -602,6 +624,7 @@ Licensed under the terms of the GPL3 license.
             }
             flexiCSSMenus_selectButton($(CSSMenus.flexiCSSMenus_currentButton));
             CSSMenus.flexiCSSMenus_currentLevel = level;
+
             return;
         }
         if (level == CSSMenus.flexiCSSMenus_currentLevel) {
@@ -626,6 +649,7 @@ Licensed under the terms of the GPL3 license.
             CSSMenus.flexiCSSMenus_currentButton = $(this);
             CSSMenus.flexiCSSMenus_currentLevel = level;
             flexiCSSMenus_selectButton($(CSSMenus.flexiCSSMenus_currentButton));
+
             return;
         }
     }
@@ -657,24 +681,24 @@ Licensed under the terms of the GPL3 license.
      */
     function flexiCSSMenus_deselectButton(button) {
         try {
-            if (button) {
-                button.find('a:eq(0)').removeAttr("class");
-                var submenu = button.find('ul');
+            if (button && button.length) {
+                button.removeClass('.hover');
+                button.find('a').removeAttr('class');
+                var submenu = button.find('ul').eq(0);
+
                 if (submenu.length > 0) {
                     button.removeAttr("class");
-                    hideSubmenu(submenu.eq(0));
-                    var hovered = submenu.eq(0).find(".hover");
+                    hideSubmenu(submenu);
+                    var hovered = submenu.find(".hover").eq(0);
                     if (hovered.length > 0) {
-                        flexiCSSMenus_deselectButton(hovered.eq(0));
+                        flexiCSSMenus_deselectButton(hovered);
                     }
+                    submenu.find('li').css("position", "relative");
                 }
-                var lis = submenu.eq(0).find('li');
-                for (var i = 0; i < lis.length; i++) {
-                    lis.eq(i).css("position", "relative");
-                }
+
             }
         } catch (e) {
-            //console.log(e);
+            // console.error(e);
         }
     }
 
@@ -733,15 +757,21 @@ Licensed under the terms of the GPL3 license.
     }
 
     function hideSubmenu(el) {
-        if (el.is(":animated") || (el.get(0) == $("#" + CSSMenus.name).get(0))) {
-            return;
+
+        function hide() {
+            if (el.is(":animated") || (el.get(0) == $("#" + CSSMenus.name).get(0))) {
+                return;
+            }
+
+            if (flexiCssMenus.settings.effect && flexiCssMenus.settings.effect != "none") {
+                el.hide(flexiCssMenus.settings.effect, flexiCssMenus.settings.options, 200);
+            } else {
+                el.hide();
+            }
         }
-        var uls = $("#" + CSSMenus.name + "_container").find("ul");
-        if (flexiCssMenus.settings.effect == "none") {
-            el.hide();
-        } else {
-            el.hide(flexiCssMenus.settings.effect, flexiCssMenus.settings.options, 200);
-        }
+
+        // delay the hide functionality to allow events triggering on IPad
+        setTimeout(hide, 500);
     }
 
     /**
@@ -1016,6 +1046,8 @@ Licensed under the terms of the GPL3 license.
                 ev.stopPropagation();
                 // Toggle visible.
                 Self.Show(Visible = !Visible);
+                var opeEvent = 'ope-mobile-menu-' + (Visible ? "show" : "hide");
+                jQuery(document).trigger(opeEvent);
             });
         }
 
@@ -1119,7 +1151,7 @@ Licensed under the terms of the GPL3 license.
                         }
                         Visible = false;
                         Self.Show(Visible);
-                        elem.trigger('click.onePage');
+                        elem.trigger('click.onepage');
                         return;
                     }
 

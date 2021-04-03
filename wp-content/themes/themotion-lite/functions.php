@@ -7,7 +7,8 @@
  * @package themotion
  */
 
-define( 'THEMOTION_PHP_INCLUDE',  get_template_directory() . '/inc' );
+define( 'THEMOTION_PHP_INCLUDE', get_template_directory() . '/inc' );
+define( 'THEMOTION_VERSION', '1.2.10' );
 
 if ( ! function_exists( 'themotion_setup' ) ) :
 	/**
@@ -19,28 +20,31 @@ if ( ! function_exists( 'themotion_setup' ) ) :
 	 */
 	function themotion_setup() {
 		/*
-         * Make theme available for translation.
-         * Translations can be filed in the /languages/ directory.
-         * If you're building a theme based on themotion, use a find and replace
-         * to change 'themotion' to the name of your theme in all the template files.
+		 * Make theme available for translation.
+		 * Translations can be filed in the /languages/ directory.
+		 * If you're building a theme based on themotion, use a find and replace
+		 * to change 'themotion-lite' to the name of your theme in all the template files.
 		 */
-		load_theme_textdomain( 'themotion', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'themotion-lite', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
 
+		// Add theme support for selective refresh for widgets.
+		add_theme_support( 'customize-selective-refresh-widgets' );
+
 		/*
-         * Let WordPress manage the document title.
-         * By adding theme support, we declare that this theme does not use a
-         * hard-coded <title> tag in the document head, and expect WordPress to
-         * provide it for us.
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and expect WordPress to
+		 * provide it for us.
 		 */
 		add_theme_support( 'title-tag' );
 
 		/*
-         * Enable support for Post Thumbnails on posts and pages.
-         *
-         * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+		 * Enable support for Post Thumbnails on posts and pages.
+		 *
+		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
 		add_theme_support( 'post-thumbnails', array( 'post', 'page', 'product', 'download' ) );
 				set_post_thumbnail_size( 1200, 9999 );
@@ -56,42 +60,59 @@ if ( ! function_exists( 'themotion_setup' ) ) :
 		add_image_size( 'themotion-thumbnail-blog-no-crop', 770, 425 );
 
 		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus( array(
-			'primary' => esc_html__( 'Primary', 'themotion-lite' ),
-		) );
+		register_nav_menus(
+			array(
+				'primary' => esc_html__( 'Primary', 'themotion-lite' ),
+			)
+		);
 
 		/*
-         * Switch default core markup for search form, comment form, and comments
-         * to output valid HTML5.
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
 		 */
-		add_theme_support( 'html5', array(
-			'search-form',
-			'comment-form',
-			'comment-list',
-			'gallery',
-			'caption',
-		) );
+		add_theme_support(
+			'html5',
+			array(
+				'search-form',
+				'comment-form',
+				'comment-list',
+				'gallery',
+				'caption',
+			)
+		);
 
 		/*
-         * Enable support for Post Formats.
-         * See https://developer.wordpress.org/themes/functionality/post-formats/
+		 * Enable support for Post Formats.
+		 * See https://developer.wordpress.org/themes/functionality/post-formats/
 		 */
-		add_theme_support( 'post-formats', array(
-			'video'
-		) );
+		add_theme_support(
+			'post-formats',
+			array(
+				'video',
+			)
+		);
 
 		// Set up the WordPress core custom background feature.
-		add_theme_support( 'custom-background', apply_filters( 'themotion_custom_background_args', array(
-			'default-color' => 'ffffff',
-			'default-image' => '',
-		) ) );
+		add_theme_support(
+			'custom-background',
+			apply_filters(
+				'themotion_custom_background_args',
+				array(
+					'default-color' => 'ffffff',
+					'default-image' => '',
+				)
+			)
+		);
 
 		// Add theme support for custom logo
-		add_theme_support( 'custom-logo', array(
-			'height'      => 55,
-			'width'       => 280,
-			'flex-width' => true,
-		) );
+		add_theme_support(
+			'custom-logo',
+			array(
+				'height'     => 55,
+				'width'      => 280,
+				'flex-width' => true,
+			)
+		);
 
 		add_theme_support( 'woocommerce' );
 
@@ -105,13 +126,41 @@ if ( ! function_exists( 'themotion_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'themotion_setup' );
 
+/* Require TGM */
+$tgm_functions_path = get_template_directory() . '/assets/tgm/functions.php';
+if ( file_exists( $tgm_functions_path ) ) {
+	require_once $tgm_functions_path;
+}
+
+/**
+ * Start SDK registering
+ */
+$vendor_file = get_template_directory() . '/vendor/autoload.php';
+if ( file_exists( $vendor_file ) ) {
+	require_once $vendor_file;
+}
+
+add_filter( 'themeisle_sdk_products', 'themotion_load_sdk' );
+
+/**
+ * Loads products array.
+ *
+ * @param array $products All products.
+ *
+ * @return array Products array.
+ */
+function themotion_load_sdk( $products ) {
+	$products[] = get_template_directory() . '/style.css';
+	return $products;
+}
+
 /**
  * Check for static page
  *
  * Checks if the page is static and returns a boolean.
  */
 function themotion_is_not_static_page() {
-	return ('posts' != get_option( 'show_on_front' ));
+	return ( 'posts' != get_option( 'show_on_front' ) );
 }
 /**
  * Content Width
@@ -134,25 +183,30 @@ add_action( 'after_setup_theme', 'themotion_content_width', 0 );
  */
 function themotion_widgets_init() {
 
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'themotion-lite' ),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'themotion-lite' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'themotion-lite' ),
+			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here.', 'themotion-lite' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
 
-	register_sidebars(3, array(
-		/* translators: Footer area id */
-		'name'          => esc_html__( 'Footer Widget Area %d', 'themotion-lite' ),
-		'id'            => 'footer-area',
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
+	register_sidebars(
+		3,
+		array(
+			/* translators: Footer area id */
+			'name'          => esc_html__( 'Footer Widget Area %d', 'themotion-lite' ),
+			'id'            => 'footer-area',
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
+		)
+	);
 
 }
 add_action( 'widgets_init', 'themotion_widgets_init' );
@@ -172,16 +226,16 @@ function themotion_fonts_url() {
 	$fonts_url = '';
 
 	/*
-     Translators: If there are characters in your language that are not
-     * supported by Source Sans Pro, translate this to 'off'. Do not translate
-     * into your own language.
+	 * Translators: If there are characters in your language that are not
+	 * supported by Source Sans Pro, translate this to 'off'. Do not translate
+	 * into your own language.
 	 */
 	$source_sans_pro = _x( 'on', 'Merriweather font: on or off', 'themotion-lite' );
 
 	/*
-     Translators: If there are characters in your language that are not
-     * supported by Bitter, translate this to 'off'. Do not translate into your
-     * own language.
+	 * Translators: If there are characters in your language that are not
+	 * supported by Bitter, translate this to 'off'. Do not translate into your
+	 * own language.
 	 */
 	$bitter = _x( 'on', 'Cabin font: on or off', 'themotion-lite' );
 
@@ -200,7 +254,7 @@ function themotion_fonts_url() {
 			'family' => urlencode( implode( '|', $font_families ) ),
 			'subset' => urlencode( 'latin,latin-ext' ),
 		);
-		$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+		$fonts_url  = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
 	}
 
 	return $fonts_url;
@@ -218,26 +272,32 @@ add_action( 'admin_init', 'themotion_add_editor_styles' );
  * Enqueue scripts and styles.
  */
 function themotion_scripts() {
-	wp_enqueue_style( 'themotion-style', get_stylesheet_uri(), array( 'bootstrap' ) );
+	wp_enqueue_style( 'themotion-style', get_stylesheet_uri(), array( 'bootstrap' ), THEMOTION_VERSION );
 
 	wp_enqueue_style( 'wp-mediaelement' );
 
-	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/vendor/bootstrap.min.css', array(), '3.3.6', 'all' );
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/vendor/bootstrap.min.css', array(), THEMOTION_VERSION, 'all' );
 
-	wp_enqueue_style( 'themotion-fonts', themotion_fonts_url(), array(), null );
+	wp_enqueue_style( 'themotion-fonts', themotion_fonts_url(), array(), THEMOTION_VERSION );
 
-	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/vendor/font-awesome.min.css', array(), '4.5.0' );
+	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/vendor/font-awesome.min.css', array(), THEMOTION_VERSION );
 
-	wp_enqueue_script( 'themotion-functions-js', get_template_directory_uri() . '/js/functions.js', array(), '1.0.1', true );
+	wp_enqueue_script( 'themotion-functions-js', get_template_directory_uri() . '/js/functions.js', array(), THEMOTION_VERSION, true );
 
-	wp_localize_script( 'themotion-functions-js', 'screenReaderText', array(
-		'expand'   => '<span class="screen-reader-text">' . esc_html__( 'expand child menu', 'themotion-lite' ) . '</span>',
-		'collapse' => '<span class="screen-reader-text">' . esc_html__( 'collapse child menu', 'themotion-lite' ) . '</span>',
-	) );
+	wp_enqueue_script( 'themotion-media', get_template_directory_uri() . '/js/media.js', array(), THEMOTION_VERSION, true );
 
-	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/vendor/bootstrap.min.js', array( 'jquery' ), '20130115', true );
+	wp_localize_script(
+		'themotion-functions-js',
+		'screenReaderText',
+		array(
+			'expand'   => '<span class="screen-reader-text">' . esc_html__( 'expand child menu', 'themotion-lite' ) . '</span>',
+			'collapse' => '<span class="screen-reader-text">' . esc_html__( 'collapse child menu', 'themotion-lite' ) . '</span>',
+		)
+	);
 
-	wp_enqueue_script( 'themotion-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/vendor/bootstrap.min.js', array( 'jquery' ), THEMOTION_VERSION, true );
+
+	wp_enqueue_script( 'themotion-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), THEMOTION_VERSION, true );
 
 	if ( get_option( 'thread_comments' ) && is_singular() && comments_open() ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -251,8 +311,8 @@ add_action( 'wp_enqueue_scripts', 'themotion_scripts' );
  * Load customize controls js
  */
 function themotion_customizer_script() {
-	wp_enqueue_script( 'themotion-customizer-script', get_template_directory_uri() . '/js/themotion_customizer.js', array( 'jquery', 'jquery-ui-draggable' ), '1.0.4', true );
-	wp_enqueue_style( 'themotion-admin-stylesheet', get_template_directory_uri() . '/css/admin-style.css','1.0.0' );
+	wp_enqueue_script( 'themotion-customizer-script', get_template_directory_uri() . '/js/themotion_customizer.js', array( 'jquery', 'jquery-ui-draggable' ), THEMOTION_VERSION, true );
+	wp_enqueue_style( 'themotion-admin-stylesheet', get_template_directory_uri() . '/css/admin-style.css', array(), THEMOTION_VERSION );
 }
 add_action( 'customize_controls_enqueue_scripts', 'themotion_customizer_script' );
 
@@ -282,6 +342,11 @@ require get_template_directory() . '/inc/jetpack.php';
 require get_template_directory() . '/inc/frontpage-sections.php';
 
 /**
+ * Init preview demo images
+ */
+require_once( get_template_directory() . '/demo-preview-images/init-prevdem.php' );
+
+/**
  * Init pro.
  */
 $pro_path = get_template_directory() . '/inc/init-pro.php';
@@ -308,7 +373,8 @@ if ( ! function_exists( 'themotion_excerpt_more' ) && ! is_admin() ) :
 	 * @return string Filtered Read More excerpt link.
 	 */
 	function themotion_excerpt_more( $more ) {
-		$link = sprintf( '<a href="%1$s" class="more-link">%2$s</a>',
+		$link = sprintf(
+			'<a href="%1$s" class="more-link">%2$s</a>',
 			esc_url( get_permalink( get_the_ID() ) ),
 			/* translators: %s: Name of current post */
 			sprintf( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'themotion-lite' ), '<span class="screen-reader-text">' . get_the_title( get_the_ID() ) . '</span>' )
@@ -327,49 +393,118 @@ endif;
 function themotion_brand() {
 	if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
 		the_custom_logo(); ?>
-		<div class="header-logo-wrap themotion-only-customizer">
+		<div class="header-logo-wrap">
+
 			<?php
-			if ( is_front_page() && is_home() ) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-			<?php
+			if ( ! empty( get_bloginfo( 'name' ) ) ) :
+				if ( is_front_page() && is_home() ) :
+					?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php else : ?>
+					<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+				<?php
+				endif;
 			endif;
 
 			$description = get_bloginfo( 'description', 'display' );
-if ( $description || is_customize_preview() ) : ?>
+			if ( $description || is_customize_preview() ) :
+				?>
 				<p class="site-description"><?php echo esc_html( $description ); /* WPCS: xss ok. */ ?></p>
-			<?php
-			endif; ?>
+			<?php endif; ?>
+
 		</div>
-	<?php
-	} else {
-		if ( is_customize_preview() ) {  ?>
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link themotion-only-customizer" title="<?php echo esc_attr( get_bloginfo( 'title' ) ); ?>">
-				<img src="">
-			</a>
-		<?php
-		} ?>
+
+		<?php } else { ?>
 
 		<div class="header-logo-wrap">
+
 			<?php
-			if ( is_front_page() && is_home() ) : ?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			<?php else : ?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-			<?php
+			if ( ! empty( get_bloginfo( 'name' ) ) ) :
+				if ( is_front_page() && is_home() ) :
+					?>
+					<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<?php else : ?>
+					<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
+				<?php
+				endif;
 			endif;
 
 			$description = get_bloginfo( 'description', 'display' );
-if ( $description || is_customize_preview() ) : ?>
+			if ( $description || is_customize_preview() ) :
+				?>
 				<p class="site-description"><?php echo esc_html( $description ); /* WPCS: xss ok. */ ?></p>
-			<?php
-			endif; ?>
+				<?php endif; ?>
 		</div>
-	<?php
-	}// End if().
+		<?php
+}
 }
 
+/**
+ * Customizer selective refresh for Site title
+ *
+ * @since 1.1.31
+ * @param class $wp_customize - the wp_customize class.
+ */
+function themotion_site_title_selective_refresh( $wp_customize ) {
+	// Abort if selective refresh is not available.
+	if ( ! isset( $wp_customize->selective_refresh ) ) {
+		return;
+	}
+
+	$wp_customize->selective_refresh->add_partial(
+		'blogname',
+		array(
+			'selector'        => '.header-logo-wrap .site-title a',
+			'render_callback' => 'themotion_customize_partial_blogname',
+		)
+	);
+
+	$wp_customize->selective_refresh->add_partial(
+		'blogdescription',
+		array(
+			'selector'        => '.header-logo-wrap .site-description',
+			'render_callback' => 'themotion_customize_partial_blogdescription',
+		)
+	);
+
+	$wp_customize->selective_refresh->add_partial(
+		'themotion_social_icons',
+		array(
+			'selector'        => '.social-media-icons',
+			'render_callback' => 'themotion_social_media_render_callback',
+		)
+	);
+
+}
+add_action( 'customize_register', 'themotion_site_title_selective_refresh' );
+
+/**
+ * Get header social icons and search icon
+ *
+ * @since 1.1.31
+ */
+function themotion_social_media_render_callback() {
+	themotion_social_icons();
+	themotion_search_icon();
+}
+
+/**
+ * Get site title
+ *
+ * @since 1.1.31
+ */
+function themotion_customize_partial_blogname() {
+	bloginfo( 'name' );
+}
+
+/**
+ * Get site description
+ *
+ * @since 1.1.31
+ */
+function themotion_customize_partial_blogdescription() {
+	bloginfo( 'description' );
+}
 
 /**
  * Display the search icon
@@ -377,21 +512,22 @@ if ( $description || is_customize_preview() ) : ?>
  * @since TheMotion Lite 1.0
  */
 function themotion_search_icon() {
-	$themotion_show_search = get_theme_mod( 'themotion_show_search' ); ?>
-	<li <?php echo ( ( ( ! isset( $themotion_show_search ) || ( 1 == $themotion_show_search ) ) && is_customize_preview() ) ? 'class="themotion-only-customizer"' : '' ); ?>>
-		<?php
-		if ( 1 != $themotion_show_search && is_customize_preview() || ( isset( $themotion_show_search ) ) ) {  ?>
-			<button type="button" class="search-opt search-toggle">
-			</button>
-			<div class="header-search">
-				<div class="container container-header-search">
-					<?php get_search_form(); ?>
-				</div>
+	$themotion_show_search = get_theme_mod( 'themotion_show_search' );
+	if ( (bool) $themotion_show_search === true ) {
+		echo '<li class="themotion-search-icon themotion-only-customizer"></li>';
+		return;
+	}
+	?>
+	<li class="themotion-search-icon">
+		<button type="button" class="search-opt search-toggle">
+		</button>
+		<div class="header-search">
+			<div class="container container-header-search">
+				<?php get_search_form(); ?>
 			</div>
-		<?php
-		} ?>
+		</div>
 	</li>
-<?php
+	<?php
 }
 
 
@@ -416,52 +552,51 @@ add_filter( 'excerpt_length', 'themotion_custom_excerpt_length', 999 );
 function themotion_escape_lightbox( $input ) {
 
 	$allowed_tags = array(
-		'video' => array(
-			'autoplay'  => true,
-			'controls'  => true,
-			'height'    => true,
-			'loop'      => true,
-			'muted'     => true,
-			'poster'    => true,
-			'preload'   => true,
-			'src'       => true,
-			'width'     => true,
-			'class'     => true,
-			'id'        => true,
-			'style'     => true,
-			'title'     => true,
-			'role'      => true,
-		),
-		'iframe' => array(
-			'height'    => true,
-			'width'     => true,
-			'name'      => true,
-			'sandbox'   => true,
-			'src'       => true,
-			'srcdoc'    => true,
-			'class'     => true,
-			'id'        => true,
-			'style'     => true,
-			'title'     => true,
-			'role'      => true,
-			'frameborder' => true,
-			'webkitallowfullscreen' => true,
-			'allowfullscreen' => true,
-		),
-		'source' => array(
-			'type'     => true,
+		'video'  => array(
+			'autoplay' => true,
+			'controls' => true,
+			'height'   => true,
+			'loop'     => true,
+			'muted'    => true,
+			'poster'   => true,
+			'preload'  => true,
 			'src'      => true,
+			'width'    => true,
 			'class'    => true,
 			'id'       => true,
 			'style'    => true,
-			'role'     => true,
 			'title'    => true,
+			'role'     => true,
+		),
+		'iframe' => array(
+			'height'                => true,
+			'width'                 => true,
+			'name'                  => true,
+			'sandbox'               => true,
+			'src'                   => true,
+			'srcdoc'                => true,
+			'class'                 => true,
+			'id'                    => true,
+			'style'                 => true,
+			'title'                 => true,
+			'role'                  => true,
+			'frameborder'           => true,
+			'webkitallowfullscreen' => true,
+			'allowfullscreen'       => true,
+		),
+		'source' => array(
+			'type'  => true,
+			'src'   => true,
+			'class' => true,
+			'id'    => true,
+			'style' => true,
+			'role'  => true,
+			'title' => true,
 		),
 	);
 
 	return wp_kses( $input, $allowed_tags );
 }
-
 
 /**
  * About page class
@@ -612,6 +747,9 @@ $config = array(
 		'deactivate_label'          => esc_html__( 'Deactivate', 'themotion-lite' ),
 		'content'                   => array(
 			array(
+				'slug' => 'themeisle-companion',
+			),
+			array(
 				'slug' => 'visualizer',
 			),
 			array(
@@ -638,4 +776,292 @@ if ( file_exists( $themotion_customizer_theme_info_path ) ) {
 $themotion_pro_manager_path = trailingslashit( THEMOTION_PHP_INCLUDE ) . 'features/feature-pro-manager.php';
 if ( file_exists( $themotion_pro_manager_path ) ) {
 	require_once( $themotion_pro_manager_path );
+}
+
+/**
+ * Function to determine if a video is youtube or vimeo.
+ *
+ * @param string $url Video url.
+ *
+ * @return string
+ * @since 1.2.4
+ */
+function themotion_video_type( $url ) {
+	if ( strpos( $url, 'youtu' ) > 0 ) {
+		return 'youtube';
+	} elseif ( strpos( $url, 'vimeo' ) > 0 ) {
+		return 'vimeo';
+	} else {
+		return 'unknown';
+	}
+}
+
+/**
+ * Return src attribute from html
+ *
+ * @return string;
+ * @since 1.2.4
+ */
+function themotion_get_embeded_src( $html ) {
+	$doc = new DOMDocument();
+	$doc->loadHTML( $html );
+	$xpath = new DOMXPath( $doc );
+	$src   = $xpath->evaluate( 'string(//iframe/@src)' );
+	return $src;
+}
+
+/**
+ * Get video id from url.
+ *
+ * @param string $url Youtube url.
+ *
+ * @return string|bool
+ */
+function themotion_get_youtube_video_id( $url ) {
+	preg_match( '%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match );
+	if ( ! empty( $match[1] ) ) {
+		return $match[1];
+	}
+	return false;
+}
+
+/**
+ * Add a dismissible notice about Neve in the dashboard
+ */
+function themotion_neve_notice() {
+	global $current_user;
+	$user_id        = $current_user->ID;
+	$ignored_notice = get_user_meta( $user_id, 'themotion_ignore_neve_notice_new' );
+	if ( ! empty( $ignored_notice ) ) {
+		return;
+	}
+	$should_display_notice = themotion_is_before_date( '2019-09-12' );
+	if ( ! $should_display_notice ) {
+		return;
+	}
+	$dismiss_button =
+		sprintf(
+			/* translators: Install Neve link */
+			'<a href="%s" class="notice-dismiss" style="text-decoration:none;"></a>',
+			'?themotion_nag_ignore_neve=0'
+		);
+	$message = sprintf(
+		/* translators: Install Neve link */
+		esc_html__( 'Check out %1$s. Fully AMP optimized and responsive, Neve will load in mere seconds and adapt perfectly on any viewing device. Neve works perfectly with Gutenberg and the most popular page builders. You will love it!', 'themotion-lite' ),
+		sprintf(
+			/* translators: Install Neve link */
+			'<a target="_blank" href="%1$s"><strong>%2$s</strong></a>',
+			esc_url( admin_url( 'theme-install.php?theme=neve' ) ),
+			esc_html__( 'our newest theme', 'themotion-lite' )
+		)
+	);
+	printf( '<div class="notice updated" style="position:relative; padding-right: 35px;">%1$s<p>%2$s</p></div>', $dismiss_button, $message );
+}
+
+/**
+ * Update the themotion_ignore_neve_notice_new option to true, to dismiss the notice from the dashboard
+ */
+function themotion_nag_ignore_neve() {
+	global $current_user;
+	$user_id = $current_user->ID;
+	/* If user clicks to ignore the notice, add that to their user meta */
+	if ( isset( $_GET['themotion_nag_ignore_neve'] ) && '0' == $_GET['themotion_nag_ignore_neve'] ) {
+		add_user_meta( $user_id, 'themotion_ignore_neve_notice_new', 'true', true );
+	}
+}
+
+/**
+ * Function that decide if current date is before a certain date.
+ *
+ * @param string $date Date to compare.
+ * @return bool
+ */
+function themotion_is_before_date( $date ) {
+	$countdown_time = strtotime( $date );
+	$current_time   = time();
+	return $current_time <= $countdown_time;
+}
+
+/**
+ * Retirement notice
+ */
+function themotion_retirement_notice() {
+	global $current_user;
+	$user_id        = $current_user->ID;
+	$ignored_notice = get_user_meta( $user_id, 'themotion_ignore_retirement_notice' );
+	if ( ! empty( $ignored_notice ) ) {
+		return;
+	}
+	$should_display_notice = ! themotion_is_before_date( '2019-09-12' );
+	if ( ! $should_display_notice ) {
+		return;
+	}
+	$dismiss_button =
+		sprintf(
+			/* translators: Install Neve link */
+			'<a href="%s" class="notice-dismiss" style="text-decoration:none;"></a>',
+			'?themotion_nag_ignore_retirement=0'
+		);
+
+	$theme_args = wp_get_theme();
+	$name       = $theme_args->__get( 'Name' );
+
+	$notice_template = '
+			<div class="nv-notice-wrapper">
+			%1$s
+			<hr/>
+				<div class="nv-notice-column-container">
+					<div class="nv-notice-column nv-notice-image">%2$s</div>
+					<div class="nv-notice-column nv-notice-starter-sites">%3$s</div>
+					<div class="nv-notice-column nv-notice-documentation">%4$s</div>
+				</div> 
+			</div>
+			<style>%5$s</style>';
+
+	/* translators: 1 - notice title, 2 - notice message */
+	$notice_header = sprintf(
+		'<h2>%1$s</h2><p class="about-description">%2$s</p></hr>',
+		esc_html__( 'Your theme is no longer maintained. A New, Modern WordPress Theme is Here!', 'themotion-lite' ),
+		sprintf(
+			/* translators: %s - theme name */
+			esc_html__( '%s is no longer maintained. Switch to Neve today and get more powerful features (for free).', 'themotion-lite' ),
+			$name
+		)
+	);
+
+	$notice_picture = sprintf(
+		'<picture>
+					<source srcset="about:blank" media="(max-width: 1024px)">
+					<img src="%1$s">
+				</picture>',
+		esc_url( get_template_directory_uri() . '/images/neve.png' )
+	);
+
+	$notice_right_side_content = sprintf(
+		'<div><h3> %1$s</h3><p>%2$s</p></div>',
+		__( 'Switch to Neve today', 'themotion-lite' ),
+		// translators: %s - theme name
+		esc_html__( 'With Neve you get a super fast, multi-purpose theme, fully AMP optimized and responsive, that works perfectly with Gutenberg and the most popular page builders like Elementor, Beaver Builder, and many more.', 'themotion-lite' )
+	);
+
+	$notice_left_side_content = sprintf(
+		'<div><h3> %1$s</h3><p>%2$s</p><p class="nv-buttons-wrapper"><a class="button button-hero button-primary" href="%3$s" target="_blank">%4$s</a></p> </div>',
+		// translators: %s - theme name
+		sprintf( esc_html__( '%s is no longer maintained', 'themotion-lite' ), $name ),
+		// translators: %s - theme name
+		sprintf( __( 'We\'re saying goodbye to TheMotion Lite in favor of our more powerful Neve free WordPress theme. This means that there will not be any new features added although we will continue to update the theme for major security issues.', 'themotion-lite' ) ),
+		esc_url( admin_url( 'theme-install.php?theme=neve' ) ),
+		esc_html__( 'See Neve theme', 'themotion-lite' )
+	);
+
+	$style = '
+				.nv-notice-wrapper p{
+					font-size: 14px;
+				}
+				.nv-buttons-wrapper {
+					padding-top: 20px !important;
+				}
+				.nv-notice-wrapper h2{
+					margin: 0;
+					font-size: 21px;
+					font-weight: 400;
+					line-height: 1.2;
+				}
+				.nv-notice-wrapper p.about-description{
+					color: #72777c;
+					font-size: 16px;
+					margin: 0;
+					padding:0px;
+				}
+				.nv-notice-wrapper{
+					padding: 23px 10px 0;
+					max-width: 1500px;
+				}
+				.nv-notice-wrapper hr {
+					margin: 20px -23px 0;
+					border-top: 1px solid #f3f4f5;
+					border-bottom: none;
+				}
+				.nv-notice-column-container h3{	
+					margin: 17px 0 0;
+					font-size: 16px;
+					line-height: 1.4;
+				}
+				.nv-notice-text p.ti-return-dashboard {
+					margin-top: 30px;
+				}
+				.nv-notice-column-container .nv-notice-column{
+					 padding-right: 60px;
+				} 
+				.nv-notice-column-container img{ 
+					margin-top: 23px;
+					width: 100%;
+					border: 1px solid #f3f4f5; 
+				} 
+				.nv-notice-column-container { 
+					display: -ms-grid;
+					display: grid;
+					-ms-grid-columns: 24% 32% 32%;
+					grid-template-columns: 24% 32% 32%;
+					margin-bottom: 13px;
+				}
+				.nv-notice-column-container a.button.button-hero.button-secondary,
+				.nv-notice-column-container a.button.button-hero.button-primary{
+					margin:0px;
+				}
+				@media screen and (max-width: 1280px) {
+					.nv-notice-wrapper .nv-notice-column-container {
+						-ms-grid-columns: 50% 50%;
+						grid-template-columns: 50% 50%;
+					}
+					.nv-notice-column-container a.button.button-hero.button-secondary,
+					.nv-notice-column-container a.button.button-hero.button-primary{
+						padding:6px 18px;
+					}
+					.nv-notice-wrapper .nv-notice-image {
+						display: none;
+					}
+				} 
+				@media screen and (max-width: 870px) {
+					 
+					.nv-notice-wrapper .nv-notice-column-container {
+						-ms-grid-columns: 100%;
+						grid-template-columns: 100%;
+					}
+					.nv-notice-column-container a.button.button-hero.button-primary{
+						padding:12px 36px;
+					}
+				}
+			';
+
+	$message = sprintf(
+		$notice_template,
+		$notice_header,
+		$notice_picture,
+		$notice_left_side_content,
+		$notice_right_side_content,
+		$style
+	);// WPCS: XSS OK.
+
+	printf( '<div class="notice updated" style="position:relative; padding-right: 35px;">%1$s<p>%2$s</p></div>', $dismiss_button, $message );
+}
+
+/**
+ * Update the themotion_ignore_retirement_notice option to true, to dismiss the notice from the dashboard
+ */
+function themotion_nag_ignore_retirement() {
+	global $current_user;
+	$user_id = $current_user->ID;
+	/* If user clicks to ignore the notice, add that to their user meta */
+	if ( isset( $_GET['themotion_nag_ignore_retirement'] ) && '0' == $_GET['themotion_nag_ignore_retirement'] ) {
+		add_user_meta( $user_id, 'themotion_ignore_retirement_notice', 'true', true );
+	}
+}
+
+$current_theme = get_option( 'stylesheet' );
+if ( $current_theme === 'themotion-lite' ) {
+	add_action( 'admin_notices', 'themotion_neve_notice' );
+	add_action( 'admin_init', 'themotion_nag_ignore_neve' );
+	add_action( 'admin_notices', 'themotion_retirement_notice' );
+	add_action( 'admin_init', 'themotion_nag_ignore_retirement' );
 }

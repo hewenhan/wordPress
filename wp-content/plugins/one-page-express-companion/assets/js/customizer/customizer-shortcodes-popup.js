@@ -6,22 +6,26 @@
         CP_Customizer.__shortcodesPopupControls[tag] = controls;
     };
 
+
     CP_Customizer.getShortcodePopupFields = function (shortcodeData) {
-        var controls = CP_Customizer.hooks.applyFilters('filter_shortcode_popup_controls', CP_Customizer.__shortcodesPopupControls);
-        var attrs = controls[shortcodeData.tag] || [];
+        var controls = CP_Customizer.hooks.applyFilters('filter_shortcode_popup_controls', CP_Customizer.utils.deepClone(CP_Customizer.__shortcodesPopupControls));
+        var tag = _.isObject(shortcodeData) ? shortcodeData.tag : shortcodeData;
+        var attrs = controls[tag] || [];
         var controls = [];
         for (var attrName in attrs) {
             if (attrs.hasOwnProperty(attrName)) {
-                var control = attrs[attrName].control;
+                var control = CP_Customizer.utils.deepClone(attrs[attrName].control);
+
+                if (shortcodeData.attrs && shortcodeData.attrs.hasOwnProperty(attrName)) {
+                    control.value = shortcodeData.attrs[attrName];
+                } else {
+                    control.value = !_.isUndefined(control.default) ? control.default : "";
+                }
+
                 if (control.getValue) {
                     control.value = control.getValue(attrName, shortcodeData.tag);
-                } else {
-                    if (shortcodeData.attrs && shortcodeData.attrs.hasOwnProperty(attrName)) {
-                        control.value = shortcodeData.attrs[attrName];
-                    } else {
-                        control.value = control.default || "";
-                    }
                 }
+
                 control.name = attrName;
                 control.id = attrName;
                 if (control.getParse) {
@@ -44,25 +48,16 @@
             return;
         }
 
+        shortcode = {
+            tag: _.isObject(shortcode) ? shortcode.tag : shortcode,
+            attrs: _.isObject(shortcode) ? shortcode.attrs : {},
+        };
+
         function setContent() {
             for (var i = 0; i < fields.length; i++) {
                 var field = fields[i],
-                    value = {},
                     node = field.node;
-                var _values = $('[id^="' + field.id + '"]').filter('input,textarea,select').map(function (index, elem) {
-                    return {
-                        key: $(this).attr('id').replace(field.id + "__", ''),
-                        value: $(this).is('[type=checkbox]') ? this.checked : $(this).val()
-                    };
-                }).toArray();
-
-                _(_values).each(function (v) {
-                    value[v.key] = v.value;
-                });
-
-                if (_values.length === 1 && value.hasOwnProperty(field.id)) {
-                    value = value[field.id];
-                }
+                var value = field.val();
 
                 if (field.setValue) {
                     field.setValue(field.id, value, shortcode.tag);
@@ -82,17 +77,61 @@
             CP_Customizer.closePopUps();
         });
 
-        var content = '';
+        popupContainer.find('#cp-items').empty();
         for (var i = 0; i < fields.length; i++) {
             var field = fields[i],
-                type = field.type || 'text';
-            content += (CP_Customizer.jsTPL[type] ? CP_Customizer.jsTPL[type](field) : '');
+                type = field.type || 'text',
+                content = (CP_Customizer.jsTPL[type] ? CP_Customizer.jsTPL[type](field) : '');
+
+            var $fieldContent = $(content);
+
+            $fieldContent.attr('data-field', field.name);
+
+
+            field.$wrapper = $fieldContent;
+            field.$panel = popupContainer.find('#cp-items');
+            field.$node = $node;
+
+            field.val = function () {
+                var value = {};
+                var field = this;
+                var _values = this.$wrapper.find('[id^="' + field.id + '"]').filter('input,textarea,select').map(function (index, elem) {
+                    return {
+                        key: $(this).attr('id').replace(field.id + "__", ''),
+                        value: $(this).is('[type=checkbox]') ? this.checked : $(this).val()
+                    };
+                }).toArray();
+
+                _(_values).each(function (v) {
+                    value[v.key] = v.value;
+                });
+
+                if (_values.length === 1 && value.hasOwnProperty(field.id)) {
+                    value = value[field.id];
+                }
+
+                return value;
+            };
+
+            if (field.ready && _.isFunction(field.ready)) {
+                $fieldContent.data('field', field);
+                $fieldContent.bind('shortcode-popup-ready', function () {
+                    var $fieldContent = $(this);
+                    var field = $fieldContent.data('field');
+                    field.ready($fieldContent, $fieldContent.closest('#cp-items'));
+                });
+
+
+            }
+
+            popupContainer.find('#cp-items').append($fieldContent);
+
         }
 
-        popupContainer.find('#cp-items').html(content);
-
+        popupContainer.find('#cp-items').children().trigger('shortcode-popup-ready');
         CP_Customizer.popUp('Manage Options', "cp-container-editor", {
-            width: "600"
+            width: "600",
+            class: "data-edit-popup"
         });
     };
 

@@ -61,6 +61,7 @@ span.span25 {
 .about-big-images-bottomrow {
 	clear: both;
 	float: left;
+	margin-top: 50px;
 	padding-left: 15px;
 	padding-right: 15px;
 	width: 100%;
@@ -77,10 +78,11 @@ img.about-big-images-leftimg {
 	box-shadow: rgba(0, 0, 0, .247059) 0 15px 80px -5px;
 	display: inline-block;
 	height: auto;
+	margin-left: -65%;
 	margin-top: 10%;
 	max-width: 100%;
 	position: relative;
-	width: 40%;
+	width: 30%;
 	z-index: 11;
 }
 
@@ -517,6 +519,7 @@ img.clients-strip-itemimg {
 }
 
 .wpcf7-form label {
+	border-radius: 2px;
 	color: #777777;
 	font-size: .83em;
 	text-transform: uppercase;
@@ -562,7 +565,7 @@ span.wpcf7-not-valid-tip {
 	margin-top: 4px;
 }
 
-.wpcf7-form input {
+.wpcf7-form input[type=text] {
 	-webkit-appearance: none;
 	background: #fafafa;
 	border: 1px solid #DDDDDD;
@@ -655,6 +658,7 @@ span.wpcf7-not-valid-tip {
 .content-left-image-textcol {
 	float: none;
 	margin-left: 0;
+	margin-top: 50px;
 	padding-left: 15px;
 	padding-right: 15px;
 	text-align: center;
@@ -781,6 +785,7 @@ h2.cta-large-red-heading {
 
 .features-coloured-icon-boxes-textcol {
 	float: none;
+	margin: auto;
 	padding-left: 15px;
 	padding-right: 15px;
 	text-align: center;
@@ -1840,7 +1845,6 @@ h6.testimonials-boxed-itempos,h6.testimonials-full-postext {
 	margin-left: auto;
 	margin-right: auto;
 	padding: 50px 15px;
-	width: 100%;
 }
 
 .testimonials-full-textcol {
@@ -1940,9 +1944,10 @@ img.testimonials-full-itemimg {
 		width: 66.6667%;
 	}
 	
-	.about-big-images-bottomrow,.features-small-icon-cards-featuresrow,.portfolio-cards-projectcard {
+	.about-big-images-bottomrow {
 		clear: both;
 		float: left;
+		margin-top: 0;
 		padding-left: 0;
 		padding-right: 0;
 		width: 100%;
@@ -2226,11 +2231,12 @@ img.testimonials-full-itemimg {
 		width: 60%;
 	}
 	
-	.content-left-image-textcol,.content-right-image-textcol {
+	.content-left-image-textcol {
 		float: left;
 		margin-bottom: 20px;
 		margin-left: 10%;
 		margin-right: 10%;
+		margin-top: 0;
 		min-height: 340px;
 		padding-left: 15px;
 		padding-right: 15px;
@@ -2246,6 +2252,18 @@ img.testimonials-full-itemimg {
 		padding-left: 15px;
 		padding-right: 15px;
 		width: 60%;
+	}
+	
+	.content-right-image-textcol {
+		float: left;
+		margin-bottom: 20px;
+		margin-left: 10%;
+		margin-right: 10%;
+		min-height: 340px;
+		padding-left: 15px;
+		padding-right: 15px;
+		text-align: center;
+		width: 80%;
 	}
 	
 	.cta-blue-textcol {
@@ -2383,6 +2401,14 @@ img.testimonials-full-itemimg {
 		padding-left: 15px;
 		padding-right: 15px;
 		width: 83.3333%;
+	}
+	
+	.features-small-icon-cards-featuresrow,.portfolio-cards-projectcard {
+		clear: both;
+		float: left;
+		padding-left: 0;
+		padding-right: 0;
+		width: 100%;
 	}
 	
 	.features-small-icon-cards-featcol {
@@ -2583,7 +2609,6 @@ img.testimonials-full-itemimg {
 		min-height: 356px;
 		padding-left: 0;
 		padding-right: 0;
-		width: 90%;
 	}
 	
 	.testimonials-full-textrow {
@@ -2806,7 +2831,7 @@ img.testimonials-full-itemimg {
 		width: 25%;
 	}
 	
-	.clients-strip-section,.portfolio-full-section,.testimonials-full-section {
+	.clients-strip-section,.portfolio-full-section {
 		float: none;
 		margin-left: auto;
 		margin-right: auto;
@@ -3278,6 +3303,15 @@ img.testimonials-full-itemimg {
 	
 	.testimonials-boxed-itemcard {
 		padding: 30px;
+	}
+	
+	.testimonials-full-section {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+		max-width: none;
+		padding-left: 0;
+		padding-right: 0;
 	}
 	
 	.testimonials-full-textcol {

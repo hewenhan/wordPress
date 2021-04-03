@@ -114,7 +114,7 @@
                     var $reason = $(this).closest('.cog-subitems').children('p.disable-reason');
 
                     if ($reason.length === 0) {
-                        $reason = $("<p class='disable-reason'>This section has a custom background color</p>");
+                        $reason = $("<p class='disable-reason'>This section has a custom background color<br/>Background can be changed in PRO</p>");
                         $(this).closest('.cog-subitems').prepend($reason);
                     }
 
@@ -289,13 +289,22 @@
                                 'on_click': function (node) {
 
                                     var columns = this.data('name').replace('_columns', '');
+                                    var value = parseInt(columns);
                                     columns = parseInt(columns);
                                     columns = parseInt(12 / columns);
 
 
                                     if (node.is('[data-dynamic-columns]')) {
                                         var setting = node.attr('data-dynamic-columns');
-                                        root.CP_Customizer.setMod(setting, columns, "refresh");
+                                        if (setting !== "handled") {
+
+                                            root.CP_Customizer.setMod(setting, columns, "refresh");
+
+                                        } else {
+
+                                            CP_Customizer.hooks.doAction('dynamic_columns_handle', value, node)
+
+                                        }
                                         return;
                                     }
 

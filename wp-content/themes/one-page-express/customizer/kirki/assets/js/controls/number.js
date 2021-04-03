@@ -36,9 +36,24 @@ wp.customize.controlConstructor['kirki-number'] = wp.customize.Control.extend({
 		});
 
 		// On change
-		this.container.on( 'change click keyup paste', 'input', function() {
-			control.setting.set( jQuery( this ).val() );
-		});
+
+		var lastValue = undefined;
+
+		var onChange = _.debounce(function() {
+			var value = jQuery( element ).val();
+			if(lastValue !== value){
+				lastValue = value;
+				control.setting.set( value  );
+			}			
+		},300);
+
+
+		this.container.on( 'mousedown keydown', 'input', function(){
+			lastValue = this.value;
+		} );
+
+
+		this.container.on( 'change click keyup paste', 'input', onChange );
 
 	}
 

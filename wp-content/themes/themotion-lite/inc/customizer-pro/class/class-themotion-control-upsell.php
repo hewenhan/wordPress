@@ -65,7 +65,7 @@ if ( ! class_exists( 'Themotion_Control_Upsell' ) ) :
 		 * Enqueue resources for the control
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'themeisle-upsell-style', get_template_directory_uri() . '/inc/customizer-pro/css/style.css', '1.0.0' );
+			wp_enqueue_style( 'themeisle-upsell-style', get_template_directory_uri() . '/inc/customizer-pro/css/style.css', array(), THEMOTION_VERSION );
 		}
 
 		/**
@@ -108,6 +108,7 @@ if ( ! class_exists( 'Themotion_Control_Upsell' ) ) :
 									</ul>
 									<# } #>
 			</div>
-		<?php }
+			<?php
+		}
 	}
 endif;

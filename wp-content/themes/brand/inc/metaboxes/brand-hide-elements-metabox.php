@@ -28,7 +28,7 @@
     }
 
 		public function add_meta_box( $post_type ) {
-        	$post_types = array( 'post', 'page', 'brand_portfolio', 'product' );
+        	$post_types = array( 'post', 'page', 'brand_portfolio', 'product', 'download' );
         	if ( in_array( $post_type, $post_types )) {
             	add_meta_box(
                 	'brand_hide_elements_box',            // Unique ID
@@ -60,10 +60,11 @@
 				if ( $meta == '' ) {
         		$meta = array();
     		}
-            $meta['hide_navigation'] = isset( $_POST['brand_hide_navigation'] ) ? 1 : 0;
-						$meta['hide_header']     = isset( $_POST['brand_hide_header'] ) ? 1 : 0;
-						$meta['hide_headline']   = isset( $_POST['brand_hide_headline'] ) ? 1 : 0;
-						$meta['hide_footer']     = isset( $_POST['brand_hide_footer'] ) ? 1 : 0;
+            $meta['hide_navigation']     = isset( $_POST['brand_hide_navigation'] ) ? 1 : 0;
+						$meta['hide_header']         = isset( $_POST['brand_hide_header'] ) ? 1 : 0;
+						$meta['hide_headline']       = isset( $_POST['brand_hide_headline'] ) ? 1 : 0;
+						$meta['hide_footer_widgets'] = isset( $_POST['brand_hide_footer_widgets'] ) ? 1 : 0;
+						$meta['hide_footer']         = isset( $_POST['brand_hide_footer'] ) ? 1 : 0;
 
 			update_post_meta( $post_id, '_brand_hide_elements', $meta );
 		}
@@ -72,9 +73,10 @@
 		     $brand_hide_elements_meta = get_post_meta( $post->ID, '_brand_hide_elements', true );
          $brand_hide_elements_meta = array(
              'hide_navigation' => isset($brand_hide_elements_meta['hide_navigation']) ? $brand_hide_elements_meta['hide_navigation'] : 0,
-						 'hide_header'     => isset($brand_hide_elements_meta['hide_header']) ? $brand_hide_elements_meta['hide_header'] : 0,
-						 'hide_headline'   => isset($brand_hide_elements_meta['hide_headline']) ? $brand_hide_elements_meta['hide_headline'] : 0,
-						 'hide_footer'     => isset($brand_hide_elements_meta['hide_footer']) ? $brand_hide_elements_meta['hide_footer'] : 0,
+						 'hide_header'         => isset($brand_hide_elements_meta['hide_header']) ? $brand_hide_elements_meta['hide_header'] : 0,
+						 'hide_headline'       => isset($brand_hide_elements_meta['hide_headline']) ? $brand_hide_elements_meta['hide_headline'] : 0,
+						 'hide_footer_widgets' => isset($brand_hide_elements_meta['hide_footer_widgets']) ? $brand_hide_elements_meta['hide_footer_widgets'] : 0,
+						 'hide_footer'         => isset($brand_hide_elements_meta['hide_footer']) ? $brand_hide_elements_meta['hide_footer'] : 0,
          ); ?>
 						<ul>
 							<li>
@@ -93,6 +95,12 @@
 								<label>
 									<input type="checkbox" value="1" name="brand_hide_headline" id="brand-hide-headline" <?php if($brand_hide_elements_meta['hide_headline'] == 1)  echo ' checked' ?> />
 									<?php esc_html_e( 'Hide headline', 'brand' ); ?>
+								</label>
+							</li>
+							<li>
+								<label>
+									<input type="checkbox" value="1" name="brand_hide_footer_widgets" id="brand-hide-footer-widgets" <?php if($brand_hide_elements_meta['hide_footer_widgets'] == 1)  echo ' checked' ?> />
+									<?php esc_html_e( 'Hide footer widgets', 'brand' ); ?>
 								</label>
 							</li>
 							<li>

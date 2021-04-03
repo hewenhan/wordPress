@@ -31,25 +31,25 @@
  *            // Support content tab.
  *            'support_content'      => array(
  *                  'first' => array (
- *						'title' => esc_html__( 'Contact Support','flymag' ),
- *				        'icon' => 'dashicons dashicons-sos',
- *				        'text' => esc_html__( 'We offer excellent support through our advanced ticketing system. Make sure to register your purchase before contacting support!','flymag' ),
- *				        'button_label' => esc_html__( 'Contact Support','flymag' ),
- *				        'button_link' => esc_url( 'https://themeisle.com/contact/' ),
- *				        'is_button' => true,
+ *                      'title' => esc_html__( 'Contact Support','flymag' ),
+ *                      'icon' => 'dashicons dashicons-sos',
+ *                      'text' => esc_html__( 'We offer excellent support through our advanced ticketing system. Make sure to register your purchase before contacting support!','flymag' ),
+ *                      'button_label' => esc_html__( 'Contact Support','flymag' ),
+ *                      'button_link' => esc_url( 'https://themeisle.com/contact/' ),
+ *                      'is_button' => true,
  *                      'is_new_tab' => false
- *				    ),
+ *                  ),
  *            ),
  *            // Getting started tab content.
  *            'getting_started' => array(
  *               'first_step' => array (
- *				    'title' => esc_html__( 'Step 1 - Implement recommended actions','flymag' ),
- *				    'text' => esc_html__( 'We have compiled a list of steps for you to take so we can ensure that the experience you have using one of our products is very easy to follow.','flymag' ),
- *				    'button_label' => esc_html__( 'Check recommended actions','flymag' ),
- *				    'button_link' => esc_url( admin_url( 'themes.php?page=flymag-welcome&tab=recommended_actions' ) ),
- *				    'is_button' => false,
- *				    'recommended_actions' => true
- *				  ),
+ *                  'title' => esc_html__( 'Step 1 - Implement recommended actions','flymag' ),
+ *                  'text' => esc_html__( 'We have compiled a list of steps for you to take so we can ensure that the experience you have using one of our products is very easy to follow.','flymag' ),
+ *                  'button_label' => esc_html__( 'Check recommended actions','flymag' ),
+ *                  'button_link' => esc_url( admin_url( 'themes.php?page=flymag-welcome&tab=recommended_actions' ) ),
+ *                  'is_button' => false,
+ *                  'recommended_actions' => true
+ *                ),
  *             ),
  *            // Child themes array.
  *            'child_themes'            => array(
@@ -130,8 +130,8 @@
  *                'already_activated_message' => esc_html__( 'Already activated', 'flymag' ),
  *                'version_label' => esc_html__( 'Version: ', 'flymag' ),
  *                'install_label' => esc_html__( 'Install', 'flymag' ),
- *        	      'activate_label' => esc_html__( 'Activate', 'flymag' ),
- *				  'deactivate_label' => esc_html__( 'Deactivate', 'flymag' ),
+ *                'activate_label' => esc_html__( 'Activate', 'flymag' ),
+ *                'deactivate_label' => esc_html__( 'Deactivate', 'flymag' ),
  *                'content'             => array(
  *                    array(
  *                        'slug'        => 'pirate-forms',
@@ -277,7 +277,7 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 			$this->theme_slug    = $theme->get_template();
 			$this->menu_name     = isset( $this->config['menu_name'] ) ? $this->config['menu_name'] : 'About ' . $this->theme_name;
 			$this->page_name     = isset( $this->config['page_name'] ) ? $this->config['page_name'] : 'About ' . $this->theme_name;
-			$this->notification  = isset( $this->config['notification'] ) ? $this->config['notification'] : ( '<p>' . sprintf( 'Welcome! Thank you for choosing %1$s! To fully take advantage of the best our theme can offer please make sure you visit our %2$swelcome page%3$s.', $this->theme_name, '<a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_slug . '-welcome' ) ) . '">', '</a>' ) . '</p><p><a href="' . esc_url( admin_url( 'themes.php?page=' . $this->theme_slug . '-welcome' ) ) . '" class="button" style="text-decoration: none;">' . sprintf( 'Get started with %s', $this->theme_name ) . '</a></p>' );
+			$this->notification  = '';
 			$this->tabs          = isset( $this->config['tabs'] ) ? $this->config['tabs'] : array();
 
 		}
@@ -332,10 +332,16 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 
 				$title = $count > 0 ? $this->page_name . '<span class="badge-action-count">' . esc_html( $count ) . '</span>' : $this->page_name;
 
-				add_theme_page( $this->menu_name, $title, 'activate_plugins', $this->theme_slug . '-welcome', array(
-					$this,
-					'themeisle_about_page_render',
-				) );
+				add_theme_page(
+					$this->menu_name,
+					$title,
+					'activate_plugins',
+					$this->theme_slug . '-welcome',
+					array(
+						$this,
+						'themeisle_about_page_render',
+					)
+				);
 			}
 		}
 
@@ -451,26 +457,29 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 			$call_api = get_transient( 'ti_about_plugin_info_' . $slug );
 
 			if ( false === $call_api ) {
-				$call_api = plugins_api( 'plugin_information', array(
-					'slug'   => $slug,
-					'fields' => array(
-						'downloaded'        => false,
-						'rating'            => false,
-						'description'       => false,
-						'short_description' => true,
-						'donate_link'       => false,
-						'tags'              => false,
-						'sections'          => true,
-						'homepage'          => true,
-						'added'             => false,
-						'last_updated'      => false,
-						'compatibility'     => false,
-						'tested'            => false,
-						'requires'          => false,
-						'downloadlink'      => false,
-						'icons'             => true,
-					),
-				) );
+				$call_api = plugins_api(
+					'plugin_information',
+					array(
+						'slug'   => $slug,
+						'fields' => array(
+							'downloaded'        => false,
+							'rating'            => false,
+							'description'       => false,
+							'short_description' => true,
+							'donate_link'       => false,
+							'tags'              => false,
+							'sections'          => true,
+							'homepage'          => true,
+							'added'             => false,
+							'last_updated'      => false,
+							'compatibility'     => false,
+							'tested'            => false,
+							'requires'          => false,
+							'downloadlink'      => false,
+							'icons'             => true,
+						),
+					)
+				);
 				set_transient( 'ti_about_plugin_info_' . $slug, $call_api, 30 * MINUTE_IN_SECONDS );
 			}
 
@@ -508,13 +517,13 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 
 				return array(
 					'status' => is_plugin_active( $slug . '/' . $plugin_root_file . '.php' ),
-					'needs' => $needs,
+					'needs'  => $needs,
 				);
 			}
 
 			return array(
 				'status' => false,
-				'needs' => 'install',
+				'needs'  => 'install',
 			);
 		}
 
@@ -572,22 +581,28 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 					);
 					break;
 				case 'deactivate':
-					return add_query_arg( array(
-						'action'        => 'deactivate',
-						'plugin'        => rawurlencode( $slug . '/' . $plugin_root_file . '.php' ),
-						'plugin_status' => 'all',
-						'paged'         => '1',
-						'_wpnonce'      => wp_create_nonce( 'deactivate-plugin_' . $slug . '/' . $plugin_root_file . '.php' ),
-					), network_admin_url( 'plugins.php' ) );
+					return add_query_arg(
+						array(
+							'action'        => 'deactivate',
+							'plugin'        => rawurlencode( $slug . '/' . $plugin_root_file . '.php' ),
+							'plugin_status' => 'all',
+							'paged'         => '1',
+							'_wpnonce'      => wp_create_nonce( 'deactivate-plugin_' . $slug . '/' . $plugin_root_file . '.php' ),
+						),
+						network_admin_url( 'plugins.php' )
+					);
 					break;
 				case 'activate':
-					return add_query_arg( array(
-						'action'        => 'activate',
-						'plugin'        => rawurlencode( $slug . '/' . $plugin_root_file . '.php' ),
-						'plugin_status' => 'all',
-						'paged'         => '1',
-						'_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $slug . '/' . $plugin_root_file . '.php' ),
-					), network_admin_url( 'plugins.php' ) );
+					return add_query_arg(
+						array(
+							'action'        => 'activate',
+							'plugin'        => rawurlencode( $slug . '/' . $plugin_root_file . '.php' ),
+							'plugin_status' => 'all',
+							'paged'         => '1',
+							'_wpnonce'      => wp_create_nonce( 'activate-plugin_' . $slug . '/' . $plugin_root_file . '.php' ),
+						),
+						network_admin_url( 'plugins.php' )
+					);
 					break;
 			}
 		}
@@ -667,7 +682,7 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 
 				echo '<div class="feature-section action-required demo-import-boxed" id="plugin-filter">';
 
-				$actions = array();
+				$actions     = array();
 				$req_actions = isset( $this->config['recommended_actions'] ) ? $this->config['recommended_actions'] : array();
 				foreach ( $req_actions['content'] as $req_action ) {
 					$actions[] = $req_action;
@@ -735,10 +750,8 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 							}
 
 							?>
-							<p class="plugin-card-<?php echo esc_attr( $action_value['plugin_slug'] ) ?> action_button <?php echo ( $active['needs'] !== 'install' && $active['status'] ) ? 'active' : '' ?>">
-								<a data-slug="<?php echo esc_attr( $action_value['plugin_slug'] ) ?>"
-								   class="<?php echo esc_attr( $class ); ?>"
-								   href="<?php echo esc_url( $url ) ?>"> <?php echo esc_html( $label ) ?> </a>
+							<p class="plugin-card-<?php echo esc_attr( $action_value['plugin_slug'] ); ?> action_button <?php echo ( $active['needs'] !== 'install' && $active['status'] ) ? 'active' : ''; ?>">
+								<a data-slug="<?php echo esc_attr( $action_value['plugin_slug'] ); ?>" class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url ); ?>"> <?php echo esc_html( $label ); ?> </a>
 							</p>
 
 							<?php
@@ -764,7 +777,7 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 					foreach ( $recommended_plugins['content'] as $recommended_plugins_item ) {
 
 						if ( ! empty( $recommended_plugins_item['slug'] ) ) {
-							$info   = $this->call_plugin_api( $recommended_plugins_item['slug'] );
+							$info = $this->call_plugin_api( $recommended_plugins_item['slug'] );
 							if ( ! empty( $info->icons ) ) {
 								$icon = $this->get_plugin_icon( $info->icons );
 							}
@@ -1044,25 +1057,29 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 		 */
 		public function style_and_scripts( $hook_suffix ) {
 
-			// this is needed on all admin pages, not just the about page, for the badge action count in the wordpress main sidebar
-			wp_enqueue_style( 'ti-about-page-css', get_template_directory_uri() . '/ti-about-page/css/ti_about_page_css.css' );
+			// this is needed on all admin pages, not just the about page, for the badge action count in the WordPress main sidebar
+			wp_enqueue_style( 'ti-about-page-css', get_template_directory_uri() . '/ti-about-page/css/ti_about_page_css.css', array(), THEMOTION_VERSION );
 
 			if ( 'appearance_page_' . $this->theme_slug . '-welcome' == $hook_suffix ) {
 
-				wp_enqueue_script( 'ti-about-page-js', get_template_directory_uri() . '/ti-about-page/js/ti_about_page_scripts.js', array( 'jquery' ) );
+				wp_enqueue_script( 'ti-about-page-js', get_template_directory_uri() . '/ti-about-page/js/ti_about_page_scripts.js', array( 'jquery' ), THEMOTION_VERSION );
 
 				wp_enqueue_style( 'plugin-install' );
 				wp_enqueue_script( 'plugin-install' );
 				wp_enqueue_script( 'updates' );
 
-				$recommended_actions         = isset( $this->config['recommended_actions'] ) ? $this->config['recommended_actions'] : array();
-				$required_actions = $this->get_required_actions();
-				wp_localize_script( 'ti-about-page-js', 'tiAboutPageObject', array(
-					'nr_actions_required'      => count( $required_actions ),
-					'ajaxurl'                  => admin_url( 'admin-ajax.php' ),
-					'template_directory'       => get_template_directory_uri(),
-					'activating_string'        => __( 'Activating', 'themotion-lite' ),
-				) );
+				$recommended_actions = isset( $this->config['recommended_actions'] ) ? $this->config['recommended_actions'] : array();
+				$required_actions    = $this->get_required_actions();
+				wp_localize_script(
+					'ti-about-page-js',
+					'tiAboutPageObject',
+					array(
+						'nr_actions_required' => count( $required_actions ),
+						'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+						'template_directory'  => get_template_directory_uri(),
+						'activating_string'   => __( 'Activating', 'themotion-lite' ),
+					)
+				);
 
 			}
 
@@ -1082,7 +1099,7 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 			$valid       = array();
 			if ( ! empty( $req_actions ) ) {
 				foreach ( $req_actions['content'] as $req_action ) {
-					if ( ( ! isset( $req_action['check'] ) || (isset( $req_action['check'] ) && ($req_action['check'] == false))) && ( ! isset( $saved_actions[ $req_action['id'] ] )) ) {
+					if ( ( ! isset( $req_action['check'] ) || ( isset( $req_action['check'] ) && ( $req_action['check'] == false ) ) ) && ( ! isset( $saved_actions[ $req_action['id'] ] ) ) ) {
 						$valid[] = $req_action;
 					}
 				}
@@ -1097,7 +1114,7 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 		public function dismiss_required_action_callback() {
 
 			$recommended_actions = array();
-			$req_actions = isset( $this->config['recommended_actions'] ) ? $this->config['recommended_actions'] : array();
+			$req_actions         = isset( $this->config['recommended_actions'] ) ? $this->config['recommended_actions'] : array();
 			foreach ( $req_actions['content'] as $req_action ) {
 				$recommended_actions[] = $req_action;
 			}
@@ -1119,10 +1136,10 @@ if ( ! class_exists( 'Themeisle_About_Page' ) ) {
 					}
 
 					switch ( $ti_todo ) {
-						case 'add';
+						case 'add':
 							$ti_about_page_show_required_actions[ absint( $action_id ) ] = true;
 							break;
-						case 'dismiss';
+						case 'dismiss':
 							$ti_about_page_show_required_actions[ absint( $action_id ) ] = false;
 							break;
 					}

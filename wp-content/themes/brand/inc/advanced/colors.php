@@ -21,6 +21,7 @@ if( !function_exists('brand_get_default_colors' )) {
 			'mob_navigation_text_color'          => '#eeeeee',
 			'mob_navigation_text_hover_color'    => '#ffffff',
 			'mob_navigation_text_current_color'  => '#ffffff',
+			'mob_widget_text_color'              => '#eeeeee',
 			'page_title_color'                   => '',
 			'content_bg_color'                   => '#ffffff',
 			'content_text_color'                 => '',
@@ -44,6 +45,7 @@ if( !function_exists('brand_get_default_colors' )) {
 			'footer_widget_link_hover_color'     => '#000000',
 			'footer_widget_title_color'          => '#000000',
 			'footer_background_color'            => '#000000',
+			'footer_bg_opacity'                  => '1',
 			'footer_text_color'                  => '#ffffff',
 			'footer_link_color'                  => '#ffffff',
 			'footer_link_hover_color'            => '#1ebaf3',
@@ -87,12 +89,17 @@ function brand_colors_styles() {
   	}
 
 	$nav_bg_rgb = brand_hex2rgb( $brand_navigation_bg_color );
+	$footer_bg_rgb = brand_hex2rgb( $brand_settings['footer_background_color'] );
 
 	$brand_colors = array(
 
 		// Header
-		'#header-wrapper' => array(
+		'#header-wrapper, #header-portfolio-wrapper' => array(
 			'background-color' => $brand_settings['header_bg_color'],
+			'color' => $brand_settings['header_text_color'],
+		),
+
+		'#header-wrapper a, #header-portfolio-wrapper a' => array(
 			'color' => $brand_settings['header_text_color'],
 		),
 
@@ -179,6 +186,7 @@ function brand_colors_styles() {
 		// Mobile navigation
 		'#mobile-menu-wrapper' => array(
 			'background-color' => $brand_settings['mob_navigation_bg_color'],
+			'color' => $brand_settings['mob_widget_text_color'],
 		),
 
 		'#mobile-menu-wrapper a' => array(
@@ -198,7 +206,8 @@ function brand_colors_styles() {
 		// Content
 		'#content,
 		#pagination,
-		.posts-navigation' => array(
+		.posts-navigation,
+		#numbered-pagination' => array(
 			'background-color' => $brand_settings['content_bg_color'],
 		),
 
@@ -208,7 +217,7 @@ function brand_colors_styles() {
 			'color' => $brand_settings['content_text_color'],
 		),
 
-		'body:not(.custom-blog-colors) body:not(.custom-blog-colors) article a, body:not(.custom-blog-colors) article a:visited, body:not(.custom-blog-colors) article a:focus,
+		'body:not(.custom-blog-colors) article a, body:not(.custom-blog-colors) article a:visited, body:not(.custom-blog-colors) article a:focus,
 		.page-header a, .page-header a:visited, .page-header a:focus,
 		.page-content a, .page-content a:visited, .page-content a:focus' => array(
 			'color' => $brand_settings['content_link_color'],
@@ -315,7 +324,7 @@ function brand_colors_styles() {
 
 		// Site info
 		'.site-info' => array(
-			'background-color' => $brand_settings['footer_background_color'],
+			'background-color' => 'rgba(' . $footer_bg_rgb['red'] . ',' . $footer_bg_rgb['green'] . ',' . $footer_bg_rgb['blue'] . ',' . $brand_settings['footer_bg_opacity'] . ')',
 			'color' => $brand_settings['footer_text_color']
 		),
 
@@ -367,6 +376,9 @@ function brand_colors_styles() {
 		input[type="submit"],
 		.button,
 		.button:visited,
+		body:not(.custom-blog-colors) article a.button, body:not(.custom-blog-colors) article a.button:visited, body:not(.custom-blog-colors) article a.button:focus,
+		.page-header a.button, .page-header a.button:visited, .page-header a.button:focus,
+		.page-content a.button, .page-content a.button:visited, .page-content a.button:focus,
 		.woocommerce .widget_price_filter .ui-slider .ui-slider-range,
 		.woocommerce .widget_price_filter .ui-slider .ui-slider-handle,
 		.woocommerce #respond input#submit.alt,
@@ -409,6 +421,9 @@ function brand_colors_styles() {
 		.button:hover,
 		button:focus,
 		.button:focus,
+		body:not(.custom-blog-colors) article a.button:hover,
+		.page-header a.button:hover,
+		.page-content a.button:hover,
 		html input[type="button"]:focus,
 		input[type="reset"]:focus,
 		input[type="submit"]:focus,

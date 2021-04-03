@@ -35,6 +35,15 @@ class Brand_Customize_Section_Pro extends WP_Customize_Section {
 	public $pro_url = '';
 
 	/**
+	 * Custom classes for the .button.
+	 *
+	 * @since  1.8.9
+	 * @access public
+	 * @var    string
+	 */
+	public $pro_classes = '';
+
+	/**
 	 * Add custom parameters to pass to the JS via JSON.
 	 *
 	 * @since  1.6.3
@@ -46,6 +55,7 @@ class Brand_Customize_Section_Pro extends WP_Customize_Section {
 
 		$json['pro_text'] = $this->pro_text;
 		$json['pro_url']  = esc_url( $this->pro_url );
+		$json['pro_classes']  = esc_html( $this->pro_classes );
 
 		return $json;
 	}
@@ -65,7 +75,7 @@ class Brand_Customize_Section_Pro extends WP_Customize_Section {
 				{{ data.title }}
 
 				<# if ( data.pro_text && data.pro_url ) { #>
-					<a href="{{ data.pro_url }}" class="button button-secondary alignright" target="_blank">{{ data.pro_text }}</a>
+					<a href="{{ data.pro_url }}" class="button button-secondary alignright {{ data.pro_classes }}" target="_blank">{{ data.pro_text }}</a>
 				<# } #>
 			</h3>
 		</li>

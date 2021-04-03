@@ -72,4 +72,24 @@ if( function_exists("is_woocommerce") ) {
 	 	}
 	 }
 	 add_filter('loop_shop_columns', 'brand_loop_columns');
+
+	 /**
+		* Change number of related products on product page
+	  * Set your own value for 'posts_per_page'
+		*
+		* @since Brand 1.8.9
+		*
+		* @return number Number of columns.
+	 */
+	 add_filter( 'woocommerce_output_related_products_args', 'brand_related_products_args' );
+	   function brand_related_products_args( $args ) {
+			 $brand_settings = wp_parse_args(
+ 				get_option( 'brand_settings', array() ),
+ 				brand_get_defaults()
+ 			);
+
+	 	$args['columns'] = absint( $brand_settings['woocommerce_products_cols'] );
+	 	return $args;
+	 }
+
  }

@@ -5,7 +5,7 @@
 get_header('homepage');
 ?>
 
-<div class="page-content">
+<div  id="page-content"  class="page-content">
   <div class="gridContainer">
    <?php 
       while ( have_posts() ) : the_post();

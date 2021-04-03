@@ -1,5 +1,5 @@
-.wp-admin.appearance_page_brand_setting_page,
-.toplevel_page_brand_setting_page  {
+body.wp-admin.appearance_page_brand_setting_page,
+body.toplevel_page_brand_setting_page  {
   background-color: #F3F6F8;
 }
 
@@ -9,9 +9,22 @@
 }
 
 .appearance_page_brand_setting_page .wrap,
+.appearance_page_brand_setting_page-contact .wrap,
+.appearance_page_brand_setting_page-account .wrap,
+.appearance_page_brand_setting_page-pricing .wrap,
 .toplevel_page_brand_setting_page .wrap {
   max-width: 800px;
   margin: 0 auto;
+}
+
+.appearance_page_brand_setting_page .nav-tab-wrapper,
+.appearance_page_brand_setting_page-contact .nav-tab-wrapper,
+.appearance_page_brand_setting_page-account .nav-tab-wrapper,
+.appearance_page_brand_setting_page-pricing .nav-tab-wrapper,
+.toplevel_page_brand_setting_page .nav-tab-wrapper {
+	background: #ffffff;
+	box-shadow: 0 0 0 1px rgba(200,215,225,.5),0 1px 2px #e9eff3;
+	box-sizing: border-box;
 }
 
 .appearance_page_brand_setting_page .plugin-title,
@@ -174,4 +187,53 @@ a.nav-tab:hover {
 a.nav-tab.nav-tab-active {
     border-bottom: 2px solid #2e4453;
     color: #2e4453
+}
+
+/* Subscribe form */
+.toplevel_page_brand_setting_page .subscribe-form,
+.appearance_page_brand_setting_page .subscribe-form {
+	position:relative;
+	overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  min-height:150px;
+  padding:20px;
+  background-color:#2C3644;
+  color:#8b95a4;
+  text-align:center;
+}
+
+.toplevel_page_brand_setting_page .subscribe-form:before,
+.appearance_page_brand_setting_page .subscribe-form:before {
+	content: '\f465';
+	position: absolute;
+	top: 30px;
+	right: -50px;
+	font-family: 'Dashicons';
+	font-size: 240px;
+	transform: rotate(45deg);
+	opacity: 0.1;
+}
+
+.toplevel_page_brand_setting_page .subscribe-form h2,
+.appearance_page_brand_setting_page .subscribe-form h2 {
+  color:#ffffff;
+}
+
+.toplevel_page_brand_setting_page .subscribe-form p,
+.appearance_page_brand_setting_page .subscribe-form p {
+	color:#8b95a4;
+}
+
+
+.toplevel_page_brand_setting_page .subscribe-form input,
+.appearance_page_brand_setting_page .subscribe-form input {
+  width:100%;
+  height:35px;
+  background-color: #404c5d;
+  color:#808c9c;
+  border:0;
+  text-align: center;
 }

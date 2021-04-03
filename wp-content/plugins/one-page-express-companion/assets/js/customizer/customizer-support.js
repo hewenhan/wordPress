@@ -40,6 +40,10 @@
                 }
             }
 
+            if(toAppend){
+                toAppend.show();
+            }
+
         });
     });
 })(jQuery);

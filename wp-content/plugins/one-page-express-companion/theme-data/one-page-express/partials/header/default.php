@@ -2,20 +2,20 @@
     <div class="header-description-left">
     </div>
     <div class="header-description-right">
-        <?php 
-                if (!empty($onepage_builder_header_title) && !empty($onepage_builder_header_subtitle)) {
-                    if (! empty($onepage_builder_header_title)) {
-                        ?>
-                    <h1 data-text-effect class="heading8">
-                        <?php echo esc_html($onepage_builder_header_title); ?>
-                    </h1>
-                <?php 
-            }
-            
-            if (! empty($onepage_builder_header_subtitle)) {
+        <?php
+        if (!empty($onepage_builder_header_title) && !empty($onepage_builder_header_subtitle)) {
+            if (!empty($onepage_builder_header_title)) {
                 ?>
-            <p data-text-effect class="header-subtitle"> <?php echo esc_html($onepage_builder_header_subtitle); ?></p>
-        <?php 
+                <h1 data-text-effect class="heading8">
+                    <?php echo esc_html($onepage_builder_header_title); ?>
+                </h1>
+                <?php
+            }
+
+            if (!empty($onepage_builder_header_subtitle)) {
+                ?>
+                <p data-text-effect class="header-subtitle"> <?php echo esc_html($onepage_builder_header_subtitle); ?></p>
+                <?php
             }
         }
         ?>

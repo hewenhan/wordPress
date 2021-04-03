@@ -1,0 +1,796 @@
+# <!=Copyright (C) 2019 ThemeIsle
+# This file is distributed under the GNU General Public License v2 or later.=!>
+msgid ""
+msgstr ""
+"Project-Id-Version: TheMotion Lite 1.2.10\n"
+"Report-Msgid-Bugs-To: https://github.com/Codeinwp/themotion/issues\n"
+"POT-Creation-Date: 2019-08-08 14:03:03+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Themeisle Translate Team <friends@themeisle.com>\n"
+"Language-Team: Themeisle Translate <friends@themeisle.com>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: 404.php:25
+msgid "Can&rsquo;t find what you&rsquo;re looking for?"
+msgstr ""
+
+#: 404.php:26
+msgid "Try using the search form below!"
+msgstr ""
+
+#: archive-download.php:48 archive.php:48 inc/customizer.php:1266 index.php:49
+#: search.php:53
+msgid "Older Posts"
+msgstr ""
+
+#: archive-download.php:49 archive.php:49 inc/customizer.php:1267 index.php:50
+#: search.php:54
+msgid "Newer Posts"
+msgstr ""
+
+#: comments.php:48 comments.php:83
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:53 comments.php:86
+msgid "Older Comments"
+msgstr ""
+
+#: comments.php:59 comments.php:92
+msgid "Newer Comments"
+msgstr ""
+
+#: comments.php:107
+msgid "Comments are closed."
+msgstr ""
+
+#: footer.php:34
+#. translators: 1: Theme Name, 2: WordPress
+msgid "Proudly powered by  %1$s | Theme: themotion powered by %2$s"
+msgstr ""
+
+#: footer.php:35
+msgid "WordPress"
+msgstr ""
+
+#: footer.php:36
+msgid "Themeisle"
+msgstr ""
+
+#: functions.php:65
+msgid "Primary"
+msgstr ""
+
+#: functions.php:188
+msgid "Sidebar"
+msgstr ""
+
+#: functions.php:190
+msgid "Add widgets here."
+msgstr ""
+
+#: functions.php:202
+#. translators: Footer area id
+msgid "Footer Widget Area %d"
+msgstr ""
+
+#: functions.php:293
+msgid "expand child menu"
+msgstr ""
+
+#: functions.php:294
+msgid "collapse child menu"
+msgstr ""
+
+#: functions.php:380 template-parts/content-single-download.php:52
+#: template-parts/content-single.php:59
+#. translators: %s: Name of current post
+#. translators: %s: Name of current post.
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: functions.php:611 functions.php:613
+msgid "About TheMotion Lite"
+msgstr ""
+
+#: functions.php:616
+#. translators: s - theme name
+msgid "Welcome to %s! - Version "
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"TheMotion Lite is a clean and elegant WordPress theme primarily made for "
+"video sites, and it can also be a perfect fit for blogs or portfolio "
+"websites. It features a beautiful slider, classy light colors, and a modern "
+"appearance. Its stylish and minimalist design makes it multipurpose, ready "
+"to fit any kind of website."
+msgstr ""
+
+#: functions.php:626
+msgid "Getting Started"
+msgstr ""
+
+#: functions.php:627
+msgid "Useful Plugins"
+msgstr ""
+
+#: functions.php:628 inc/customizer-pro/customizer-theme-info.php:49
+msgid "Support"
+msgstr ""
+
+#: functions.php:629 functions.php:653 functions.php:656
+msgid "Changelog"
+msgstr ""
+
+#: functions.php:630
+msgid "Free vs PRO"
+msgstr ""
+
+#: functions.php:635 functions.php:638
+msgid "Contact Support"
+msgstr ""
+
+#: functions.php:637
+msgid ""
+"We want to make sure you have the best experience using TheMotion Lite, and "
+"that is why we have gathered all the necessary information here for you. We "
+"hope you will enjoy using TheMotion Lite as much as we enjoy creating great "
+"products."
+msgstr ""
+
+#: functions.php:644 functions.php:685
+msgid "Documentation"
+msgstr ""
+
+#: functions.php:646 functions.php:684
+msgid ""
+"Need more details? Please check our full documentation for detailed "
+"information on how to use TheMotion Lite."
+msgstr ""
+
+#: functions.php:647 functions.php:683
+msgid "Read full documentation"
+msgstr ""
+
+#: functions.php:655
+msgid ""
+"Want to get the gist on the latest theme changes? Just consult our "
+"changelog below to get a taste of the recent fixes and features implemented."
+msgstr ""
+
+#: functions.php:662
+msgid "Create a child theme"
+msgstr ""
+
+#: functions.php:664
+msgid ""
+"If you want to make changes to the theme's files, those changes are likely "
+"to be overwritten when you next update the theme. In order to prevent that "
+"from happening, you need to create a child theme. For this, please follow "
+"the documentation below."
+msgstr ""
+
+#: functions.php:665 functions.php:674
+msgid "View how to do this"
+msgstr ""
+
+#: functions.php:671
+msgid "Speed up your site"
+msgstr ""
+
+#: functions.php:673
+msgid ""
+"If you find yourself in a situation where everything on your site is "
+"running very slowly, you might consider having a look at the documentation "
+"below where you will find the most common issues causing this and possible "
+"solutions for each of the issues."
+msgstr ""
+
+#: functions.php:692 functions.php:694
+msgid "Go to the Customizer"
+msgstr ""
+
+#: functions.php:693
+msgid ""
+"Using the WordPress Customizer you can easily customize every aspect of the "
+"theme."
+msgstr ""
+
+#: functions.php:707
+#. translators: s - theme name
+msgid "Get %s now!"
+msgstr ""
+
+#: functions.php:710
+msgid "Mobile friendly"
+msgstr ""
+
+#: functions.php:711
+msgid "Responsive layout. Works on every device."
+msgstr ""
+
+#: functions.php:716
+msgid "Quality Support"
+msgstr ""
+
+#: functions.php:717
+msgid "24/7 HelpDesk Professional Support"
+msgstr ""
+
+#: functions.php:722
+msgid "Fully Customizable Colors"
+msgstr ""
+
+#: functions.php:723
+msgid "Change colors for the header overlay, header text and navbar."
+msgstr ""
+
+#: functions.php:728
+msgid "WooCommerce Compatible"
+msgstr ""
+
+#: functions.php:729
+msgid "Ready for e-commerce. You can build an online store here."
+msgstr ""
+
+#: functions.php:734
+msgid "Two frontpage templates."
+msgstr ""
+
+#: functions.php:735
+msgid "Alternate page template to display your posts."
+msgstr ""
+
+#: functions.php:743
+msgid "Already activated"
+msgstr ""
+
+#: functions.php:744
+msgid "Version: "
+msgstr ""
+
+#: functions.php:745
+msgid "Install and Activate"
+msgstr ""
+
+#: functions.php:746
+msgid "Activate"
+msgstr ""
+
+#: functions.php:747
+msgid "Deactivate"
+msgstr ""
+
+#: functions.php:850
+#. translators: Install Neve link
+msgid ""
+"Check out %1$s. Fully AMP optimized and responsive, Neve will load in mere "
+"seconds and adapt perfectly on any viewing device. Neve works perfectly "
+"with Gutenberg and the most popular page builders. You will love it!"
+msgstr ""
+
+#: functions.php:855
+#. translators: Install Neve link
+msgid "our newest theme"
+msgstr ""
+
+#: functions.php:924
+#. translators: 1 - notice title, 2 - notice message
+msgid "Your theme is no longer maintained. A New, Modern WordPress Theme is Here!"
+msgstr ""
+
+#: functions.php:927
+#. translators: %s - theme name
+msgid ""
+"%s is no longer maintained. Switch to Neve today and get more powerful "
+"features (for free)."
+msgstr ""
+
+#: functions.php:942
+msgid "Switch to Neve today"
+msgstr ""
+
+#: functions.php:944
+#. translators: %s - theme name
+msgid ""
+"With Neve you get a super fast, multi-purpose theme, fully AMP optimized "
+"and responsive, that works perfectly with Gutenberg and the most popular "
+"page builders like Elementor, Beaver Builder, and many more."
+msgstr ""
+
+#: functions.php:950
+#. translators: %s - theme name
+msgid "%s is no longer maintained"
+msgstr ""
+
+#: functions.php:952
+#. translators: %s - theme name
+msgid ""
+"We're saying goodbye to TheMotion Lite in favor of our more powerful Neve "
+"free WordPress theme. This means that there will not be any new features "
+"added although we will continue to update the theme for major security "
+"issues."
+msgstr ""
+
+#: functions.php:954
+msgid "See Neve theme"
+msgstr ""
+
+#: header.php:26
+msgid "Skip to content"
+msgstr ""
+
+#: image.php:30
+#. translators: 1: Date, 2: Category
+msgid "Published on %1$s in %2$s"
+msgstr ""
+
+#: image.php:41
+#. translators: 1: Parent post link, 2: title attribute, 3: Post title
+msgid "Return to "
+msgstr ""
+
+#: image.php:56
+#. translators: 1: Attachement url, 2: Title attribute, 3: Resolution, 4:
+#. Width, 5: Height
+msgid "Link to full-size image"
+msgstr ""
+
+#: image.php:57
+msgid "Full resolution"
+msgstr ""
+
+#: image.php:74 page-templates/template-homepage-one.php:56
+#: template-parts/content-single-download.php:33
+#: template-parts/content-single.php:26
+#. translators: date
+msgid "Edit"
+msgstr ""
+
+#: image.php:95
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr ""
+
+#: image.php:96
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: image.php:105 template-parts/content-contact.php:28
+#: template-parts/content-home-two.php:72 template-parts/content-page.php:19
+#: template-parts/content-single-download.php:65
+#: template-parts/content-single.php:72 template-parts/content.php:75
+msgid "Pages:"
+msgstr ""
+
+#: inc/customizer-category-selector/class-themotion-category-selector.php:34
+msgid "All"
+msgstr ""
+
+#: inc/customizer-pro/customizer-theme-info.php:25
+#: inc/customizer-pro/customizer-theme-info.php:53
+msgid "View PRO version"
+msgstr ""
+
+#: inc/customizer-pro/customizer-theme-info.php:46
+msgid "New frontpage template"
+msgstr ""
+
+#: inc/customizer-pro/customizer-theme-info.php:47
+msgid "About Page template"
+msgstr ""
+
+#: inc/customizer-pro/customizer-theme-info.php:48
+msgid "WPML/Polylang compatibility"
+msgstr ""
+
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:63
+msgid "Add new field"
+msgstr ""
+
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:68
+msgid "Customizer Repeater"
+msgstr ""
+
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:178
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:225
+#: inc/customizer.php:378
+msgid "Text"
+msgstr ""
+
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:188
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:234
+msgid "Link"
+msgstr ""
+
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:205
+#: inc/customizer-repeater/class/class-themotion-general-repeater.php:243
+msgid "Delete field"
+msgstr ""
+
+#: inc/customizer.php:31
+msgid "Social Media Icons"
+msgstr ""
+
+#: inc/customizer.php:57
+msgid "Add new social icon"
+msgstr ""
+
+#: inc/customizer.php:78
+msgid "Hide social icons?"
+msgstr ""
+
+#: inc/customizer.php:79
+msgid "If you check this box, the social icons will disappear from Contact page."
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Home Page Option A"
+msgstr ""
+
+#: inc/customizer.php:110
+msgid "Top Section Post Category"
+msgstr ""
+
+#: inc/customizer.php:120 inc/customizer.php:285
+#: page-templates/template-homepage-one.php:36
+msgid "Recently Posted"
+msgstr ""
+
+#: inc/customizer.php:129
+msgid "Bottom posts title"
+msgstr ""
+
+#: inc/customizer.php:149
+msgid "Bottom posts category"
+msgstr ""
+
+#: inc/customizer.php:169
+msgid "Number of posts"
+msgstr ""
+
+#: inc/customizer.php:181
+msgid "Contact page"
+msgstr ""
+
+#: inc/customizer.php:188
+msgid "Header Settings"
+msgstr ""
+
+#: inc/customizer.php:208
+msgid "Header Image"
+msgstr ""
+
+#: inc/customizer.php:219 inc/frontpage-sections.php:17
+msgid "FEEL FREE TO CONTACT US WITH ANY QUESTIONS OR COMMENTS"
+msgstr ""
+
+#: inc/customizer.php:228
+msgid "Header text"
+msgstr ""
+
+#: inc/customizer.php:238 inc/customizer.php:775 inc/frontpage-sections.php:18
+msgid "Send us an email"
+msgstr ""
+
+#: inc/customizer.php:247
+msgid "Button text"
+msgstr ""
+
+#: inc/customizer.php:257
+msgid "Latest posts"
+msgstr ""
+
+#: inc/customizer.php:275
+msgid "Hide latest posts?"
+msgstr ""
+
+#: inc/customizer.php:276
+msgid "If you check this box, latest posts will disappear from About page."
+msgstr ""
+
+#: inc/customizer.php:294
+msgid "Title"
+msgstr ""
+
+#: inc/customizer.php:314
+msgid "Category"
+msgstr ""
+
+#: inc/customizer.php:333
+msgid "Button URL"
+msgstr ""
+
+#: inc/customizer.php:342
+msgid "Content Left Settings"
+msgstr ""
+
+#: inc/customizer.php:351
+msgid "WHY THE MOTION"
+msgstr ""
+
+#: inc/customizer.php:360 inc/customizer.php:406
+msgid "Block Title"
+msgstr ""
+
+#: inc/customizer.php:369 inc/frontpage-sections.php:72
+msgid ""
+"Using best practices and a keen eye, we curated this video feed for the "
+"business beginner and experienced alike. We are a resource for creatives "
+"wanting to push their business forward."
+msgstr ""
+
+#: inc/customizer.php:388
+msgid "Content Right Settings"
+msgstr ""
+
+#: inc/customizer.php:397 inc/frontpage-sections.php:73
+msgid "Get in touch"
+msgstr ""
+
+#: inc/customizer.php:415 inc/frontpage-sections.php:74
+msgid "The.Motion Headquarters"
+msgstr ""
+
+#: inc/customizer.php:424
+msgid "Left side title"
+msgstr ""
+
+#: inc/customizer.php:433 inc/frontpage-sections.php:75
+msgid "329 South Street Court - Albany, NY 83741"
+msgstr ""
+
+#: inc/customizer.php:442
+msgid "Left side text"
+msgstr ""
+
+#: inc/customizer.php:452 inc/frontpage-sections.php:76
+msgid "start@example.com"
+msgstr ""
+
+#: inc/customizer.php:461
+msgid "Left side email"
+msgstr ""
+
+#: inc/customizer.php:470 inc/frontpage-sections.php:77
+msgid "(432) 203-3321"
+msgstr ""
+
+#: inc/customizer.php:479
+msgid "Left side phone"
+msgstr ""
+
+#: inc/customizer.php:488 inc/frontpage-sections.php:78
+msgid "THE.MOTION VIDEO RECORDING"
+msgstr ""
+
+#: inc/customizer.php:497
+msgid "Right side title"
+msgstr ""
+
+#: inc/customizer.php:506 inc/frontpage-sections.php:79
+msgid "153 East Fifth Avenue - New York, NY 83741"
+msgstr ""
+
+#: inc/customizer.php:515
+msgid "Right side text"
+msgstr ""
+
+#: inc/customizer.php:525 inc/frontpage-sections.php:80
+msgid "recording@example.com"
+msgstr ""
+
+#: inc/customizer.php:534
+msgid "Right side email"
+msgstr ""
+
+#: inc/customizer.php:543 inc/frontpage-sections.php:81
+msgid "(324) 923-8321"
+msgstr ""
+
+#: inc/customizer.php:552 inc/customizer.php:561
+msgid "Right side phone"
+msgstr ""
+
+#: inc/customizer.php:580
+msgid "Display featured images on single posts"
+msgstr ""
+
+#: inc/customizer.php:971
+msgid "Loading New Posts..."
+msgstr ""
+
+#: inc/customizer.php:1168
+msgid "Playlist image"
+msgstr ""
+
+#: inc/frontpage-sections.php:71
+msgid "Why the.motion"
+msgstr ""
+
+#: inc/frontpage-sections.php:367
+msgid ","
+msgstr ""
+
+#: inc/frontpage-sections.php:373
+msgid "Show more categories"
+msgstr ""
+
+#: inc/frontpage-sections.php:374
+msgid "..."
+msgstr ""
+
+#: inc/template-tags.php:53 inc/template-tags.php:60
+#. translators: used between list items, there is a space after the comma
+msgid ", "
+msgstr ""
+
+#: inc/template-tags.php:56
+#. translators: Categories list
+msgid "Posted in %1$s"
+msgstr ""
+
+#: inc/template-tags.php:63
+#. translators: Tags list
+msgid "Tagged %1$s"
+msgstr ""
+
+#: inc/template-tags.php:72
+#. translators: %s: post title
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr ""
+
+#: inc/template-tags.php:88 template-parts/content-contact.php:40
+#: template-parts/content-page.php:31
+#. translators: %s: Name of current post
+msgid "Edit %s"
+msgstr ""
+
+#: search.php:20
+#. translators: Search query
+msgid "Search Results for: %s"
+msgstr ""
+
+#: sidebar-footer.php:14
+msgid "Widgets Area 1"
+msgstr ""
+
+#: sidebar-footer.php:23
+msgid "Widgets Area 2"
+msgstr ""
+
+#: sidebar-footer.php:32
+msgid "Widgets Area 3"
+msgstr ""
+
+#: template-parts/content-home-two.php:58 template-parts/content.php:61
+#. translators: %s: Name of current post.
+msgid "Read more %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: template-parts/content-none-b.php:23
+msgid "Example  post"
+msgstr ""
+
+#: template-parts/content-none-b.php:29
+msgid ""
+"This is an example post and it is displayed only for admins. To display "
+"this section on your website, please add a new post."
+msgstr ""
+
+#: template-parts/content-none.php:12
+msgid "Sorry, nothing found!"
+msgstr ""
+
+#: template-parts/content-none.php:24
+#. translators: Link to new post
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: template-parts/content-none.php:38
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:44
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: ti-about-page/class-themeisle-about-page.php:1080
+msgid "Activating"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "TheMotion Lite"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "http://themeisle.com/themes/themotion"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ThemeIsle"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://themeisle.com"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Contact"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Full Width"
+msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Left Sidebar"
+msgstr ""
+
+#: comments.php:33
+#. translators: 1: post title
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: functions.php:233
+#. Translators: If there are characters in your language that are not supported
+#. by Source Sans Pro, translate this to 'off'. Do not translate into your own
+#. language.
+msgctxt "Merriweather font: on or off"
+msgid "on"
+msgstr ""
+
+#: functions.php:240
+#. Translators: If there are characters in your language that are not supported
+#. by Bitter, translate this to 'off'. Do not translate into your own language.
+msgctxt "Cabin font: on or off"
+msgid "on"
+msgstr ""
+
+#: inc/template-tags.php:30
+#. translators: Posted date
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr ""
+
+#: inc/template-tags.php:36
+#. translators: Author link
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#: searchform.php:10 searchform.php:11
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: searchform.php:11
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
+#: searchform.php:13
+msgctxt "submit button"
+msgid "Search"
+msgstr ""

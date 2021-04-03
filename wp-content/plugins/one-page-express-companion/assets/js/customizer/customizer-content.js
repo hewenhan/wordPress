@@ -28,7 +28,7 @@
 
         var $contentLi = control.container.eq(0);
         // remove default events
-        $contentLi.children('h3').andSelf().off();
+        $contentLi.children('h3').addBack().off();
 
         $sectionsSidebarTogglers = $contentLi.find('.add-section-plus').add($contentLi.find('.cp-add-section'));
 
@@ -93,6 +93,7 @@
             var sectionID = $(this).parents('.item').data('id');
             var node = CP_Customizer.preview.getSectionByDataId(sectionID);
             $(this).parents('.item').fadeOut(200);
+            CP_Customizer.hooks.doAction('before_section_remove', $(node));
             $(node).remove();
             $(this).parents('.item').remove();
             $('[data-type="row-list-control"] [data-name="page_content"] [data-id="' + sectionID + '"]').removeClass('already-in-page');
@@ -330,7 +331,7 @@
                         '<h3>This item is available only in the PRO version</h3>' +
                         '<p>Please upgrade to the PRO version to use this item and many others.</p>' +
                         '<br/>' +
-                        '<a href="http://onepageexpress.com" class="button button-orange" target="_blank">Upgrade to PRO</a> '
+                        '<a href="https://extendthemes.com/go/one-page-express-upgrade" class="button button-orange" target="_blank">Upgrade to PRO</a> '
                     );
 
                     return;
@@ -361,11 +362,11 @@
                         var base = dataId.replace(/\d+/, '');
                         var newDataIndex = 1;
 
-                        while (CP_Customizer.preview.find('[data-id="' + newDataIndex + '"]').length) {
+                        while (CP_Customizer.preview.find('[data-id="' + base + '-' + newDataIndex + '"]').length) {
                             newDataIndex++;
                         }
 
-                        dataId = CP_Customizer.utils.phpTrim(base, '-') + '-' + newIdIndex;
+                        dataId = CP_Customizer.utils.phpTrim(base, '-') + '-' + newDataIndex;
                     }
 
                     $content.attr('data-id', dataId);

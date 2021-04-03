@@ -9,6 +9,7 @@
         var size = one_page_express_video_background.getVideoRect();
         $videoElement.css({
             width: Math.round(size.width),
+            "max-width": Math.round(size.width),
             height: Math.round(size.height),
             "opacity": 1,
             "left": size.left

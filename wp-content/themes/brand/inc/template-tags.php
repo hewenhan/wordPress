@@ -215,8 +215,8 @@ if ( ! function_exists( 'brand_logo_urls' ) ) :
 			brand_get_defaults()
 		);
 
-		$logo_url        = intval($brand_settings['logo']) !== 0 ? wp_get_attachment_url( $brand_settings['logo'] ) : 0;
-		$logo_mobile_url = intval($brand_settings['logo_mobile']) !== 0 ? wp_get_attachment_url( $brand_settings['logo_mobile'] ) : 0;
+		$logo_url        = ! empty( $brand_settings['logo_url'] ) ? $brand_settings['logo_url'] : 0;
+		$logo_mobile_url = ! empty( $brand_settings['logo_mobile_url'] ) ? $brand_settings['logo_mobile_url'] : 0;
 		$logos           = array( 'logo' => $logo_url, 'logo_mobile' => $logo_mobile_url );
 		return $logos;
 	}
@@ -387,12 +387,11 @@ if ( ! function_exists( 'brand_get_footer_sidebars' ) ) :
 			brand_get_defaults()
 		);
 
-		if( $brand_settings['footer_widgets'] > 4 || $brand_settings['footer_widgets'] < 1 ) {
+		if( $brand_settings['footer_widgets'] > 4 || $brand_settings['footer_widgets'] < 1 || brand_is_hidden( 'footer_widgets' ) ) {
 			return;
 		}
 
 		$widgets_col = 12 / $brand_settings['footer_widgets']; ?>
-	<footer id="footer" <?php brand_footer_class() ?>>
     	<div class="container">
         	<div class="row"> <?php
 					for($i = 1; $i <= $brand_settings['footer_widgets']; $i++) { ?>
@@ -402,8 +401,7 @@ if ( ! function_exists( 'brand_get_footer_sidebars' ) ) :
 					<?php
 				} ?>
 					</div>
-			 </div>
-	 </footer> <!-- #footer --> <?php
+			 </div> <!-- .container --> <?php
 
 	}
 endif;
@@ -548,10 +546,17 @@ endif;
 		 brand_get_defaults()
 	 );
 	 if( is_singular() ) {
-		 if( is_front_page() && $brand_settings['header_type_front'] === 'no-header' ) {
+		 if( is_front_page() ) {
+			 if ( $brand_settings['header_type_front'] !== 'no-header' ) {
+				return false;
+			} else {
+				return true;
+			}
+		 }
+		 if( brand_is_hidden( 'header' ) ) {
 			 return true;
 		 }
-		 if( ! brand_is_hidden( 'header' ) ) {
+		 if( has_header_image() || ( has_post_thumbnail() && $brand_settings['featured_position'] === 'inside_header' ) ) {
 			 return false;
 		 }
 	 } else {

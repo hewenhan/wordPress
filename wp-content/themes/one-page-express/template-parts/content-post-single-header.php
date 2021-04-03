@@ -1,3 +1,13 @@
+<?php
+
+
+if ( ! apply_filters('ope_show_post_meta',true)) {
+    return;
+}
+
+?>
+
+
 <div class="post-header single-post-header">
   <i class="font-icon-post fa fa-user"></i>
   <?php echo the_author_posts_link(); ?>

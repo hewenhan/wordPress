@@ -106,6 +106,11 @@ if ( ! function_exists( 'brand_get_default_fonts' ) && ! function_exists( 'brand
 				'font-size' => $brand_settings['body_font_size'] . 'px',
 			),
 
+			// Numbered pagination font site_title_font_size
+			'#numbered-pagination *' => array(
+				'font-size' => 'calc(' . $brand_settings['body_font_size'] . 'px*1.4)',
+			),
+
 			// Main title font.
 			'.site-title' => array(
 				'font-family' => $site_title_family,
@@ -496,13 +501,13 @@ if ( ! function_exists( 'brand_fonts_customize_register' ) ) :
 						'section'     => 'font_section',
 						'type'        => 'addon',
 						'label'			=> __( 'More Settings','brand' ),
-						'url' => 'https://www.wp-brandtheme.com/add-ons/',
+						'url' => 'https://www.wp-brandtheme.com/downloads/brand-premium/',
 						'description' => sprintf(
 							/* translators: Link tag to Brand Premium plugin */
 							__( 'Need more typography settings?<br /> %s.', 'brand' ),
 							sprintf(
 								'<a href="%1$s" target="_blank">%2$s</a>',
-								esc_url( 'https://www.wp-brandtheme.com/add-ons/' ),
+								esc_url( 'https://www.wp-brandtheme.com/downloads/brand-premium/' ),
 								__( 'Take a look at our premium plugin', 'brand' )
 							)
 						),
